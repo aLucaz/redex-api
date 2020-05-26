@@ -18,7 +18,7 @@ import javax.validation.Valid;
 @RequestMapping("/api-user")
 @RequiredArgsConstructor
 public class UserController {
-
+    // dependency injection
     private final RegisterUserUseCase registerUser;
 
     @PostMapping("/register-user")
