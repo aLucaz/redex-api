@@ -3,9 +3,8 @@ package com.application.data.parser;
 import com.application.core.model.business.User;
 import com.application.core.model.dto.UserDto;
 import com.application.rest.api.request.RegisterUserRequest;
-import org.springframework.stereotype.Service;
 
-@Service
+
 public class UserParser {
     public static UserDto mapToDto(User user){
         return new UserDto()

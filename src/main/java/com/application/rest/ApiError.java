@@ -14,13 +14,6 @@ public class ApiError {
     private String message;
     private String debugMessage;
 
-    public ApiError(HttpStatus status, Throwable ex) {
-        this.timestamp = LocalDateTime.now();
-        this.status = status;
-        this.message = "Unexpected error";
-        this.debugMessage = ex.getLocalizedMessage();
-    }
-
     public ApiError(HttpStatus status, String message, Throwable ex) {
         this.timestamp = LocalDateTime.now();
         this.status = status;
