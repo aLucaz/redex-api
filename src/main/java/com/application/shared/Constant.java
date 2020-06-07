@@ -18,7 +18,7 @@ public class Constant {
     public static final String DATE_FORMAT = "yyyy-MM-dd";
     public static final String DATE_TIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
     /*
-    Request
+    Failed argument validation message
     */
-    public static final String NOT_EMPTY_MESSAGE = "{constraints.NotEmpty.message}";
+    public static  final String ARGUMENT_NOT_VALID_EXCEPTION = "La validacion fallo mano, revisa tus parametros";
 }

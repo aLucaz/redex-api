@@ -12,7 +12,7 @@ public class EntityDuplicatedException extends RuntimeException {
                 Converter.toMap(String.class, String.class, searchParams)));
     }
 
-    public static String generateMessage(String entity, Map<String, String> searchParams){
+    public static String generateMessage(String entity, Map<String, String> searchParams) {
         return StringUtils.capitalize(entity) + " is duplicated for the parameters " + searchParams;
     }
 }

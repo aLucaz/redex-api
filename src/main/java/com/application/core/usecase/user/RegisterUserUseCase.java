@@ -2,8 +2,8 @@ package com.application.core.usecase.user;
 
 import com.application.core.model.dto.UserDto;
 import com.application.data.gateway.UserGateway;
-import com.application.shared.exception.custom.EntityDuplicatedException;
 import com.application.shared.Constant;
+import com.application.shared.exception.custom.EntityDuplicatedException;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.stereotype.Service;
@@ -15,7 +15,7 @@ public class RegisterUserUseCase {
     public final UserGateway userGateway;
 
     @SneakyThrows
-    public UserDto execute(UserDto userDto){
+    public UserDto execute(UserDto userDto) {
         if (userGateway.existInDataBase(userDto.getEmail()))
             throw new EntityDuplicatedException(UserDto.class, "email", userDto.getEmail());
         // email is valid by default

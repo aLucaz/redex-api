@@ -18,27 +18,27 @@ import java.time.LocalDateTime;
 @Accessors(chain = true)
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class RegisterUserRequest {
-    @NotNull(message = Constant.NOT_EMPTY_MESSAGE)
+    @NotNull
     private Integer idRole;
-    @NotNull(message = Constant.NOT_EMPTY_MESSAGE)
+    @NotNull
     private String email;
     private String validEmail;
-    @NotNull(message = Constant.NOT_EMPTY_MESSAGE)
+    @NotNull
     private String username;
-    @NotNull(message = Constant.NOT_EMPTY_MESSAGE)
+    @NotNull
     private String firstName;
-    @NotNull(message = Constant.NOT_EMPTY_MESSAGE)
+    @NotNull
     private String lastName;
-    @NotNull(message = Constant.NOT_EMPTY_MESSAGE)
+    @NotNull
     private String password;
-    @NotNull(message = Constant.NOT_EMPTY_MESSAGE)
+    @NotNull
     private String lastModifiedBy;
-    @NotNull(message = Constant.NOT_EMPTY_MESSAGE)
+    @NotNull
     @JsonFormat(pattern = Constant.DATE_TIME_FORMAT)
     private LocalDateTime lastModifiedDate;
-    @NotNull(message = Constant.NOT_EMPTY_MESSAGE)
+    @NotNull
     private String registeredBy;
-    @NotNull(message = Constant.NOT_EMPTY_MESSAGE)
+    @NotNull
     @JsonFormat(pattern = Constant.DATE_TIME_FORMAT)
     private LocalDateTime registeredDate;
 }
