@@ -1,4 +1,4 @@
-package com.application.exception.resource;
+package com.application.shared.exception.resource;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -9,7 +9,7 @@ public class Converter {
         if (entries.length % 2 == 1)
             throw new IllegalArgumentException("Invalid entries");
         /*
-        * TO DO : explanation
+        * TODO : explanation
         * */
         return IntStream
                 .range(0, entries.length / 2)

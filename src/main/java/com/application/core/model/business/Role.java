@@ -7,34 +7,24 @@ import lombok.experimental.Accessors;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @Accessors(chain = true)
 @Entity
-public class User {
+public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(nullable = false)
-    private Integer idUser;
-    @ManyToOne
-    @JoinColumn(name = "id_role")
-    private Role role;
+    private Integer idRole;
     @Column(nullable = false, length = 40)
-    private String email;
-    @Column(nullable = false)
-    private Integer validEmail;
+    private String friendlyId;
     @Column(nullable = false, length = 40)
-    private String username;
-    @Column(nullable = false, length = 40)
-    private String firstName;
-    @Column(nullable = false, length = 40)
-    private String lastName;
-    @Column(nullable = false, length = 250)
-    private String passwordHash;
-    @Column(nullable = false, length = 50)
-    private String passwordSalt;
+    private String name;
+    @Column(nullable = false, length = 1000)
+    private String description;
     @Column(nullable = false, length = 40)
     private String lastModifiedBy;
     @Column(nullable = false)
@@ -43,4 +33,7 @@ public class User {
     private String registeredBy;
     @Column(nullable = false)
     private LocalDateTime registeredDate;
+
+    @OneToMany(cascade = {CascadeType.ALL}, mappedBy = "role")
+    private Set<User> users;
 }

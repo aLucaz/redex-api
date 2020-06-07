@@ -1,30 +1,44 @@
 package com.application.rest.api.request;
 
+import com.application.shared.Constant;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import java.time.LocalDateTime;
+
 
 @Getter
 @Setter
-@Accessors(chain = true)
 @NoArgsConstructor
+@Accessors(chain = true)
 @JsonIgnoreProperties(ignoreUnknown = true)
-@JsonInclude(value = JsonInclude.Include.NON_NULL)
 public class RegisterUserRequest {
-    @NotEmpty(message = "{constraints.NotEmpty.message}")
-    private String firstName;
-
-    @NotEmpty(message = "{constraints.NotEmpty.message}")
-    private String lastName;
-
-    @NotEmpty(message = "{constraints.NotEmpty.message}")
+    @NotNull(message = Constant.NOT_EMPTY_MESSAGE)
+    private Integer idRole;
+    @NotNull(message = Constant.NOT_EMPTY_MESSAGE)
     private String email;
-
-    @NotEmpty(message = "{constraints.NotEmpty.message}")
+    private String validEmail;
+    @NotNull(message = Constant.NOT_EMPTY_MESSAGE)
+    private String username;
+    @NotNull(message = Constant.NOT_EMPTY_MESSAGE)
+    private String firstName;
+    @NotNull(message = Constant.NOT_EMPTY_MESSAGE)
+    private String lastName;
+    @NotNull(message = Constant.NOT_EMPTY_MESSAGE)
     private String password;
+    @NotNull(message = Constant.NOT_EMPTY_MESSAGE)
+    private String lastModifiedBy;
+    @NotNull(message = Constant.NOT_EMPTY_MESSAGE)
+    @JsonFormat(pattern = Constant.DATE_TIME_FORMAT)
+    private LocalDateTime lastModifiedDate;
+    @NotNull(message = Constant.NOT_EMPTY_MESSAGE)
+    private String registeredBy;
+    @NotNull(message = Constant.NOT_EMPTY_MESSAGE)
+    @JsonFormat(pattern = Constant.DATE_TIME_FORMAT)
+    private LocalDateTime registeredDate;
 }

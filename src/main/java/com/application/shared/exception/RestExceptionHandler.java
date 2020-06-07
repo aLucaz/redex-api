@@ -1,6 +1,6 @@
-package com.application.exception;
+package com.application.shared.exception;
 
-import com.application.exception.custom.EntityNotFoundException;
+import com.application.shared.exception.custom.EntityNotFoundException;
 import com.application.rest.ApiError;
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 import org.springframework.http.ResponseEntity;

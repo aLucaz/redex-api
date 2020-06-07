@@ -1,7 +1,7 @@
-package com.application.exception.custom;
+package com.application.shared.exception.custom;
 
 import org.springframework.util.StringUtils;
-import com.application.exception.resource.Converter;
+import com.application.shared.exception.resource.Converter;
 import java.util.Map;
 
 public class EntityNotFoundException extends RuntimeException {

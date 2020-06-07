@@ -1,6 +1,6 @@
-package com.application.exception.custom;
+package com.application.shared.exception.custom;
 
-import com.application.exception.resource.Converter;
+import com.application.shared.exception.resource.Converter;
 import org.springframework.util.StringUtils;
 
 import java.util.Map;
