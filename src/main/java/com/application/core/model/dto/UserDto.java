@@ -21,10 +21,16 @@ public class UserDto {
     private Integer idUser;
     private Integer idRole;
     private String email;
+    private String document;
+    private String documentType;
+    private LocalDateTime birthday;
+    private String genre;
     private Integer validEmail;
     private String username;
     private String firstName;
     private String lastName;
+    private String maidenName;
+    private Boolean isActive;
     private String password;
     private String lastModifiedBy;
     private LocalDateTime lastModifiedDate;

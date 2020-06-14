@@ -7,6 +7,7 @@ import lombok.experimental.Accessors;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -18,6 +19,8 @@ public class Branch {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(nullable = false)
     private Integer idBranch;
+    @OneToMany(mappedBy = "idBranch")
+    Set<Employee> employees;
     @Column(nullable = false, length = 40)
     private String name;
     @Column(nullable = false, length = 40)
