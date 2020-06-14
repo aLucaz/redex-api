@@ -1,0 +1,36 @@
+package com.application.data.gateway;
+
+import com.application.core.model.business.Branch;
+import com.application.core.model.dto.BranchDto;
+import com.application.data.parser.BranchParser;
+import com.application.data.repository.BranchRepository;
+import com.application.shared.Constant;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
+
+@Repository
+public class BranchGateway {
+    private final BranchRepository repository;
+
+    public BranchGateway(BranchRepository repository) {
+        this.repository = repository;
+    }
+
+    public List<BranchDto> findAll(){
+        // get all business models
+        List<Branch> branchList = (List<Branch>) repository.findAll();
+        // return dto list
+        return BranchParser.mapToDtoList(branchList);
+    }
+
+    public List<BranchDto> fildAllActive(){
+        List<Branch> branchList = repository.findAllByIsActive(Constant.ACTIVE);
+        return BranchParser.mapToDtoList(branchList);
+    }
+
+    public Boolean askIfIsActive(String friendlyId){
+        Branch branch = repository.findByFriendlyId(friendlyId);
+        return branch.getIsActive().equals(Constant.ACTIVE);
+    }
+}

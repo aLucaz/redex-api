@@ -2,8 +2,10 @@ package com.application.shared.exception;
 
 import com.application.rest.ApiError;
 import com.application.shared.Constant;
+import com.application.shared.exception.custom.BranchNotAvailableException;
 import com.application.shared.exception.custom.EntityDuplicatedException;
 import com.application.shared.exception.custom.EntityNotFoundException;
+import com.application.shared.exception.resource.JsonExtractor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,19 +21,26 @@ import java.util.List;
 
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
 import static org.springframework.http.HttpStatus.NOT_FOUND;
+import static org.springframework.http.HttpStatus.I_AM_A_TEAPOT;
 
 @ControllerAdvice
 public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(EntityNotFoundException.class)
     protected ResponseEntity<Object> handleNotFoundException(EntityNotFoundException ex) {
-        ApiError apiError = new ApiError(NOT_FOUND, ex.getMessage(), ex);
+        ApiError apiError = new ApiError(NOT_FOUND, ex.getMessage(), JsonExtractor.extractJsonFromString(ex.getMessage()));
         return new ResponseEntity<>(apiError, apiError.getStatus());
     }
 
     @ExceptionHandler(EntityDuplicatedException.class)
     protected ResponseEntity<Object> handleDuplicatedException(EntityDuplicatedException ex) {
-        ApiError apiError = new ApiError(BAD_REQUEST, ex.getMessage());
+        ApiError apiError = new ApiError(BAD_REQUEST, ex.getMessage(), JsonExtractor.extractJsonFromString(ex.getMessage()));
+        return new ResponseEntity<>(apiError, apiError.getStatus());
+    }
+
+    @ExceptionHandler(BranchNotAvailableException.class)
+    protected ResponseEntity<Object> handleBranchNotAvailableException(BranchNotAvailableException ex){
+        ApiError apiError = new ApiError(I_AM_A_TEAPOT, ex.getMessage(), JsonExtractor.extractJsonFromString(ex.getMessage()));
         return new ResponseEntity<>(apiError, apiError.getStatus());
     }
 

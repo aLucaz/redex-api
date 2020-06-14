@@ -21,7 +21,17 @@ public class ApiError {
     private LocalDateTime timestamp;
     private String message;
     private String debugMessage;
+
+
+    private String detail;
     private List<String> validationErrors;
+
+    public ApiError(HttpStatus status, String message, String detail) {
+        this.timestamp = LocalDateTime.now();
+        this.status = status;
+        this.message = message;
+        this.detail = detail;
+    }
 
     public ApiError(HttpStatus status, String message) {
         this.timestamp = LocalDateTime.now();

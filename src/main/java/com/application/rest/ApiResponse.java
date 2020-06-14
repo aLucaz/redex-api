@@ -2,18 +2,21 @@ package com.application.rest;
 
 import com.application.shared.Constant;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.experimental.Accessors;
-import static org.springframework.http.HttpStatus.OK;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import java.time.LocalDateTime;
 
+import static org.springframework.http.HttpStatus.OK;
+
 @Data
 @NoArgsConstructor
-@Accessors(chain = true)
+@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class ApiResponse<T> {
 
     private HttpStatus status;
@@ -28,9 +31,14 @@ public class ApiResponse<T> {
         this.message = message;
     }
 
-    public ResponseEntity<Object> ok(T payload){
+    public ResponseEntity<Object> ok(T payload) {
         ApiResponse<T> apiResponse = new ApiResponse<>(OK, "Successfull operation");
         apiResponse.setPayload(payload);
+        return new ResponseEntity<>(apiResponse, apiResponse.getStatus());
+    }
+
+    public ResponseEntity<Object> ok() {
+        ApiResponse<T> apiResponse = new ApiResponse<>(OK, "Successfull operation");
         return new ResponseEntity<>(apiResponse, apiResponse.getStatus());
     }
 }

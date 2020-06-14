@@ -4,15 +4,17 @@ import com.application.core.model.dto.UserDto;
 import com.application.data.gateway.UserGateway;
 import com.application.shared.Constant;
 import com.application.shared.exception.custom.EntityDuplicatedException;
-import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.stereotype.Service;
 
-@RequiredArgsConstructor
 @Service
 public class RegisterUserUseCase {
     // dependency injection
     public final UserGateway userGateway;
+
+    public RegisterUserUseCase(UserGateway userGateway) {
+        this.userGateway = userGateway;
+    }
 
     @SneakyThrows
     public UserDto execute(UserDto userDto) {

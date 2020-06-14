@@ -1,0 +1,30 @@
+package com.application.core.model.dto;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+import lombok.experimental.Accessors;
+
+import java.time.LocalDateTime;
+
+@Getter
+@Setter
+@Accessors(chain = true)
+@NoArgsConstructor
+@ToString
+@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(JsonInclude.Include.NON_EMPTY)
+public class RouteDto {
+    //
+    private String startPoint;
+    private String endPoint;
+    private LocalDateTime requestDateTime;
+    private Integer sameContinent;
+    //
+    private String flightFriendlyId;
+    private LocalDateTime departureDate;
+    private LocalDateTime arrivalDate;
+}
