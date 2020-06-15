@@ -15,36 +15,25 @@ import javax.persistence.OneToMany;
 import java.time.LocalDateTime;
 import java.util.Set;
 
+
 @Getter
 @Setter
 @NoArgsConstructor
 @Accessors(chain = true)
 @Entity
-public class Branch {
+public class DocumentType {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(nullable = false)
-    private Integer idBranch;
+    private Integer idDocumentType;
 
-    @OneToMany(cascade = {CascadeType.ALL}, mappedBy = "branch")
-    Set<Employee> employees;
+    @OneToMany(cascade = {CascadeType.ALL}, mappedBy = "documentType")
+    private Set<User> users;
 
     @Column(nullable = false, length = 40)
     private String name;
-    @Column(nullable = false, length = 40)
-    private String friendlyId;
-    @Column(nullable = false)
-    private Integer capacity;
-    @Column(nullable = false)
-    private Integer quantity;
-    @Column(nullable = false, length = 40)
-    private String continent;
-    @Column(nullable = false, length = 40)
-    private String latitude;
-    @Column(nullable = false, length = 40)
-    private String longitude;
-    @Column(nullable = false)
-    private Integer isActive;
+    @Column(nullable = false, length = 1000)
+    private String description;
     @Column(nullable = false, length = 40)
     private String lastModifiedBy;
     @Column(nullable = false)

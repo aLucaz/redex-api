@@ -23,35 +23,28 @@ public class RegisterUserRequest {
     @NotNull
     private Integer idBranch;
     @NotNull
+    private Integer idDocumentType;
+    @NotNull
     private String email;
-    @NotNull
-    private String document;
-    @NotNull
-    private String documentType;
     @NotNull
     @JsonFormat(pattern = Constant.DATE_TIME_FORMAT)
     private LocalDateTime birthday;
     @NotNull
     private String genre;
     @NotNull
-    private String username;
-    @NotNull
     private String firstName;
     @NotNull
     private String lastName;
-    private String maidenName;
-    @NotNull
-    private String password;
     @NotNull
     private Boolean isActive;
     @NotNull
+    private String documentId;
+    @NotNull
+    private String phone;
+    @NotNull
+    private String password;
+    @NotNull
     private String lastModifiedBy;
     @NotNull
-    @JsonFormat(pattern = Constant.DATE_TIME_FORMAT)
-    private LocalDateTime lastModifiedDate;
-    @NotNull
     private String registeredBy;
-    @NotNull
-    @JsonFormat(pattern = Constant.DATE_TIME_FORMAT)
-    private LocalDateTime registeredDate;
 }

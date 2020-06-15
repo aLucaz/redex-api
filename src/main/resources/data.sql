@@ -135,3 +135,10 @@ WHERE NOT EXISTS(SELECT id_branch FROM branch WHERE id_branch = 39);
 INSERT INTO branch (id_branch,name,friendly_id,capacity,quantity,is_active,continent,latitude,longitude,last_modified_by,last_modified_date,registered_by,registered_date)
 SELECT 40,'Berna-Suiza','LSZB',700,0,1,'EU',46.9480896,7.4474401,'SYSTEM',NOW(),'SYSTEM',NOW()
 WHERE NOT EXISTS(SELECT id_branch FROM branch WHERE id_branch = 40);
+/* DOCUMENT TYPE TABLE AUTO FILLING */
+INSERT INTO document_type (id_document_type, name, description, last_modified_by, last_modified_date, registered_by, registered_date)
+SELECT 1, 'Documento Nacional de Identidad', 'Documento Nacional de Identidad','SYSTEM', NOW(), 'SYSTEM', NOW()
+WHERE NOT EXISTS (SELECT id_document_type FROM document_type WHERE id_document_type = 1);
+INSERT INTO document_type (id_document_type, name, description, last_modified_by, last_modified_date, registered_by, registered_date)
+SELECT 2, 'Pasaporte', 'Pasaporte','SYSTEM', NOW(), 'SYSTEM', NOW()
+WHERE NOT EXISTS (SELECT id_document_type FROM document_type WHERE id_document_type = 2);
