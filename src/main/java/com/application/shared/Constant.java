@@ -29,7 +29,6 @@ public class Constant {
     public static final Integer SECONDS_P_MINUTE = 60;
     public static final Integer SECONDS_P_DAY = HOURS_P_DAY * MINUTES_P_HOUR * SECONDS_P_MINUTE;
 
-
     /*
     Failed argument validation message
     */
@@ -45,6 +44,7 @@ public class Constant {
     public static final Integer SAME_CONTINENT_AVAILABLE_DAYS = 1;
     public static final Integer ANOTHER_CONTINENT_AVAILABLE_DAYS = 2;
     public static final Integer HOURS_OFF_TO_REQUEST_PATH = 0;
+    public static final Integer DATE_DIFFERENCE_FLIGHT = 1;
     /*
      * */
     public static final Integer TRUE = 1;

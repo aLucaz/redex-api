@@ -11,7 +11,12 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.stereotype.Component;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.PriorityQueue;
+import java.util.Set;
 
 @Setter
 @Getter
@@ -35,7 +40,7 @@ public class AstarAlgorithmExecutorImpl implements AlgorithmExecutor {
             explored.add(node.getPerformedAction());
             if (problem.goalTest(node.getCurrentState()))
                 return getPath(node);
-            for (String possibleAction : problem.possibleActions(node.getCurrentState())) {
+            for (String possibleAction : node.getParent() == null ? problem.allActionsFrom(node) : problem.possibleActionsFrom(node)) {
                 Node child = node.giveBirth(problem, possibleAction);
                 if (!explored.contains(possibleAction) && !frontier.contains(child)) {
                     frontier.add(child);
@@ -57,7 +62,10 @@ public class AstarAlgorithmExecutorImpl implements AlgorithmExecutor {
                 path.add(new RouteDto()
                         .setFlightFriendlyId(node.getPerformedAction())
                         .setStartPoint(node.getParent().getCurrentState())
-                        .setEndPoint(node.getCurrentState()));
+                        .setEndPoint(node.getCurrentState())
+                        .setTransportTime(node.getTransportTime().toString())
+                        .setWaitingTime(node.getWaitingTime().toString())
+                        .setTotalTime(node.getTotalTime().toString()));
             node = node.getParent();
         }
         Collections.reverse(path);

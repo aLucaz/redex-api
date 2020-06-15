@@ -22,7 +22,8 @@ public class NetworkCreatorImpl implements NetworkCreator {
                     .setArrivalPoint(flight.getArrivalPoint())
                     .setArrivalTime(flight.getArrivalTime())
                     .setDepartureTime(flight.getDepartureTime())
-                    .setElapsedTime(DrStrange.getElapsedTime(flight.getDepartureTime(), flight.getArrivalTime()));
+                    .setElapsedTime(DrStrange.getElapsedTime(flight.getDepartureTime(), flight.getArrivalTime()))
+                    .setFlightDate(flight.getEtFlightDate());
             neighborsNetwork.computeIfAbsent(flight.getDeparturePoint(), key -> new ArrayList<>()).add(edge);
         }
         return new Network(neighborsNetwork);
