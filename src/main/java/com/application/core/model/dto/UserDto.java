@@ -1,5 +1,7 @@
 package com.application.core.model.dto;
 
+import com.application.shared.Constant;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
@@ -20,19 +22,22 @@ import java.time.LocalDateTime;
 public class UserDto {
     private Integer idUser;
     private Integer idRole;
+    private Integer idBranch;
+    private Integer idDocumentType;
     private String email;
-    private String document;
-    private String documentType;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = Constant.DATE_TIME_FORMAT)
     private LocalDateTime birthday;
     private String genre;
-    private String username;
     private String firstName;
     private String lastName;
-    private String maidenName;
     private Boolean isActive;
+    private String documentId;
+    private String phone;
     private String password;
     private String lastModifiedBy;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = Constant.DATE_TIME_FORMAT)
     private LocalDateTime lastModifiedDate;
     private String registeredBy;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = Constant.DATE_TIME_FORMAT)
     private LocalDateTime registeredDate;
 }

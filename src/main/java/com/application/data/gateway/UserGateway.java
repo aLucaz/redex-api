@@ -9,7 +9,6 @@ import com.application.data.util.hashing.PasswordEnconder;
 import lombok.SneakyThrows;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
 
@@ -38,16 +37,10 @@ public class UserGateway {
     public boolean existInDataBase(String email) {
         return repository.findByEmail(email) != null;
     }
-    
-    public List<UserDto> getUserList(){
+
+    public List<UserDto> getUserList() {
         List<User> userList = repository.findAll();
-        List<UserDto> userDtoList = new ArrayList<UserDto>();
-        
-        for(User user : userList){
-            userDtoList.add(UserParser.mapToDto(user));
-        }
-        
-        return userDtoList;
+        return UserParser.mapToDtoList(userList);
     }
 
 }

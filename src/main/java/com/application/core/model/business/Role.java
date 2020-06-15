@@ -25,6 +25,10 @@ public class Role {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(nullable = false)
     private Integer idRole;
+
+    @OneToMany(cascade = {CascadeType.ALL}, mappedBy = "role")
+    private Set<User> users;
+
     @Column(nullable = false, length = 40)
     private String friendlyId;
     @Column(nullable = false, length = 40)
@@ -39,7 +43,4 @@ public class Role {
     private String registeredBy;
     @Column(nullable = false)
     private LocalDateTime registeredDate;
-
-    @OneToMany(cascade = {CascadeType.ALL}, mappedBy = "role")
-    private Set<User> users;
 }
