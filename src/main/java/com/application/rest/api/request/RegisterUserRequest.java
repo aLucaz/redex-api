@@ -24,7 +24,6 @@ public class RegisterUserRequest {
     private Integer idBranch;
     @NotNull
     private String email;
-    private String validEmail;
     @NotNull
     private String document;
     @NotNull

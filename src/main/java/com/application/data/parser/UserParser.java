@@ -31,7 +31,6 @@ public class UserParser {
         return new User()
                 .setRole(new Role().setIdRole(userDto.getIdRole()))
                 .setEmail(userDto.getEmail())
-                .setValidEmail(userDto.getValidEmail())
                 .setDocument(userDto.getDocument())
                 .setDocumentType(userDto.getDocumentType())
                 .setBirthday(userDto.getBirthday())

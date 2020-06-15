@@ -36,8 +36,6 @@ User {
     @Column(nullable = false)
     private String genre;
     @Column(nullable = false)
-    private Integer validEmail;
-    @Column(nullable = false)
     private Boolean isActive;
     @Column(nullable = false, length = 40)
     private String username;

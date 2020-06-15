@@ -20,8 +20,6 @@ public class RegisterUserUseCase {
     public UserDto execute(UserDto userDto) {
         if (userGateway.existInDataBase(userDto.getEmail()))
             throw new EntityDuplicatedException(UserDto.class, "email", userDto.getEmail());
-        // email is valid by default
-        userDto.setValidEmail(Constant.DEFAULT_VALID_EMAIL);
         // call the gateway to the database
         return userGateway.persist(userDto);
     }

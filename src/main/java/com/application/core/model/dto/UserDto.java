@@ -25,7 +25,6 @@ public class UserDto {
     private String documentType;
     private LocalDateTime birthday;
     private String genre;
-    private Integer validEmail;
     private String username;
     private String firstName;
     private String lastName;
