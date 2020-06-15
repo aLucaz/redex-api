@@ -12,7 +12,6 @@ import com.application.core.usecase.util.algorithm.util.NetworkCreatorImpl;
 import com.application.data.gateway.BranchGateway;
 import com.application.data.gateway.EtFlightGateway;
 import com.application.shared.exception.custom.BranchNotAvailableException;
-import net.bytebuddy.implementation.bytecode.Throw;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -50,14 +49,14 @@ public class GenerateRouteUseCase {
         return findPathAlgorithm.execute(problem);
     }
 
-    public void checkIfBranchsAreAvailable(RouteDto routeDto){
-        if(!branchGateway.askIfIsActive(routeDto.getStartPoint()) && !branchGateway.askIfIsActive(routeDto.getEndPoint()))
-            throw new BranchNotAvailableException(BranchDto.class, "friendlyIdStart",routeDto.getStartPoint(),"friendlyIdEnd",routeDto.getEndPoint());
+    public void checkIfBranchsAreAvailable(RouteDto routeDto) {
+        if (!branchGateway.askIfIsActive(routeDto.getStartPoint()) && !branchGateway.askIfIsActive(routeDto.getEndPoint()))
+            throw new BranchNotAvailableException(BranchDto.class, "friendlyIdStart", routeDto.getStartPoint(), "friendlyIdEnd", routeDto.getEndPoint());
         else {
             if (!branchGateway.askIfIsActive(routeDto.getStartPoint()))
-                throw new BranchNotAvailableException(BranchDto.class, "friendlyId",routeDto.getStartPoint());
+                throw new BranchNotAvailableException(BranchDto.class, "friendlyId", routeDto.getStartPoint());
             if (!branchGateway.askIfIsActive(routeDto.getEndPoint()))
-                throw new BranchNotAvailableException(BranchDto.class, "friendlyId",routeDto.getEndPoint());
+                throw new BranchNotAvailableException(BranchDto.class, "friendlyId", routeDto.getEndPoint());
         }
     }
 }

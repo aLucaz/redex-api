@@ -21,4 +21,5 @@ public class Edge {
     private String departureTime;
     private String arrivalTime;
     private String elapsedTime;
+    private String flightDate;
 }

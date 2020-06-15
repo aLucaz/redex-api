@@ -2,6 +2,8 @@ package com.application.core.usecase.util.algorithm.util;
 
 import com.application.shared.Constant;
 
+import java.time.LocalDate;
+
 public class DrStrange {
     public static String getElapsedTime(String from, String to) {
         Time fromTime = fromStringToTime(from);
@@ -45,5 +47,30 @@ public class DrStrange {
         Time baseTime = fromStringToTime(base);
         Time otherTime = fromStringToTime(other);
         return getNoLimitSum(baseTime, otherTime);
+    }
+
+
+    public static String addTimeToDate(String flightDateStr, String departureTimeStr, String arrivalTimeStr){
+        Time departureTime = fromStringToTime(departureTimeStr);
+        Time arrivalTime = fromStringToTime(arrivalTimeStr);
+        LocalDate flightDate = LocalDate.parse(flightDateStr, Constant.DATE_FORMATTER);
+        if (departureTime.compareTo(arrivalTime) >= 0)
+            flightDate = flightDate.plusDays(Constant.DATE_DIFFERENCE_FLIGHT);
+        return flightDate.toString();
+    }
+
+    public static Boolean dateTimeIsBefore(String departureTimeStr, String departureDate, String arrivalTimeStr, String arrivalDate){
+        if (departureDate.equals(arrivalDate)){
+            Time departureTime = fromStringToTime(departureTimeStr);
+            Time arrivalTime = fromStringToTime(arrivalTimeStr);
+            return departureTime.compareTo(arrivalTime) < 0;
+        }
+        return false;
+    }
+
+    public static Boolean dateIsBefore(String departureDateStr, String arrivalDateStr){
+        LocalDate departureDate = LocalDate.parse(departureDateStr, Constant.DATE_FORMATTER);
+        LocalDate arrivalDate = LocalDate.parse(arrivalDateStr, Constant.DATE_FORMATTER);
+        return departureDate.isBefore(arrivalDate);
     }
 }

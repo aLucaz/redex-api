@@ -27,4 +27,7 @@ public class RouteDto {
     private String flightFriendlyId;
     private LocalDateTime departureDate;
     private LocalDateTime arrivalDate;
+    private String transportTime;
+    private String waitingTime;
+    private String totalTime;
 }

@@ -1,7 +1,5 @@
 package com.application.core.usecase.util.algorithm.structure;
 
-import com.application.core.model.dto.BranchDto;
-import com.application.core.model.dto.EtFlightDto;
 import com.application.core.usecase.util.algorithm.util.DrStrange;
 import com.application.core.usecase.util.algorithm.util.Time;
 import com.application.shared.Constant;
@@ -27,13 +25,42 @@ public class Problem {
         return goalPoint.equals(point);
     }
 
-    public List<String> possibleActions(String of) {
+    public List<String> possibleActionsFrom(Node me) {
         List<String> actions = new ArrayList<>();
-        List<Edge> neighbors = network.getNeighbors().get(of);
+        List<Edge> neighbors = network.getNeighbors().get(me.getCurrentState());
+        HashMap<String, String> arrivalMap = getArrivalInformationOf(me.getParent(), me.getPerformedAction());
+        for (Edge neighbor : neighbors) {
+            /*
+             * I cant take flights that departure:
+             * * in the same date of arrivalDate and before of arrivalTime OR
+             * * before the date of arrivalDate */
+            if (!DrStrange.dateTimeIsBefore(neighbor.getDepartureTime(), neighbor.getFlightDate(), arrivalMap.get("arrivalTime"), arrivalMap.get("arrivalDate")) &&
+                    !DrStrange.dateIsBefore(neighbor.getFlightDate(), arrivalMap.get("arrivalDate")))
+                actions.add(neighbor.getFlightFriendlyId());
+        }
+        return actions;
+    }
+
+    public List<String> allActionsFrom(Node me) {
+        List<String> actions = new ArrayList<>();
+        List<Edge> neighbors = network.getNeighbors().get(me.getCurrentState());
         for (Edge neighbor : neighbors) {
             actions.add(neighbor.getFlightFriendlyId());
         }
         return actions;
+    }
+
+    public HashMap<String, String> getArrivalInformationOf(Node node, String performedAction) {
+        HashMap<String, String> arrivalInformation = new HashMap<>();
+        List<Edge> destinations = network.getNeighbors().get(node.getCurrentState());
+
+        for (Edge destiny : destinations) {
+            if (destiny.getFlightFriendlyId().equals(performedAction)) {
+                arrivalInformation.put("arrivalTime", destiny.getArrivalTime());
+                arrivalInformation.put("arrivalDate", DrStrange.addTimeToDate(destiny.getFlightDate(), destiny.getDepartureTime(), destiny.getArrivalTime()));
+            }
+        }
+        return arrivalInformation;
     }
 
     public String newStateFrom(String previousState, String action) {
@@ -89,4 +116,5 @@ public class Problem {
         }
         return null;
     }
+
 }
