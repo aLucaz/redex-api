@@ -1,5 +1,5 @@
 set -e
 cd redex-backend
-killall -9 java
+sudo killall instruments 2>/dev/null
 git pull origin develop
 nohup mvn spring-boot:run &
