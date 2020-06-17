@@ -21,7 +21,7 @@ public class UserGateway {
         this.repository = repository;
         this.encoder = encoder;
     }
-
+ 
     @SneakyThrows
     public UserDto persist(UserDto userDto) {
         //map the db instance
