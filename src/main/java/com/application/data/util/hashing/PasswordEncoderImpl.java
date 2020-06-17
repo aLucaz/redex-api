@@ -19,12 +19,27 @@ public class PasswordEncoderImpl implements PasswordEnconder {
         Hashtable<String, String> hashtable = new Hashtable<>();
         SecureRandom secureRandom = new SecureRandom();
         byte[] salt = secureRandom.generateSeed(Constant.SALT_LENGTH);
+        String passwordSalt = new String(salt);
         // hashing proccess
-        PBEKeySpec pbeKeySpec = new PBEKeySpec(password.toCharArray(), salt, Constant.PBEKEY_ITERATION_NUMBER, Constant.PBEKEY_LENGTH);
+        PBEKeySpec pbeKeySpec = new PBEKeySpec(password.toCharArray(), passwordSalt.getBytes(), Constant.PBEKEY_ITERATION_NUMBER, Constant.PBEKEY_LENGTH);
         SecretKeyFactory secretKeyFactory = SecretKeyFactory.getInstance(Constant.HASH_ALGORITHM);
         byte[] hash = secretKeyFactory.generateSecret(pbeKeySpec).getEncoded();
         String passwordHash = Base64.getMimeEncoder().encodeToString(hash);
-        String passwordSalt = new String(salt);
+        // adding values to return
+        hashtable.put("passwordHash", passwordHash);
+        hashtable.put("passwordSalt", passwordSalt);
+        return hashtable;
+    }
+
+    @Override
+    public Hashtable<String, String> hash(String password,String salt) throws NoSuchAlgorithmException, InvalidKeySpecException {
+        Hashtable<String, String> hashtable = new Hashtable<>();
+        // hashing proccess
+        PBEKeySpec pbeKeySpec = new PBEKeySpec(password.toCharArray(), salt.getBytes(), Constant.PBEKEY_ITERATION_NUMBER, Constant.PBEKEY_LENGTH);
+        SecretKeyFactory secretKeyFactory = SecretKeyFactory.getInstance(Constant.HASH_ALGORITHM);
+        byte[] hash = secretKeyFactory.generateSecret(pbeKeySpec).getEncoded();
+        String passwordHash = Base64.getMimeEncoder().encodeToString(hash);
+        String passwordSalt = salt;
         // adding values to return
         hashtable.put("passwordHash", passwordHash);
         hashtable.put("passwordSalt", passwordSalt);

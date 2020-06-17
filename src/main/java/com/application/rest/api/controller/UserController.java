@@ -2,9 +2,11 @@ package com.application.rest.api.controller;
 
 import com.application.core.model.dto.UserDto;
 import com.application.core.usecase.user.GetUserListUseCase;
+import com.application.core.usecase.user.LoginUseCase;
 import com.application.core.usecase.user.RegisterUserUseCase;
 import com.application.data.parser.UserParser;
 import com.application.rest.ApiResponse;
+import com.application.rest.api.request.LoginRequest;
 import com.application.rest.api.request.RegisterUserRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -24,6 +26,7 @@ public class UserController {
     // dependency injection
     private final RegisterUserUseCase registerUser;
     private final GetUserListUseCase getUserList;
+    private final LoginUseCase login;
 
     @PostMapping("/register-user")
     public ResponseEntity<Object> registerUser(@Valid @RequestBody RegisterUserRequest request) {
@@ -39,5 +42,13 @@ public class UserController {
         List<UserDto> userDtoList = getUserList.execute();
         // return ok response
         return new ApiResponse<>().ok(userDtoList);
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<Object> login(@Valid @RequestBody LoginRequest request) {
+        // call use case
+        UserDto userDto = login.execute(UserParser.mapToDto(request));
+        // return ok response
+        return new ApiResponse<>().ok(userDto);
     }
 }

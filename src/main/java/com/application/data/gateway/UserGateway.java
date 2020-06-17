@@ -38,9 +38,18 @@ public class UserGateway {
         return repository.findByEmail(email) != null;
     }
 
+    @SneakyThrows
     public List<UserDto> getUserList() {
         List<User> userList = repository.findAll();
         return UserParser.mapToDtoList(userList);
     }
+
+    @SneakyThrows
+    public User getUserByEmail(String email) {
+        User user = repository.findByEmail(email);
+        return user;
+    }
+
+
 
 }

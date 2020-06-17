@@ -6,6 +6,7 @@ import com.application.core.model.business.Employee;
 import com.application.core.model.business.Role;
 import com.application.core.model.business.User;
 import com.application.core.model.dto.UserDto;
+import com.application.rest.api.request.LoginRequest;
 import com.application.rest.api.request.RegisterUserRequest;
 
 import java.time.LocalDateTime;
@@ -76,4 +77,28 @@ public class UserParser {
         }
         return userDtoList;
     }
+
+    public static UserDto mapToDto(LoginRequest request) {
+        return new UserDto()
+                .setEmail(request.getEmail())
+                .setPassword(request.getPassword());
+    }
+
+    public static UserDto mapToDto(User user, Employee employee) {
+        return new UserDto()
+                .setIdRole(user.getRole().getIdRole())
+                .setIdBranch(employee.getBranch().getIdBranch())
+                .setIdDocumentType(user.getDocumentType().getIdDocumentType())
+                .setEmail(user.getEmail())
+                .setBirthday(user.getBirthday())
+                .setGenre(user.getGenre())
+                .setFirstName(user.getFirstName())
+                .setLastName(user.getLastName())
+                .setIsActive(user.getIsActive())
+                .setDocumentId(user.getDocumentId())
+                .setPhone(user.getPhone())
+                .setLastModifiedBy(user.getLastModifiedBy())
+                .setRegisteredBy(user.getRegisteredBy());
+    }
+
 }

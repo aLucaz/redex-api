@@ -6,4 +6,5 @@ import java.util.Hashtable;
 
 public interface PasswordEnconder {
     Hashtable<String, String> hash(String password) throws NoSuchAlgorithmException, InvalidKeySpecException;
+    Hashtable<String, String> hash(String password, String salt) throws NoSuchAlgorithmException, InvalidKeySpecException;
 }
