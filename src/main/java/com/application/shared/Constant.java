@@ -60,4 +60,10 @@ public class Constant {
      * Json open and closed*/
     public static final String DELIMITER_OPEN = "{";
     public static final String DELIMITER_CLOSE = "}";
+    /*
+    * CORS allowed methods*/
+    public static final String GET = "GET";
+    public static final String POST = "POST";
+    public static final String PUT = "PUT";
+    public static final String DELETE = "DELETE";
 }
