@@ -86,19 +86,13 @@ public class UserParser {
 
     public static UserDto mapToDto(User user, Employee employee) {
         return new UserDto()
+                .setIdUser(user.getIdUser())
                 .setIdRole(user.getRole().getIdRole())
+                .setRoleName(user.getRole().getName())
                 .setIdBranch(employee.getBranch().getIdBranch())
-                .setIdDocumentType(user.getDocumentType().getIdDocumentType())
-                .setEmail(user.getEmail())
-                .setBirthday(user.getBirthday())
-                .setGenre(user.getGenre())
+                .setBranchName(employee.getBranch().getName())
                 .setFirstName(user.getFirstName())
-                .setLastName(user.getLastName())
-                .setIsActive(user.getIsActive())
-                .setDocumentId(user.getDocumentId())
-                .setPhone(user.getPhone())
-                .setLastModifiedBy(user.getLastModifiedBy())
-                .setRegisteredBy(user.getRegisteredBy());
+                .setLastName(user.getLastName());
     }
 
 }

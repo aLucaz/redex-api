@@ -22,7 +22,9 @@ import java.time.LocalDateTime;
 public class UserDto {
     private Integer idUser;
     private Integer idRole;
+    private String roleName;
     private Integer idBranch;
+    private String branchName;
     private Integer idDocumentType;
     private String email;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = Constant.DATE_TIME_FORMAT)
