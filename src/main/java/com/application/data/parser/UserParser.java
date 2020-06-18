@@ -19,6 +19,7 @@ public class UserParser {
         return new UserDto()
                 .setIdUser(user.getIdUser())
                 .setIdRole(user.getRole().getIdRole())
+                .setRoleName(user.getRole().getName())
                 .setIdDocumentType(user.getDocumentType().getIdDocumentType())
                 .setEmail(user.getEmail())
                 .setBirthday(user.getBirthday())
@@ -84,15 +85,33 @@ public class UserParser {
                 .setPassword(request.getPassword());
     }
 
-    public static UserDto mapToDto(User user, Employee employee) {
+    public static UserDto mapToDto(Employee employee) {
         return new UserDto()
-                .setIdUser(user.getIdUser())
-                .setIdRole(user.getRole().getIdRole())
-                .setRoleName(user.getRole().getName())
+                .setIdUser(employee.getUser().getIdUser())
+                .setIdRole(employee.getUser().getRole().getIdRole())
+                .setRoleName(employee.getUser().getRole().getName())
+                .setIdDocumentType(employee.getUser().getDocumentType().getIdDocumentType())
                 .setIdBranch(employee.getBranch().getIdBranch())
                 .setBranchName(employee.getBranch().getName())
-                .setFirstName(user.getFirstName())
-                .setLastName(user.getLastName());
+                .setEmail(employee.getUser().getEmail())
+                .setBirthday(employee.getUser().getBirthday())
+                .setGenre(employee.getUser().getGenre())
+                .setFirstName(employee.getUser().getFirstName())
+                .setLastName(employee.getUser().getLastName())
+                .setIsActive(employee.getUser().getIsActive())
+                .setDocumentId(employee.getUser().getDocumentId())
+                .setPhone(employee.getUser().getPhone())
+                .setLastModifiedBy(employee.getUser().getLastModifiedBy())
+                .setLastModifiedDate(employee.getUser().getLastModifiedDate())
+                .setRegisteredBy(employee.getUser().getRegisteredBy())
+                .setRegisteredDate(employee.getUser().getRegisteredDate());
     }
 
+    public static List<UserDto> mapToDto(List<Employee> employeeList) {
+        List<UserDto> userDtoList = new ArrayList<>();
+        for (Employee employee : employeeList) {
+            userDtoList.add(mapToDto(employee));
+        }
+        return userDtoList;
+    }
 }

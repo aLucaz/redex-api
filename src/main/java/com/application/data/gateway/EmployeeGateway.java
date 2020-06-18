@@ -27,4 +27,12 @@ public class EmployeeGateway {
         Employee employee = repository.findFirstByUserIdUser(idUser);
         return employee;
     }
+
+    @SneakyThrows
+    public List<Employee> findAll() {
+        List<Employee> employeeList = repository.findAll();
+        return employeeList;
+    }
+
+
 }
