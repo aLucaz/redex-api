@@ -114,4 +114,21 @@ public class UserParser {
         }
         return userDtoList;
     }
+
+    public static UserDto mapToDto(User user, Employee employee) {
+        return new UserDto()
+                .setIdRole(user.getRole().getIdRole())
+                .setIdBranch(employee.getBranch().getIdBranch())
+                .setIdDocumentType(user.getDocumentType().getIdDocumentType())
+                .setEmail(user.getEmail())
+                .setBirthday(user.getBirthday())
+                .setGenre(user.getGenre())
+                .setFirstName(user.getFirstName())
+                .setLastName(user.getLastName())
+                .setIsActive(user.getIsActive())
+                .setDocumentId(user.getDocumentId())
+                .setPhone(user.getPhone())
+                .setLastModifiedBy(user.getLastModifiedBy())
+                .setRegisteredBy(user.getRegisteredBy());
+    }
 }

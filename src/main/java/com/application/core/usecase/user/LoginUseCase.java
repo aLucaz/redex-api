@@ -41,7 +41,9 @@ public class LoginUseCase {
             throw new EntityNotFoundException(UserDto.class, "password", userDto.getPassword());
 
         Employee employee = employeeGateway.findByUser(user.getIdUser());
-
         return UserParser.mapToDto(user,employee);
+
+
+
     }
 }
