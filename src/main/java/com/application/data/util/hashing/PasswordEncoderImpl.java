@@ -32,7 +32,7 @@ public class PasswordEncoderImpl implements PasswordEnconder {
     }
 
     @Override
-    public Hashtable<String, String> hash(String password,String salt) throws NoSuchAlgorithmException, InvalidKeySpecException {
+    public Hashtable<String, String> hash(String password, String salt) throws NoSuchAlgorithmException, InvalidKeySpecException {
         Hashtable<String, String> hashtable = new Hashtable<>();
         // hashing proccess
         PBEKeySpec pbeKeySpec = new PBEKeySpec(password.toCharArray(), salt.getBytes(), Constant.PBEKEY_ITERATION_NUMBER, Constant.PBEKEY_LENGTH);

@@ -19,10 +19,12 @@ public class Constant {
     */
     public static final String DATE_FORMAT = "yyyy-MM-dd";
     public static final String DATE_TIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
+    public static final String PROP_DATE_TIME_FORMAT = "yyyy-MM-dd HH:mm";
     public static final String PROP_TIME_FORMAT = "HH:mm";
     public static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern(DATE_FORMAT);
     public static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern(DATE_TIME_FORMAT);
     public static final DateTimeFormatter PROP_TIME_FORMATTER = DateTimeFormatter.ofPattern(PROP_TIME_FORMAT);
+    public static final DateTimeFormatter PROP_DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern(PROP_DATE_TIME_FORMAT);
     public static final String TIME_SEPARATOR = ":";
     public static final Integer HOURS_P_DAY = 24;
     public static final Integer MINUTES_P_HOUR = 60;

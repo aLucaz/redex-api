@@ -2,6 +2,7 @@ package com.application.core.usecase.shipment;
 
 import com.application.core.model.dto.BranchDto;
 import com.application.core.model.dto.EtFlightDto;
+import com.application.core.model.dto.PathDto;
 import com.application.core.model.dto.RouteDto;
 import com.application.core.usecase.util.algorithm.AlgorithmExecutor;
 import com.application.core.usecase.util.algorithm.AstarAlgorithmExecutorImpl;
@@ -14,6 +15,8 @@ import com.application.data.gateway.EtFlightGateway;
 import com.application.shared.exception.custom.BranchNotAvailableException;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -30,7 +33,7 @@ public class GenerateRouteUseCase {
         this.networkCreator = networkCreator;
     }
 
-    public List<RouteDto> execute(RouteDto routeDto) {
+    public PathDto execute(RouteDto routeDto) {
         // first of all we check if the route points are available
         checkIfBranchsAreAvailable(routeDto);
         // get all the branches with its data
@@ -46,7 +49,10 @@ public class GenerateRouteUseCase {
                 routeDto.getRequestDateTime(),
                 network);
         // call the algorithm to be executed
-        return findPathAlgorithm.execute(problem);
+        List<RouteDto> tripPlan = extractInformation(findPathAlgorithm.execute(problem));
+        //TODO: if there is not route return exception
+
+        return new PathDto().setScaleNumber(tripPlan.size()).setTripPlan(tripPlan);
     }
 
     public void checkIfBranchsAreAvailable(RouteDto routeDto) {
@@ -58,5 +64,17 @@ public class GenerateRouteUseCase {
             if (!branchGateway.askIfIsActive(routeDto.getEndPoint()))
                 throw new BranchNotAvailableException(BranchDto.class, "friendlyId", routeDto.getEndPoint());
         }
+    }
+
+    public List<RouteDto> extractInformation(List<RouteDto> basePath) {
+        basePath.forEach(
+                routeDto -> {
+                    routeDto.setDepartureDateTime(etFlightGateway.getDepartureLocalDateTime(routeDto.getFlightFriendlyId()));
+                    routeDto.setArrivalDateTime(etFlightGateway.getArrivalLocalDateTime(routeDto.getFlightFriendlyId()));
+                    routeDto.setStartCity(branchGateway.findNameOf(routeDto.getStartPoint()));
+                    routeDto.setEndCity(branchGateway.findNameOf(routeDto.getEndPoint()));
+                }
+        );
+        return basePath;
     }
 }
