@@ -21,8 +21,6 @@ public class ApiError {
     private LocalDateTime timestamp;
     private String message;
     private String debugMessage;
-
-
     private String detail;
     private List<String> validationErrors;
 

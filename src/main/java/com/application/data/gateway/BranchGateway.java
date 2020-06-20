@@ -33,4 +33,8 @@ public class BranchGateway {
         Branch branch = repository.findByFriendlyId(friendlyId);
         return branch.getIsActive().equals(Constant.ACTIVE);
     }
+
+    public String findNameOf(String friendlyId){
+        return repository.findByFriendlyId(friendlyId).getName();
+    }
 }

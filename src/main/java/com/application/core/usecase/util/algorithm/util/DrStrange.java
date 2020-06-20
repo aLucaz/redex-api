@@ -17,6 +17,11 @@ public class DrStrange {
         return elapsedTime.toString();
     }
 
+    public static Integer getElapsedTimeInSeconds(String from, String to){
+        Time elapsedTime = fromStringToTime(getElapsedTime(from, to));
+        return elapsedTime.toSeconds();
+    }
+
     public static Time fromStringToTime(String timeString) {
         String[] timeStringList = timeString.split(Constant.TIME_SEPARATOR);
         return new Time(Integer.parseInt(timeStringList[0]), Integer.parseInt(timeStringList[1]));

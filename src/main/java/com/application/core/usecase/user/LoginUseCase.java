@@ -3,7 +3,6 @@ package com.application.core.usecase.user;
 
 import com.application.core.model.business.Employee;
 import com.application.core.model.business.User;
-import com.application.core.model.dto.EmployeeDto;
 import com.application.core.model.dto.UserDto;
 import com.application.data.gateway.EmployeeGateway;
 import com.application.data.gateway.UserGateway;
@@ -22,7 +21,7 @@ public class LoginUseCase {
     public final UserGateway userGateway;
     public final EmployeeGateway employeeGateway;
 
-    public LoginUseCase(UserGateway userGateway,EmployeeGateway employeeGateway) {
+    public LoginUseCase(UserGateway userGateway, EmployeeGateway employeeGateway) {
         this.employeeGateway = employeeGateway;
         this.userGateway = userGateway;
     }
@@ -34,16 +33,13 @@ public class LoginUseCase {
         if (!userGateway.existInDataBase(userDto.getEmail()))
             throw new EntityNotFoundException(UserDto.class, "email", userDto.getEmail());
 
-        User user  = userGateway.getUserByEmail(userDto.getEmail());
-        Hashtable<String, String> hashtable = encoder.hash(userDto.getPassword(),user.getPasswordSalt());
+        User user = userGateway.getUserByEmail(userDto.getEmail());
+        Hashtable<String, String> hashtable = encoder.hash(userDto.getPassword(), user.getPasswordSalt());
 
-        if(!user.getPasswordHash().equals(hashtable.get("passwordHash")))
+        if (!user.getPasswordHash().equals(hashtable.get("passwordHash")))
             throw new EntityNotFoundException(UserDto.class, "password", userDto.getPassword());
 
         Employee employee = employeeGateway.findByUser(user.getIdUser());
         return UserParser.mapToDto(employee);
-
-
-
     }
 }
