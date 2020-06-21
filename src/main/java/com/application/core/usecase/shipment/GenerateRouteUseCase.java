@@ -12,11 +12,11 @@ import com.application.core.usecase.util.algorithm.util.NetworkCreator;
 import com.application.core.usecase.util.algorithm.util.NetworkCreatorImpl;
 import com.application.data.gateway.BranchGateway;
 import com.application.data.gateway.EtFlightGateway;
+import com.application.shared.Constant;
 import com.application.shared.exception.custom.BranchNotAvailableException;
+import com.application.shared.exception.custom.RouteNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -49,9 +49,12 @@ public class GenerateRouteUseCase {
                 routeDto.getRequestDateTime(),
                 network);
         // call the algorithm to be executed
-        List<RouteDto> tripPlan = extractInformation(findPathAlgorithm.execute(problem));
-        //TODO: if there is not route return exception
-
+        List<RouteDto> onlyRoute = findPathAlgorithm.execute(problem);
+        // if there is not route call an exception
+        if (onlyRoute == null)
+            throw new RouteNotFoundException(Constant.ROUTE_NOT_FOUND_MSG);
+        // else create the tripPlan to return
+        List<RouteDto> tripPlan = extractInformation(onlyRoute);
         return new PathDto().setScaleNumber(tripPlan.size()).setTripPlan(tripPlan);
     }
 
