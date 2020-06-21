@@ -9,7 +9,9 @@ import com.application.data.gateway.UserGateway;
 import com.application.data.parser.UserParser;
 import com.application.data.util.hashing.PasswordEncoderImpl;
 import com.application.data.util.hashing.PasswordEnconder;
+import com.application.shared.Constant;
 import com.application.shared.exception.custom.EntityNotFoundException;
+import com.application.shared.exception.custom.IncorrectPasswordException;
 import lombok.SneakyThrows;
 import org.springframework.stereotype.Service;
 
@@ -37,7 +39,7 @@ public class LoginUseCase {
         Hashtable<String, String> hashtable = encoder.hash(userDto.getPassword(), user.getPasswordSalt());
 
         if (!user.getPasswordHash().equals(hashtable.get("passwordHash")))
-            throw new EntityNotFoundException(UserDto.class, "password", userDto.getPassword());
+            throw new IncorrectPasswordException(Constant.INCORRECT_PASSWORD_MSG);
 
         Employee employee = employeeGateway.findByUser(user.getIdUser());
         return UserParser.mapToDto(employee);

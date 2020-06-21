@@ -5,6 +5,7 @@ import com.application.shared.Constant;
 import com.application.shared.exception.custom.BranchNotAvailableException;
 import com.application.shared.exception.custom.EntityDuplicatedException;
 import com.application.shared.exception.custom.EntityNotFoundException;
+import com.application.shared.exception.custom.IncorrectPasswordException;
 import com.application.shared.exception.custom.RouteNotFoundException;
 import com.application.shared.exception.resource.JsonExtractor;
 import org.springframework.http.HttpHeaders;
@@ -48,6 +49,12 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(RouteNotFoundException.class)
     protected ResponseEntity<Object> handleRouteNotFoundException(RouteNotFoundException ex){
         ApiError apiError = new ApiError(NOT_FOUND, ex.getMessage());
+        return new ResponseEntity<>(apiError, apiError.getStatus());
+    }
+
+    @ExceptionHandler(IncorrectPasswordException.class)
+    protected ResponseEntity<Object> handleIncorrectPasswordException(IncorrectPasswordException ex){
+        ApiError apiError = new ApiError(BAD_REQUEST, ex.getMessage());
         return new ResponseEntity<>(apiError, apiError.getStatus());
     }
 

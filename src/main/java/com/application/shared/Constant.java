@@ -72,4 +72,5 @@ public class Constant {
     /*
     * EXCEPTION default messages*/
     public static final String ROUTE_NOT_FOUND_MSG = "La ruta no ha sido encontrada";
+    public static final String INCORRECT_PASSWORD_MSG = "La contraseña es incorrecta";
 }
