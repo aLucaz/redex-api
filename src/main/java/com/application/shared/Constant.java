@@ -68,4 +68,8 @@ public class Constant {
     public static final String POST = "POST";
     public static final String PUT = "PUT";
     public static final String DELETE = "DELETE";
+
+    /*
+    * EXCEPTION default messages*/
+    public static final String ROUTE_NOT_FOUND_MSG = "La ruta no ha sido encontrada";
 }
