@@ -24,8 +24,10 @@ public class ShipmentForBranchDto {
     private LocalDateTime departureDate;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = Constant.DATE_TIME_FORMAT)
     private LocalDateTime arrivalDate;
-    private Integer checked;
-    private Integer flightFriendlyId;
+    private Boolean checked;
+    private String flightFriendlyId;
     private Integer sequence;
-    private Integer isActive;
+    private Boolean isActive;
+    private Integer idBranch;
+    private Integer idShipment;
 }
