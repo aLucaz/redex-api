@@ -6,6 +6,7 @@ import lombok.Setter;
 import lombok.experimental.Accessors;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -18,9 +19,13 @@ public class ShipmentState {
     @Column(nullable = false)
     private Integer idShipmentState;
 
-    @Column(nullable = false)
-    private String name;
+    @OneToMany(cascade = {CascadeType.ALL}, mappedBy = "shipmentState")
+    private Set<ShipmentForBranch> shipmentForBranches;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 40)
+    private String friendlyId;
+    @Column(nullable = false, length = 40)
+    private String name;
+    @Column(nullable = false, length = 1000)
     private String description;
 }

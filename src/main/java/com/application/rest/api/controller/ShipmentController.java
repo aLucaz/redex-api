@@ -1,6 +1,5 @@
 package com.application.rest.api.controller;
 
-import com.application.core.model.business.ShipmentForBranch;
 import com.application.core.model.dto.PathDto;
 import com.application.core.usecase.shipment.GenerateRouteUseCase;
 import com.application.core.usecase.shipment.RegisterShipmentUseCase;

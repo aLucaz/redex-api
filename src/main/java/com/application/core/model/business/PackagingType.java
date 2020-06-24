@@ -7,6 +7,7 @@ import lombok.experimental.Accessors;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -18,9 +19,13 @@ public class PackagingType {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(nullable = false)
     private Integer idPackagingType;
-    @Column(nullable = false)
+
+    @OneToMany(cascade = {CascadeType.ALL}, mappedBy = "packagingType")
+    private Set<Package> packages;
+
+    @Column(nullable = false, length = 40)
     private String name;
-    @Column(nullable = false)
+    @Column(nullable = false, length = 1000)
     private String description;
     @Column(nullable = false)
     private Float price;

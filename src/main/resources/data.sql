@@ -673,6 +673,7 @@ SELECT 40,
        'SYSTEM',
        NOW()
 WHERE NOT EXISTS(SELECT id_branch FROM branch WHERE id_branch = 40);
+
 /* DOCUMENT TYPE TABLE AUTO FILLING */
 INSERT INTO document_type (id_document_type, name, description, last_modified_by, last_modified_date, registered_by,
                            registered_date)
@@ -682,8 +683,11 @@ INSERT INTO document_type (id_document_type, name, description, last_modified_by
                            registered_date)
 SELECT 2, 'Pasaporte', 'Pasaporte', 'SYSTEM', NOW(), 'SYSTEM', NOW()
 WHERE NOT EXISTS(SELECT id_document_type FROM document_type WHERE id_document_type = 2);
+INSERT INTO document_type (id_document_type, name, description, last_modified_by, last_modified_date, registered_by,
+                           registered_date)
 SELECT 3, 'Carnet de extranjeria', 'Carnet de extranjeria', 'SYSTEM', NOW(), 'SYSTEM', NOW()
 WHERE NOT EXISTS(SELECT id_document_type FROM document_type WHERE id_document_type = 3);
+
 /* PACKAGING TYPE TABLE AUTO FILLING*/
 INSERT INTO packaging_type (id_packaging_type, name, description, price, last_modified_by, last_modified_date,
                             registered_by,
@@ -709,6 +713,19 @@ SELECT 2,
        'SYSTEM',
        NOW()
 WHERE NOT EXISTS(SELECT id_packaging_type FROM packaging_type WHERE id_packaging_type = 2);
+INSERT INTO packaging_type (id_packaging_type, name, description, price, last_modified_by, last_modified_date,
+                            registered_by,
+                            registered_date)
+SELECT 3,
+       'Sin embalaje',
+       'Sin embalaje',
+       0.0,
+       'SYSTEM',
+       NOW(),
+       'SYSTEM',
+       NOW()
+WHERE NOT EXISTS(SELECT id_packaging_type FROM packaging_type WHERE id_packaging_type = 3);
+
 /* PACKAGE CATEGORY TABLE AUTO FILLING*/
 INSERT INTO package_category (id_package_category, name, description, last_modified_by, last_modified_date,
                               registered_by,
@@ -728,92 +745,25 @@ WHERE NOT EXISTS(SELECT id_package_category FROM package_category WHERE id_packa
 INSERT INTO package_category (id_package_category, name, description, last_modified_by, last_modified_date,
                               registered_by,
                               registered_date)
-SELECT 4, 'Other', 'Other', 'SYSTEM', NOW(), 'SYSTEM', NOW()
+SELECT 4, 'Otros', 'Otros', 'SYSTEM', NOW(), 'SYSTEM', NOW()
 WHERE NOT EXISTS(SELECT id_package_category FROM package_category WHERE id_package_category = 4);
-/* USERS CATEGORY AUTO FILLING*/
-INSERT INTO user(id_user, birthday, document_id, email, first_name, genre, is_active, last_modified_by,
-                 last_modified_date, last_name, password_hash, password_salt, phone, registered_by, registered_date,
-                 id_document_type, id_role)
-SELECT 1,
-       NOW(),
-       '72974217',
-       'administrador@gmail.com',
-       'admin',
-       'Femenino',
-       1,
-       'SYSTEM',
-       NOW(),
-       'admin',
-       'QzGGXM4HtJa+TTNd/rSCRHnhyp0TICD3ux5xARa84H3vgJ0nSaWxskAv0gGcllSbI+IXhwE+h6QM
-3l5/vlg9ow==',
-       'V�W���YY���9�',
-       '992882772',
-       'SYSTEM',
-       NOW(),
-       1,
-       1
-WHERE NOT EXISTS(SELECT id_user FROM user WHERE id_user = 1);
 
-INSERT INTO employee(id_employee, id_branch, id_user)
-SELECT 1,
-       1,
-       1
-WHERE NOT EXISTS(SELECT id_employee FROM employee WHERE id_employee = 1);
-INSERT INTO user(id_user, birthday, document_id, email, first_name, genre, is_active, last_modified_by,
-                 last_modified_date, last_name, password_hash, password_salt, phone, registered_by, registered_date,
-                 id_document_type, id_role)
-SELECT 2,
-       NOW(),
-       '72974217',
-       'asistente@gmail.com',
-       'asistente',
-       'Femenino',
-       1,
-       'SYSTEM',
-       NOW(),
-       'asistente',
-       'QzGGXM4HtJa+TTNd/rSCRHnhyp0TICD3ux5xARa84H3vgJ0nSaWxskAv0gGcllSbI+IXhwE+h6QM
-3l5/vlg9ow==',
-       'V�W���YY���9�',
-       '992882772',
-       'SYSTEM',
-       NOW(),
-       1,
-       2
-WHERE NOT EXISTS(SELECT id_user FROM user WHERE id_user = 2);
+/* SHIPMENT STATE AUTO FILLING*/
 
-INSERT INTO employee(id_employee, id_branch, id_user)
-SELECT 2,
-       2,
-       2
-WHERE NOT EXISTS(SELECT id_employee FROM employee WHERE id_employee = 2);
-INSERT INTO user(id_user, birthday, document_id, email, first_name, genre, is_active, last_modified_by,
-                 last_modified_date, last_name, password_hash, password_salt, phone, registered_by, registered_date,
-                 id_document_type, id_role)
-SELECT 3,
-       NOW(),
-       '72974217',
-       'inspector@gmail.com',
-       'inspector',
-       'Femenino',
-       1,
-       'SYSTEM',
-       NOW(),
-       'inspector',
-       'QzGGXM4HtJa+TTNd/rSCRHnhyp0TICD3ux5xARa84H3vgJ0nSaWxskAv0gGcllSbI+IXhwE+h6QM
-3l5/vlg9ow==',
-       'V�W���YY���9�',
-       '992882772',
-       'SYSTEM',
-       NOW(),
-       1,
-       3
-WHERE NOT EXISTS(SELECT id_user FROM user WHERE id_user = 3);
+INSERT INTO shipment_state(id_shipment_state, friendly_id, description, name)
+SELECT 1, 'IN_TRANSIT_IN', 'En tránsito (por llegar)', 'En tránsito (por llegar)'
+WHERE NOT EXISTS(SELECT id_shipment_state FROM shipment_state WHERE id_shipment_state = 1);
 
-INSERT INTO employee(id_employee, id_branch, id_user)
-SELECT 3,
-       3,
-       3
-WHERE NOT EXISTS(SELECT id_employee FROM employee WHERE id_employee = 3);
+INSERT INTO shipment_state(id_shipment_state, friendly_id, description, name)
+SELECT 2, 'IN_TRANSIT_OUT', 'En tránsito (por salir)', 'En tránsito (por salir)'
+WHERE NOT EXISTS(SELECT id_shipment_state FROM shipment_state WHERE id_shipment_state = 2);
+
+INSERT INTO shipment_state(id_shipment_state, friendly_id, description, name)
+SELECT 3, 'TO_DELIVER', 'Por entregar', 'Por entregar'
+WHERE NOT EXISTS(SELECT id_shipment_state FROM shipment_state WHERE id_shipment_state = 3);
+
+INSERT INTO shipment_state(id_shipment_state, friendly_id, description, name)
+SELECT 4, 'FINISHED', 'Finalizado', 'Finalizado'
+WHERE NOT EXISTS(SELECT id_shipment_state FROM shipment_state WHERE id_shipment_state = 4);
 
 

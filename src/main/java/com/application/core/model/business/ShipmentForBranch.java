@@ -21,29 +21,24 @@ public class ShipmentForBranch {
 
     @ManyToOne
     @JoinColumn(name = "id_shipment")
-    private Shipment idShipment;
+    private Shipment shipment;
 
     @ManyToOne
     @JoinColumn(name = "id_branch")
-    private Branch idBranch;
+    private Branch branch;
 
     @ManyToOne
     @JoinColumn(name = "id_shipment_state")
-    private ShipmentState idShipmentState;
+    private ShipmentState shipmentState;
 
+    @Column
+    private LocalDateTime currentArrivalDate;
     @Column(nullable = false)
-    private LocalDateTime departureDate;
-
+    private LocalDateTime currentDepartureDate;
     @Column(nullable = false)
-    private LocalDateTime arrivalDate;
-
-    @Column(nullable = false)
-    private Boolean checked;
-
+    private LocalDateTime futureArrivalDate;
     @Column(nullable = false)
     private String flightFriendlyId;
-
-    @Column//(nullable = false)
-    private Integer Sequence;
-
+    @Column(nullable = false)
+    private Integer sequence;
 }

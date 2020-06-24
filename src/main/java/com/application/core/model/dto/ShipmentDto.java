@@ -12,6 +12,7 @@ import lombok.ToString;
 import lombok.experimental.Accessors;
 
 import java.time.LocalDateTime;
+
 @Getter
 @Setter
 @Accessors(chain = true)
@@ -20,10 +21,7 @@ import java.time.LocalDateTime;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class ShipmentDto {
-
     private Integer idShipment;
-    private Integer origin;
-    private Integer destination;
     private Float price;
     private String referenceCode;
     private String lastModifiedBy;

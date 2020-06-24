@@ -21,5 +21,10 @@ public class PackageDto {
     private Integer idShipment;
     private Integer idPackageCategory;
     private Integer idPackagingType;
+    private Float weight;
+    private Float dimensionX;
+    private Float dimensionY;
+    private Float dimensionZ;
     private String description;
+    private Boolean isDangerous;
 }

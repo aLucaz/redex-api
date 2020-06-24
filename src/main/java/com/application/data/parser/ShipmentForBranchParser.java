@@ -1,9 +1,9 @@
 package com.application.data.parser;
 
 import com.application.core.model.business.Branch;
-import com.application.core.model.business.Package;
 import com.application.core.model.business.Shipment;
 import com.application.core.model.business.ShipmentForBranch;
+import com.application.core.model.business.ShipmentState;
 import com.application.core.model.dto.ShipmentForBranchDto;
 import com.application.rest.api.request.registerShipment.RegisterShipmentBranchWrapper;
 import com.application.rest.api.request.registerShipment.RegisterShipmentRequest;
@@ -14,37 +14,36 @@ import java.util.List;
 public class ShipmentForBranchParser {
 
     public static List<ShipmentForBranchDto> mapToDto(RegisterShipmentRequest request) {
-        List<ShipmentForBranchDto> lista = new ArrayList<ShipmentForBranchDto>();
-        for(RegisterShipmentBranchWrapper wra : request.getTripPlan()){
-            lista.add(
+        List<ShipmentForBranchDto> shipmentForBranchDtoList = new ArrayList<>();
+        for (RegisterShipmentBranchWrapper wrapper : request.getTripPlan()) {
+            shipmentForBranchDtoList.add(
                     new ShipmentForBranchDto()
-                            .setChecked(false)
-                            .setDepartureDate(wra.getDepartureDate())
-                            .setFlightFriendlyId(wra.getFlightFriendlyId())
-                            .setArrivalDate(wra.getArrivalDate())
-                            .setIdBranch(wra.getOriginCity())
+                            .setIdBranch(wrapper.getStartCityId())
+                            .setCurrentArrivalDateTime(wrapper.getCurrentArrivalDateTime())
+                            .setCurrentDepartureDateTime(wrapper.getCurrentDepartureDateTime())
+                            .setFutureArrivalDateTime(wrapper.getFutureArrivalDateTime())
+                            .setFlightFriendlyId(wrapper.getFlightFriendlyId())
+                            .setSequence(wrapper.getSequence())
             );
-
         }
-        return lista;
+        return shipmentForBranchDtoList;
     }
 
-    public static List<ShipmentForBranch> mapToRow(List<ShipmentForBranchDto> shipmentForBranchDtoList) {
-        List<ShipmentForBranch> lista = new ArrayList<ShipmentForBranch>();
-        for(ShipmentForBranchDto shipmentForBranchDto : shipmentForBranchDtoList){
-            lista.add(
+    public static List<ShipmentForBranch> mapToRowList(List<ShipmentForBranchDto> shipmentForBranchDtoList) {
+        List<ShipmentForBranch> shipmentForBranchList = new ArrayList<>();
+        for (ShipmentForBranchDto shipmentForBranchDto : shipmentForBranchDtoList) {
+            shipmentForBranchList.add(
                     new ShipmentForBranch()
-                            .setChecked(shipmentForBranchDto.getChecked())
+                            .setShipment(new Shipment().setIdShipment(shipmentForBranchDto.getIdShipment()))
+                            .setBranch(new Branch().setIdBranch(shipmentForBranchDto.getIdBranch()))
+                            .setShipmentState(new ShipmentState().setIdShipmentState(shipmentForBranchDto.getIdShipmentState()))
+                            .setCurrentArrivalDate(shipmentForBranchDto.getCurrentArrivalDateTime())
+                            .setCurrentDepartureDate(shipmentForBranchDto.getCurrentDepartureDateTime())
+                            .setFutureArrivalDate(shipmentForBranchDto.getFutureArrivalDateTime())
                             .setFlightFriendlyId(shipmentForBranchDto.getFlightFriendlyId())
-                            .setDepartureDate(shipmentForBranchDto.getDepartureDate())
-                            .setArrivalDate(shipmentForBranchDto.getArrivalDate())
-                            .setIdBranch(new Branch().setIdBranch(shipmentForBranchDto.getIdBranch()))
-                            .setIdShipment(new Shipment().setIdShipment(shipmentForBranchDto.getIdShipment()))
+                            .setSequence(shipmentForBranchDto.getSequence())
             );
-
         }
-        return lista;
+        return shipmentForBranchList;
     }
-
-
 }

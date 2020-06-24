@@ -20,22 +20,27 @@ import java.time.LocalDateTime;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class RouteDto {
-    //
+    // this is for the initial request
     private String startPoint;
     private String endPoint;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = Constant.DATE_TIME_FORMAT)
     private LocalDateTime requestDateTime;
     private Integer sameContinent;
-    //
+    // this is filled by the algorithm
     private String flightFriendlyId;
     private String transportTime;
     private String waitingTime;
     private String totalTime;
-    //
+    // this is for the trip plan
+    private Integer sequence;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = Constant.DATE_TIME_FORMAT)
-    private LocalDateTime departureDateTime;
+    private LocalDateTime currentDepartureDateTime;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = Constant.DATE_TIME_FORMAT)
-    private LocalDateTime arrivalDateTime;
+    private LocalDateTime currentArrivalDateTime;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = Constant.DATE_TIME_FORMAT)
+    private LocalDateTime futureArrivalDateTime;
     private String startCity;
     private String endCity;
+    private Integer startCityId;
+    private Integer endCityId;
 }

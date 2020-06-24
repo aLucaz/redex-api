@@ -18,13 +18,17 @@ import java.time.LocalDateTime;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class RegisterShipmentBranchWrapper {
     @JsonFormat(pattern = Constant.DATE_TIME_FORMAT)
-    private LocalDateTime arrivalDate;
+    private LocalDateTime currentDepartureDateTime;
     @JsonFormat(pattern = Constant.DATE_TIME_FORMAT)
-    private LocalDateTime departureDate;
+    private LocalDateTime currentArrivalDateTime;
+    @JsonFormat(pattern = Constant.DATE_TIME_FORMAT)
+    private LocalDateTime futureArrivalDateTime;
     @NotNull
-    private Integer originCity;
+    private Integer startCityId;
     @NotNull
-    private Integer destinationCity;
+    private Integer endCityId;
     @NotNull
     private String flightFriendlyId;
+    @NotNull
+    private Integer sequence;
 }

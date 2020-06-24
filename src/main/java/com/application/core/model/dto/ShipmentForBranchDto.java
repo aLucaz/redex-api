@@ -20,14 +20,15 @@ import java.time.LocalDateTime;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class ShipmentForBranchDto {
+    private Integer idShipment;
+    private Integer idBranch;
+    private Integer idShipmentState;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = Constant.DATE_TIME_FORMAT)
-    private LocalDateTime departureDate;
+    private LocalDateTime currentDepartureDateTime;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = Constant.DATE_TIME_FORMAT)
-    private LocalDateTime arrivalDate;
-    private Boolean checked;
+    private LocalDateTime currentArrivalDateTime;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = Constant.DATE_TIME_FORMAT)
+    private LocalDateTime futureArrivalDateTime;
     private String flightFriendlyId;
     private Integer sequence;
-    private Boolean isActive;
-    private Integer idBranch;
-    private Integer idShipment;
 }
