@@ -57,7 +57,10 @@ public class GenerateRouteUseCase {
             throw new RouteNotFoundException(Constant.ROUTE_NOT_FOUND_MSG);
         // else create the tripPlan to return
         List<RouteDto> tripPlan = extractInformation(onlyRoute, routeDto.getRequestDateTime());
-        return new PathDto().setScaleNumber(tripPlan.size()).setTripPlan(tripPlan);
+        return new PathDto()
+                .setScaleNumber(tripPlan.size())
+                .setTripPlan(tripPlan)
+                .setPrice(Constant.DEFAULT_PRICE_TRIP_PLAN);
     }
 
     public void checkIfBranchsAreAvailable(RouteDto routeDto) {
