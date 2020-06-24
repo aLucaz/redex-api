@@ -55,6 +55,7 @@ public class Constant {
      * Algorithms constants*/
     public static final String DEFAULT_ACTION = "START_POINT";
     public static final String DESTINY_NOT_FOUND = "DESTINY_NOT_FOUND";
+    public static final Double DEFAULT_PRICE_TRIP_PLAN = 150.0;
     /*
      * Active constatnt*/
     public static final Integer ACTIVE = 1;
@@ -78,5 +79,6 @@ public class Constant {
     * Shipment constant values*/
     public static final Boolean INITIAL_CHECKED_STATE = false;
     public static final String DEFAULT_SHIPMENT_STATE_FRIENDLY_ID = "IN_TRANSIT_IN";
-
+    /*
+    * Shipment*/
 }

@@ -19,6 +19,7 @@ import java.util.List;
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class PathDto {
     private Integer scaleNumber;
+    private Double price;
     private List<RouteDto> tripPlan;
 }
 
