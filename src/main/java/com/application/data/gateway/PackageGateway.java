@@ -19,9 +19,7 @@ public class PackageGateway {
 
     @SneakyThrows
     public void persist(List<PackageDto> packageDtoList) {
-        List<Package> packageList = PackageParser.mapToRow(packageDtoList);
+        List<Package> packageList = PackageParser.mapToRowList(packageDtoList);
         repository.saveAll(packageList);
     }
-
-
 }

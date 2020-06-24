@@ -29,6 +29,9 @@ public class Branch {
     @OneToMany(cascade = {CascadeType.ALL}, mappedBy = "branch")
     Set<Employee> employees;
 
+    @OneToMany(cascade = {CascadeType.ALL}, mappedBy = "branch")
+    Set<ShipmentForBranch> shipmentForBranches;
+
     @Column(nullable = false, length = 40)
     private String name;
     @Column(nullable = false, length = 40)

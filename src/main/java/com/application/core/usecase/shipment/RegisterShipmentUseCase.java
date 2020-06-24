@@ -1,9 +1,13 @@
 package com.application.core.usecase.shipment;
 
-import com.application.core.model.business.Package;
-import com.application.core.model.business.Shipment;
-import com.application.core.model.dto.*;
-import com.application.data.gateway.*;
+import com.application.core.model.dto.PackageDto;
+import com.application.core.model.dto.ShipmentDto;
+import com.application.core.model.dto.ShipmentForBranchDto;
+import com.application.data.gateway.PackageGateway;
+import com.application.data.gateway.ShipmentForBranchGateway;
+import com.application.data.gateway.ShipmentGateway;
+import com.application.data.gateway.ShipmentStateGateway;
+import com.application.shared.Constant;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,21 +16,25 @@ import java.util.List;
 public class RegisterShipmentUseCase {
     ShipmentGateway shipmentGateway;
     ShipmentForBranchGateway shipmentForBranchGateway;
+    ShipmentStateGateway shipmentStateGateway;
     PackageGateway packageGateway;
 
-    public RegisterShipmentUseCase(ShipmentGateway shipmentGateway, ShipmentForBranchGateway shipmentForBranchGateway,PackageGateway packageGateway) {
+    public RegisterShipmentUseCase(ShipmentGateway shipmentGateway, ShipmentForBranchGateway shipmentForBranchGateway,
+                                   PackageGateway packageGateway, ShipmentStateGateway shipmentStateGateway) {
         this.shipmentGateway = shipmentGateway;
         this.shipmentForBranchGateway = shipmentForBranchGateway;
         this.packageGateway = packageGateway;
+        this.shipmentStateGateway = shipmentStateGateway;
     }
 
-    public void execute(ShipmentDto shipmentDto,List<ShipmentForBranchDto> shipmentForBranchDtoList, List<PackageDto> packageDtoList) {
+    public void execute(ShipmentDto shipmentDto, List<ShipmentForBranchDto> shipmentForBranchDtoList, List<PackageDto> packageDtoList) {
         ShipmentDto shipmentResponse = shipmentGateway.persist(shipmentDto);
-        for(ShipmentForBranchDto shipmentForBranchDto : shipmentForBranchDtoList){
+        for (ShipmentForBranchDto shipmentForBranchDto : shipmentForBranchDtoList) {
             shipmentForBranchDto.setIdShipment(shipmentResponse.getIdShipment());
+            shipmentForBranchDto.setIdShipmentState(shipmentStateGateway.getDefaultShipmentState(Constant.DEFAULT_SHIPMENT_STATE_FRIENDLY_ID));
         }
         shipmentForBranchGateway.persist(shipmentForBranchDtoList);
-        for(PackageDto packageDto : packageDtoList){
+        for (PackageDto packageDto : packageDtoList) {
             packageDto.setIdShipment(shipmentResponse.getIdShipment());
         }
         packageGateway.persist(packageDtoList);

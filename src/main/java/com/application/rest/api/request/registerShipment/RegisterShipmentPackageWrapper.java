@@ -15,7 +15,9 @@ import javax.validation.constraints.NotNull;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class RegisterShipmentPackageWrapper {
     @NotNull
-    private Integer numberPackage;
+    private Integer idPackagingType;
+    @NotNull
+    private Integer idPackageCategory;
     @NotNull
     private Float weight;
     @NotNull
@@ -28,12 +30,4 @@ public class RegisterShipmentPackageWrapper {
     private String description;
     @NotNull
     private Boolean isDangerous;
-    @NotNull
-    private Boolean isEmbalaje;
-    @NotNull
-    private Integer articleType;
-    @NotNull
-    private Integer idPackageCategory;
-    @NotNull
-    private Integer idPackagingType;
 }

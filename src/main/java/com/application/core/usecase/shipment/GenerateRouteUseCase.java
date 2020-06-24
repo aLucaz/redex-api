@@ -17,6 +17,8 @@ import com.application.shared.exception.custom.BranchNotAvailableException;
 import com.application.shared.exception.custom.RouteNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -54,7 +56,7 @@ public class GenerateRouteUseCase {
         if (onlyRoute == null)
             throw new RouteNotFoundException(Constant.ROUTE_NOT_FOUND_MSG);
         // else create the tripPlan to return
-        List<RouteDto> tripPlan = extractInformation(onlyRoute);
+        List<RouteDto> tripPlan = extractInformation(onlyRoute, routeDto.getRequestDateTime());
         return new PathDto().setScaleNumber(tripPlan.size()).setTripPlan(tripPlan);
     }
 
@@ -69,13 +71,24 @@ public class GenerateRouteUseCase {
         }
     }
 
-    public List<RouteDto> extractInformation(List<RouteDto> basePath) {
+    public List<RouteDto> extractInformation(List<RouteDto> basePath, LocalDateTime requestDateTime) {
         basePath.forEach(
                 routeDto -> {
-                    routeDto.setDepartureDateTime(etFlightGateway.getDepartureLocalDateTime(routeDto.getFlightFriendlyId()));
-                    routeDto.setArrivalDateTime(etFlightGateway.getArrivalLocalDateTime(routeDto.getFlightFriendlyId()));
+                    routeDto.setCurrentDepartureDateTime(etFlightGateway.getDepartureLocalDateTime(routeDto.getFlightFriendlyId()));
+                    routeDto.setFutureArrivalDateTime(etFlightGateway.getArrivalLocalDateTime(routeDto.getFlightFriendlyId()));
+                    // getting currentArrivalDateTime
+                    int index = basePath.indexOf(routeDto);
+                    if (index == 0)
+                        routeDto.setCurrentArrivalDateTime(requestDateTime);
+                    else
+                        routeDto.setCurrentArrivalDateTime(basePath.get(index - 1).getFutureArrivalDateTime());
+                    // also save the sequence
+                    routeDto.setSequence(index + 1);
+                    // rest of data
                     routeDto.setStartCity(branchGateway.findNameOf(routeDto.getStartPoint()));
                     routeDto.setEndCity(branchGateway.findNameOf(routeDto.getEndPoint()));
+                    routeDto.setStartCityId(branchGateway.findIdOf(routeDto.getStartPoint()));
+                    routeDto.setEndCityId(branchGateway.findIdOf(routeDto.getEndPoint()));
                 }
         );
         return basePath;

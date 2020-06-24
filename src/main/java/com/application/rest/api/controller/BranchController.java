@@ -1,7 +1,6 @@
 package com.application.rest.api.controller;
 
 import com.application.core.model.dto.BranchDto;
-import com.application.core.model.dto.UserDto;
 import com.application.core.usecase.branch.GetBranchListUseCase;
 import com.application.rest.ApiResponse;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +18,7 @@ public class BranchController {
     private final GetBranchListUseCase getBranchList;
 
     @GetMapping("/list-branch")
-    public ResponseEntity<Object> getBranchList(){
+    public ResponseEntity<Object> getBranchList() {
         List<BranchDto> branchDtoList = getBranchList.execute();
         return new ApiResponse<>().ok(branchDtoList);
     }

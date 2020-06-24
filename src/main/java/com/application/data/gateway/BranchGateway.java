@@ -37,4 +37,8 @@ public class BranchGateway {
     public String findNameOf(String friendlyId){
         return repository.findByFriendlyId(friendlyId).getName();
     }
+
+    public Integer findIdOf(String friendlyId){
+        return repository.findByFriendlyId(friendlyId).getIdBranch();
+    }
 }

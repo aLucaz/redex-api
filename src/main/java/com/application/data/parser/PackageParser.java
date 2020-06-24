@@ -1,12 +1,12 @@
 package com.application.data.parser;
 
+import com.application.core.model.business.Package;
 import com.application.core.model.business.PackageCategory;
 import com.application.core.model.business.PackagingType;
 import com.application.core.model.business.Shipment;
 import com.application.core.model.dto.PackageDto;
 import com.application.rest.api.request.registerShipment.RegisterShipmentPackageWrapper;
 import com.application.rest.api.request.registerShipment.RegisterShipmentRequest;
-import com.application.core.model.business.Package;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,31 +14,39 @@ import java.util.List;
 public class PackageParser {
 
     public static List<PackageDto> mapToDto(RegisterShipmentRequest request) {
-        List<PackageDto> lista = new ArrayList<PackageDto>();
-        for(RegisterShipmentPackageWrapper wra : request.getPackages()){
-            lista.add(
+        List<PackageDto> packageDtoList = new ArrayList<>();
+        for (RegisterShipmentPackageWrapper wrapper : request.getPackages()) {
+            packageDtoList.add(
                     new PackageDto()
-                            .setIdPackagingType(wra.getIdPackagingType())
-                            .setIdPackageCategory(wra.getIdPackageCategory())
-                            .setDescription(wra.getDescription())
+                            .setIdPackagingType(wrapper.getIdPackagingType())
+                            .setIdPackageCategory(wrapper.getIdPackageCategory())
+                            .setWeight(wrapper.getWeight())
+                            .setDimensionX(wrapper.getDimensionX())
+                            .setDimensionY(wrapper.getDimensionY())
+                            .setDimensionZ(wrapper.getDimensionZ())
+                            .setDescription(wrapper.getDescription())
+                            .setIsDangerous(wrapper.getIsDangerous())
             );
-
         }
-        return lista;
+        return packageDtoList;
     }
 
-    public static List<Package> mapToRow(List<PackageDto> packageDtoList) {
-        List<Package> lista = new ArrayList<Package>();
-        for(PackageDto packageDto : packageDtoList){
-            lista.add(
+    public static List<Package> mapToRowList(List<PackageDto> packageDtoList) {
+        List<Package> packageList = new ArrayList<>();
+        for (PackageDto packageDto : packageDtoList) {
+            packageList.add(
                     new Package()
-                            .setIdPackaging(new PackagingType().setIdPackagingType(packageDto.getIdPackagingType()))
-                            .setIdCategory(new PackageCategory().setIdPackageCategory(packageDto.getIdPackageCategory()))
+                            .setShipment(new Shipment().setIdShipment(packageDto.getIdShipment()))
+                            .setPackagingType(new PackagingType().setIdPackagingType(packageDto.getIdPackagingType()))
+                            .setPackageCategory(new PackageCategory().setIdPackageCategory(packageDto.getIdPackageCategory()))
+                            .setWeight(packageDto.getWeight())
+                            .setDimensionX(packageDto.getDimensionX())
+                            .setDimensionY(packageDto.getDimensionY())
+                            .setDimensionZ(packageDto.getDimensionZ())
                             .setDescription(packageDto.getDescription())
-                            .setIdShipment(new Shipment().setIdShipment(packageDto.getIdShipment()))
+                            .setIsDangerous(packageDto.getIsDangerous())
             );
-
         }
-        return lista;
+        return packageList;
     }
 }

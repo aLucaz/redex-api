@@ -73,4 +73,10 @@ public class Constant {
     * EXCEPTION default messages*/
     public static final String ROUTE_NOT_FOUND_MSG = "La ruta no ha sido encontrada";
     public static final String INCORRECT_PASSWORD_MSG = "La contraseña es incorrecta";
+
+    /*
+    * Shipment constant values*/
+    public static final Boolean INITIAL_CHECKED_STATE = false;
+    public static final String DEFAULT_SHIPMENT_STATE_FRIENDLY_ID = "IN_TRANSIT_IN";
+
 }
