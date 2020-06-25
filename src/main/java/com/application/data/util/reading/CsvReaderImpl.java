@@ -1,13 +1,18 @@
 package com.application.data.util.reading;
 
 import com.application.core.model.dto.EtFlightDto;
+import com.application.core.model.dto.ShipmentRequestDto;
 import com.application.data.parser.EtFlightParser;
 import com.application.shared.Constant;
+import com.application.shared.Galactus;
 import lombok.SneakyThrows;
 import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Hashtable;
@@ -22,7 +27,6 @@ public class CsvReaderImpl implements CsvReader {
         LocalDate fromDate = LocalDate.now();
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(Constant.CSV_FILE_PATH))) {
             String line;
-
             bufferedReader.readLine();
             while ((line = bufferedReader.readLine()) != null) {
                 Hashtable<String, String> etFlightDict = new Hashtable<>();
@@ -45,4 +49,28 @@ public class CsvReaderImpl implements CsvReader {
         }
         return etFlightDtoList;
     }
+
+    @SneakyThrows
+    @Override
+    public List<ShipmentRequestDto> readShipmentRequestCsv(MultipartFile file) {
+        /*
+        * Assuming this format
+        * BIKF000008882-20200417-16:07-SGAS
+        * dont do this at home, never.
+        * */
+        List<ShipmentRequestDto> shipmentRequestDtoList = new ArrayList<>();
+        try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(file.getInputStream(), StandardCharsets.UTF_8))){
+            String line;
+            while ((line = bufferedReader.readLine()) != null){
+                String[] values = line.split(Constant.REQUEST_DELIMITER);
+                ShipmentRequestDto shipmentRequestDto = new ShipmentRequestDto()
+                        .setFrom(values[0].substring(0,4))
+                        .setTo(values[3])
+                        .setRequestDateTime(Galactus.parseRequestFormatToLocalDateTime(values[1], values[2]));
+                shipmentRequestDtoList.add(shipmentRequestDto);
+            }
+        }
+        return shipmentRequestDtoList;
+    }
+
 }

@@ -40,6 +40,7 @@ public class Constant {
      * */
     public static final String CSV_FILE_PATH = "src/main/java/com/application/shared/charge/etFlight.txt";
     public static final String DELIMITER = ",";
+    public static final String REQUEST_DELIMITER = "-";
     /*
      * Business logic about the range time
      * */
@@ -55,7 +56,7 @@ public class Constant {
      * Algorithms constants*/
     public static final String DEFAULT_ACTION = "START_POINT";
     public static final String DESTINY_NOT_FOUND = "DESTINY_NOT_FOUND";
-    public static final Double DEFAULT_PRICE_TRIP_PLAN = 150.0;
+    public static final double DEFAULT_PRICE_TRIP_PLAN = 150.0;
     /*
      * Active constatnt*/
     public static final Integer ACTIVE = 1;
@@ -80,5 +81,10 @@ public class Constant {
     public static final Boolean INITIAL_CHECKED_STATE = false;
     public static final String DEFAULT_SHIPMENT_STATE_FRIENDLY_ID = "IN_TRANSIT_IN";
     /*
-    * Shipment*/
+    * Simulation*/
+    public static final String REQUEST_FILE_NAME = "requestFile";
+    public static final String DEFAULT_USER_REGISTRATOR = "1";
+    public static final String DEFAULT_SHIPMENT_STATE_SIMULATION = "FINISHED";
+    public static final Boolean IS_NOT_A_SIMULATION = false;
+    public static final Boolean IS_A_SIMULATION = true;
 }

@@ -41,4 +41,8 @@ public class BranchGateway {
     public Integer findIdOf(String friendlyId){
         return repository.findByFriendlyId(friendlyId).getIdBranch();
     }
+
+    public String findContinentOf(String friendlyId){
+        return repository.findByFriendlyId(friendlyId).getContinent();
+    }
 }

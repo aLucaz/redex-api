@@ -32,11 +32,11 @@ public class ShipmentForBranch {
     private ShipmentState shipmentState;
 
     @Column
-    private LocalDateTime currentArrivalDate;
+    private LocalDateTime currentArrivalDateTime;
     @Column(nullable = false)
-    private LocalDateTime currentDepartureDate;
+    private LocalDateTime currentDepartureDateTime;
     @Column(nullable = false)
-    private LocalDateTime futureArrivalDate;
+    private LocalDateTime futureArrivalDateTime;
     @Column(nullable = false)
     private String flightFriendlyId;
     @Column(nullable = false)

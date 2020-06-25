@@ -12,7 +12,7 @@ import java.util.Base64;
 import java.util.Hashtable;
 
 @Component
-public class PasswordEncoderImpl implements PasswordEnconder {
+public class PasswordEncoderImpl implements PasswordEncoder {
 
     @Override
     public Hashtable<String, String> hash(String password) throws NoSuchAlgorithmException, InvalidKeySpecException {

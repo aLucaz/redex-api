@@ -8,7 +8,7 @@ import com.application.data.gateway.EmployeeGateway;
 import com.application.data.gateway.UserGateway;
 import com.application.data.parser.UserParser;
 import com.application.data.util.hashing.PasswordEncoderImpl;
-import com.application.data.util.hashing.PasswordEnconder;
+import com.application.data.util.hashing.PasswordEncoder;
 import com.application.shared.Constant;
 import com.application.shared.exception.custom.EntityNotFoundException;
 import com.application.shared.exception.custom.IncorrectPasswordException;
@@ -30,7 +30,7 @@ public class LoginUseCase {
 
     @SneakyThrows
     public UserDto execute(UserDto userDto) {
-        PasswordEnconder encoder = new PasswordEncoderImpl();
+        PasswordEncoder encoder = new PasswordEncoderImpl();
         // call the gateway to the database
         if (!userGateway.existInDataBase(userDto.getEmail()))
             throw new EntityNotFoundException(UserDto.class, "email", userDto.getEmail());
