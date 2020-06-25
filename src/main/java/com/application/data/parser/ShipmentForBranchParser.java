@@ -4,6 +4,8 @@ import com.application.core.model.business.Branch;
 import com.application.core.model.business.Shipment;
 import com.application.core.model.business.ShipmentForBranch;
 import com.application.core.model.business.ShipmentState;
+import com.application.core.model.dto.PathDto;
+import com.application.core.model.dto.RouteDto;
 import com.application.core.model.dto.ShipmentForBranchDto;
 import com.application.rest.api.request.registerShipment.RegisterShipmentBranchWrapper;
 import com.application.rest.api.request.registerShipment.RegisterShipmentRequest;
@@ -37,13 +39,30 @@ public class ShipmentForBranchParser {
                             .setShipment(new Shipment().setIdShipment(shipmentForBranchDto.getIdShipment()))
                             .setBranch(new Branch().setIdBranch(shipmentForBranchDto.getIdBranch()))
                             .setShipmentState(new ShipmentState().setIdShipmentState(shipmentForBranchDto.getIdShipmentState()))
-                            .setCurrentArrivalDate(shipmentForBranchDto.getCurrentArrivalDateTime())
-                            .setCurrentDepartureDate(shipmentForBranchDto.getCurrentDepartureDateTime())
-                            .setFutureArrivalDate(shipmentForBranchDto.getFutureArrivalDateTime())
+                            .setCurrentArrivalDateTime(shipmentForBranchDto.getCurrentArrivalDateTime())
+                            .setCurrentDepartureDateTime(shipmentForBranchDto.getCurrentDepartureDateTime())
+                            .setFutureArrivalDateTime(shipmentForBranchDto.getFutureArrivalDateTime())
                             .setFlightFriendlyId(shipmentForBranchDto.getFlightFriendlyId())
                             .setSequence(shipmentForBranchDto.getSequence())
             );
         }
         return shipmentForBranchList;
     }
+
+    public static List<ShipmentForBranchDto> mapToDtoList(List<PathDto> pathDtoList) {
+        List<ShipmentForBranchDto> shipmentForBranchDtoList = new ArrayList<>();
+        for (PathDto pathDto : pathDtoList) {
+            for (RouteDto routeDto : pathDto.getTripPlan()) {
+                shipmentForBranchDtoList.add(new ShipmentForBranchDto()
+                        .setIdBranch(routeDto.getStartCityId())
+                        .setCurrentArrivalDateTime(routeDto.getCurrentArrivalDateTime())
+                        .setCurrentDepartureDateTime(routeDto.getCurrentDepartureDateTime())
+                        .setFutureArrivalDateTime(routeDto.getFutureArrivalDateTime())
+                        .setFlightFriendlyId(routeDto.getFlightFriendlyId())
+                        .setSequence(routeDto.getSequence()));
+            }
+        }
+        return shipmentForBranchDtoList;
+    }
 }
+

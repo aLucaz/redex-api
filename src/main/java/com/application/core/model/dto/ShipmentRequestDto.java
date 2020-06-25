@@ -1,5 +1,7 @@
 package com.application.core.model.dto;
 
+import com.application.shared.Constant;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
@@ -8,7 +10,7 @@ import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.Accessors;
 
-import java.util.List;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -17,9 +19,10 @@ import java.util.List;
 @ToString
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
-public class PathDto {
-    private Integer scaleNumber;
-    private Float price;
-    private List<RouteDto> tripPlan;
+public class ShipmentRequestDto {
+    private String from;
+    private String to;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = Constant.DATE_TIME_FORMAT)
+    private LocalDateTime requestDateTime;
+    private Integer sameContinent;
 }
-

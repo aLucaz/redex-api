@@ -5,7 +5,7 @@ import com.application.core.model.dto.UserDto;
 import com.application.data.parser.UserParser;
 import com.application.data.repository.UserRepository;
 import com.application.data.util.hashing.PasswordEncoderImpl;
-import com.application.data.util.hashing.PasswordEnconder;
+import com.application.data.util.hashing.PasswordEncoder;
 import lombok.SneakyThrows;
 import org.springframework.stereotype.Repository;
 
@@ -15,7 +15,7 @@ import java.util.List;
 @Repository
 public class UserGateway {
     private final UserRepository repository;
-    private final PasswordEnconder encoder;
+    private final PasswordEncoder encoder;
 
     public UserGateway(UserRepository repository, PasswordEncoderImpl encoder) {
         this.repository = repository;
