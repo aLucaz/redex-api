@@ -9,7 +9,7 @@ import lombok.Setter;
 import lombok.experimental.Accessors;
 
 import javax.validation.constraints.NotNull;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 
 @Getter
@@ -27,8 +27,8 @@ public class RegisterUserRequest {
     @NotNull
     private String email;
     @NotNull
-    @JsonFormat(pattern = Constant.DATE_TIME_FORMAT)
-    private LocalDateTime birthday;
+    @JsonFormat(pattern = Constant.DATE_FORMAT)
+    private LocalDate birthday;
     @NotNull
     private String genre;
     @NotNull
