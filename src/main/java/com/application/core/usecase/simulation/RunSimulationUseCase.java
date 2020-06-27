@@ -42,7 +42,6 @@ public class RunSimulationUseCase {
                 .collect(Collectors.toList());
         // now save all the trip plans
         shipmentGateway.saveAllSimulatedShipments(pathDtoList, shipmentStateGateway.getDefaultShipmentState(Constant.DEFAULT_SHIPMENT_STATE_SIMULATION));
-//        System.out.println("go");
     }
 
     public List<ShipmentRequestDto> addContinentInformation(List<ShipmentRequestDto> shipmentRequestDtoList) {
