@@ -87,4 +87,9 @@ public class Constant {
     public static final String DEFAULT_SHIPMENT_STATE_SIMULATION = "FINISHED";
     public static final Boolean IS_NOT_A_SIMULATION = false;
     public static final Boolean IS_A_SIMULATION = true;
+
+    /*
+    * Calculate prices*/
+    public static final Float PRICE_PER_ARTICLE = (float) 10.0;
+    public static final Float PRICE_PER_SCALE = (float) 40.0;   
 }

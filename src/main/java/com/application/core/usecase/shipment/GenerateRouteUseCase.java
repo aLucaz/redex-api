@@ -15,6 +15,7 @@ import com.application.data.gateway.EtFlightGateway;
 import com.application.shared.Constant;
 import com.application.shared.exception.custom.BranchNotAvailableException;
 import com.application.shared.exception.custom.RouteNotFoundException;
+import org.apache.tomcat.util.bcel.Const;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -59,9 +60,11 @@ public class GenerateRouteUseCase {
         // else create the tripPlan to return
         List<RouteDto> tripPlan = extractInformation(onlyRoute, routeDto.getRequestDateTime());
         return new PathDto()
+                .setDepartureDateTime(getDepartureOf(tripPlan))
+                .setArrivalDateTime(getArrivalOf(tripPlan))
                 .setScaleNumber(tripPlan.size())
                 .setTripPlan(tripPlan)
-                .setPrice((float) Constant.DEFAULT_PRICE_TRIP_PLAN);
+                .setPrice(calculatePrice(tripPlan, routeDto.getNumberOfArticles()));
     }
 
     public void checkIfBranchsAreAvailable(RouteDto routeDto) {
@@ -96,5 +99,18 @@ public class GenerateRouteUseCase {
                 }
         );
         return basePath;
+    }
+
+    public LocalDateTime getDepartureOf(List<RouteDto> tripPlan){
+        return tripPlan.get(0).getCurrentDepartureDateTime();
+    }
+
+    public LocalDateTime getArrivalOf(List<RouteDto> tripPlan){
+        return  tripPlan.get(tripPlan.size() - 1).getFutureArrivalDateTime();
+    }
+
+    public Float calculatePrice(List<RouteDto> tripPlan, Integer numberOfArticles){
+        Integer scaleNumber = tripPlan.size();
+        return Constant.PRICE_PER_ARTICLE * numberOfArticles + Constant.PRICE_PER_SCALE * scaleNumber;
     }
 }

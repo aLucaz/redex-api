@@ -10,7 +10,8 @@ public class RouteParser {
                 .setStartPoint(request.getStartPoint())
                 .setEndPoint(request.getEndPoint())
                 .setRequestDateTime(request.getRequestDateTime())
-                .setSameContinent(request.getSameContinent());
+                .setSameContinent(request.getSameContinent())
+                .setNumberOfArticles(request.getNumberOfArticles());
     }
 
     public static RouteDto mapToDto(ShipmentRequestDto shipmentRequestDto){
