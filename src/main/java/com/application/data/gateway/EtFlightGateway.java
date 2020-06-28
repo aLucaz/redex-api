@@ -4,7 +4,6 @@ import com.application.core.model.business.EtFlight;
 import com.application.core.model.dto.EtFlightDto;
 import com.application.core.model.dto.RouteDto;
 import com.application.core.usecase.util.algorithm.util.DrStrange;
-import com.application.core.usecase.util.algorithm.util.Time;
 import com.application.data.parser.EtFlightParser;
 import com.application.data.repository.EtFlightRepository;
 import com.application.data.util.reading.CsvReader;
@@ -65,7 +64,7 @@ public class EtFlightGateway {
         return LocalDateTime.parse(etFlight.getEtFlightDate() + ' ' + etFlight.getDepartureTime(), Constant.PROP_DATE_TIME_FORMATTER);
     }
 
-    public LocalDateTime getArrivalLocalDateTime(String flightFriendlyId){
+    public LocalDateTime getArrivalLocalDateTime(String flightFriendlyId) {
         EtFlight etFlight = repository.findByFriendlyId(flightFriendlyId);
         LocalDateTime departureDateTime = getDepartureLocalDateTime(flightFriendlyId);
         String departureTime = etFlight.getDepartureTime();

@@ -14,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Getter
@@ -43,7 +44,7 @@ User {
     @Column(nullable = false, length = 40)
     private String email;
     @Column(nullable = false)
-    private LocalDateTime birthday;
+    private LocalDate birthday;
     @Column(nullable = false)
     private String genre;
     @Column(nullable = false, length = 40)

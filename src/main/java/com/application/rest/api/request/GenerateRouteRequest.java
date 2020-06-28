@@ -26,4 +26,6 @@ public class GenerateRouteRequest {
     private LocalDateTime requestDateTime;
     @NotNull
     private Integer sameContinent;
+    @NotNull
+    private Integer numberOfArticles;
 }

@@ -1,6 +1,5 @@
 package com.application.data.parser;
 
-import com.application.core.model.business.Branch;
 import com.application.core.model.business.DocumentType;
 import com.application.core.model.business.Employee;
 import com.application.core.model.business.Role;

@@ -40,6 +40,7 @@ public class Constant {
      * */
     public static final String CSV_FILE_PATH = "src/main/java/com/application/shared/charge/etFlight.txt";
     public static final String DELIMITER = ",";
+    public static final String REQUEST_DELIMITER = "-";
     /*
      * Business logic about the range time
      * */
@@ -55,7 +56,7 @@ public class Constant {
      * Algorithms constants*/
     public static final String DEFAULT_ACTION = "START_POINT";
     public static final String DESTINY_NOT_FOUND = "DESTINY_NOT_FOUND";
-    public static final Double DEFAULT_PRICE_TRIP_PLAN = 150.0;
+    public static final double DEFAULT_PRICE_TRIP_PLAN = 150.0;
     /*
      * Active constatnt*/
     public static final Integer ACTIVE = 1;
@@ -64,21 +65,31 @@ public class Constant {
     public static final String DELIMITER_OPEN = "{";
     public static final String DELIMITER_CLOSE = "}";
     /*
-    * CORS allowed methods*/
+     * CORS allowed methods*/
     public static final String GET = "GET";
     public static final String POST = "POST";
     public static final String PUT = "PUT";
     public static final String DELETE = "DELETE";
 
     /*
-    * EXCEPTION default messages*/
+     * EXCEPTION default messages*/
     public static final String ROUTE_NOT_FOUND_MSG = "La ruta no ha sido encontrada";
     public static final String INCORRECT_PASSWORD_MSG = "La contraseña es incorrecta";
 
     /*
-    * Shipment constant values*/
+     * Shipment constant values*/
     public static final Boolean INITIAL_CHECKED_STATE = false;
     public static final String DEFAULT_SHIPMENT_STATE_FRIENDLY_ID = "IN_TRANSIT_IN";
     /*
-    * Shipment*/
+     * Simulation*/
+    public static final String REQUEST_FILE_NAME = "requestFile";
+    public static final String DEFAULT_USER_REGISTRATOR = "1";
+    public static final String DEFAULT_SHIPMENT_STATE_SIMULATION = "FINISHED";
+    public static final Boolean IS_NOT_A_SIMULATION = false;
+    public static final Boolean IS_A_SIMULATION = true;
+
+    /*
+    * Calculate prices*/
+    public static final Float PRICE_PER_ARTICLE = (float) 10.0;
+    public static final Float PRICE_PER_SCALE = (float) 40.0;   
 }

@@ -26,6 +26,7 @@ public class RouteDto {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = Constant.DATE_TIME_FORMAT)
     private LocalDateTime requestDateTime;
     private Integer sameContinent;
+    private Integer numberOfArticles;
     // this is filled by the algorithm
     private String flightFriendlyId;
     private String transportTime;
