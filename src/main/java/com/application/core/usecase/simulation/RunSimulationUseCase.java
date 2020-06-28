@@ -34,7 +34,7 @@ public class RunSimulationUseCase {
     }
 
     public void execute(MultipartFile file) {
-        List<ShipmentRequestDto> shipmentRequestDtoList = addContinentInformation(csvReader.readShipmentRequestCsv(file));
+        List<ShipmentRequestDto> shipmentRequestDtoList = addContinentInformation(csvReader.readShipmentRequestZip(file));
         // now we have to proccess all the requests one by one and create the list of tripPlans
         List<PathDto> pathDtoList = shipmentRequestDtoList
                 .stream()
