@@ -25,6 +25,27 @@ public class RegisterShipmentRequest {
     private String lastModifiedBy;
     @NotNull
     private String registeredBy;
+    @NotNull
+    private String customerFirstName;
+    @NotNull
+    private String customerLastName;
+    @NotNull
+    private Integer customerDocumentType;
+    @NotNull
+    private String customerDocument;
+    @NotNull
+    private String customerPhone;
+    @NotNull
+    private String receiverFirstName;
+    @NotNull
+    private String receiverLastName;
+    @NotNull
+    private Integer receiverDocumentType;
+    @NotNull
+    private String receiverDocument;
+    @NotNull
+    private String receiverPhone;
+
 }
 
 
