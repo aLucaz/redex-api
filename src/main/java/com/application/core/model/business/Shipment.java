@@ -36,6 +36,10 @@ public class Shipment {
     private Float price;
     @Column
     private String referenceCode;
+    @Column
+    private Boolean isSimulated;
+    @Column
+    private Boolean isActive;
     @Column(nullable = false)
     private String lastModifiedBy;
     @Column(nullable = false)

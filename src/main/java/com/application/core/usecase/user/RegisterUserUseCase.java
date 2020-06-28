@@ -20,9 +20,12 @@ public class RegisterUserUseCase {
     }
 
     @SneakyThrows
-    public UserDto execute(UserDto userDto) {
+    public UserDto execute(UserDto userDto, boolean isEventListener) {
         if (userGateway.existInDataBase(userDto.getEmail()))
-            throw new EntityDuplicatedException(UserDto.class, "email", userDto.getEmail());
+            if (isEventListener)
+                return null;
+            else
+                throw new EntityDuplicatedException(UserDto.class, "email", userDto.getEmail());
         // call the gateway to the database
         UserDto userDtoResponse = userGateway.persist(userDto).setIdBranch(userDto.getIdBranch());
         employeeGateway.persist(EmployeeParser.mapToDto(userDtoResponse));
