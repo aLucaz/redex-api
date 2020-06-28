@@ -8,6 +8,7 @@ import com.application.data.parser.UserParser;
 import com.application.rest.ApiResponse;
 import com.application.rest.api.request.LoginRequest;
 import com.application.rest.api.request.RegisterUserRequest;
+import com.application.shared.Constant;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,7 +32,7 @@ public class UserController {
     @PostMapping("/register-user")
     public ResponseEntity<Object> registerUser(@Valid @RequestBody RegisterUserRequest request) {
         // call use case
-        UserDto userDto = registerUser.execute(UserParser.mapToDto(request));
+        UserDto userDto = registerUser.execute(UserParser.mapToDto(request), Constant.IS_NOT_AN_EVENT_LISTENER);
         // return ok response
         return new ApiResponse<>().ok(userDto);
     }

@@ -9,8 +9,6 @@ import lombok.Setter;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -45,7 +43,7 @@ public class Problem {
 
     public List<String> allActionsFrom(Node me) {
         List<String> actions = new ArrayList<>();
-        List<Edge> neighbors =  network.getNeighbors().getOrDefault(me.getCurrentState(), new ArrayList<>());
+        List<Edge> neighbors = network.getNeighbors().getOrDefault(me.getCurrentState(), new ArrayList<>());
         for (Edge neighbor : neighbors) {
             actions.add(neighbor.getFlightFriendlyId());
         }

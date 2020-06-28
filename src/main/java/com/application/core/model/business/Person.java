@@ -5,8 +5,17 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -22,6 +31,9 @@ public class Person {
     @ManyToOne
     @JoinColumn(name = "id_document_type")
     private DocumentType documentType;
+
+    @OneToMany(cascade = {CascadeType.ALL}, mappedBy = "person")
+    private Set<ShipmentForPerson> shipmentForPeople;
 
     @Column(nullable = false, length = 40)
     private String firstName;

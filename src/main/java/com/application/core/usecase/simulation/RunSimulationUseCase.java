@@ -3,8 +3,9 @@ package com.application.core.usecase.simulation;
 import com.application.core.model.dto.PathDto;
 import com.application.core.model.dto.ShipmentRequestDto;
 import com.application.core.usecase.shipment.GenerateRouteUseCase;
+import com.application.core.usecase.util.generator.referenceCode.ReferenceCodeGenerator;
+import com.application.core.usecase.util.generator.referenceCode.ReferenceCodeGeneratorImpl;
 import com.application.data.gateway.BranchGateway;
-import com.application.data.gateway.ShipmentForBranchGateway;
 import com.application.data.gateway.ShipmentGateway;
 import com.application.data.gateway.ShipmentStateGateway;
 import com.application.data.parser.RouteParser;
@@ -24,13 +25,17 @@ public class RunSimulationUseCase {
     private final GenerateRouteUseCase generateRouteUseCase;
     private final ShipmentGateway shipmentGateway;
     private final ShipmentStateGateway shipmentStateGateway;
+    private final ReferenceCodeGenerator referenceCodeGenerator;
 
-    public RunSimulationUseCase(CsvReaderImpl csvReader, BranchGateway branchGateway, GenerateRouteUseCase generateRouteUseCase, ShipmentGateway shipmentGateway, ShipmentStateGateway shipmentStateGateway) {
+    public RunSimulationUseCase(CsvReaderImpl csvReader, BranchGateway branchGateway,
+                                GenerateRouteUseCase generateRouteUseCase, ShipmentGateway shipmentGateway,
+                                ShipmentStateGateway shipmentStateGateway, ReferenceCodeGeneratorImpl referenceCodeGenerator) {
         this.csvReader = csvReader;
         this.branchGateway = branchGateway;
         this.generateRouteUseCase = generateRouteUseCase;
         this.shipmentGateway = shipmentGateway;
         this.shipmentStateGateway = shipmentStateGateway;
+        this.referenceCodeGenerator = referenceCodeGenerator;
     }
 
     public void execute(MultipartFile file) {

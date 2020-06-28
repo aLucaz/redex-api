@@ -32,10 +32,17 @@ public class Shipment {
     @OneToMany(cascade = {CascadeType.ALL}, mappedBy = "shipment")
     private Set<Package> packages;
 
+    @OneToMany(cascade = {CascadeType.ALL}, mappedBy = "shipment")
+    private Set<ShipmentForPerson> shipmentForPeople;
+
     @Column(nullable = false)
     private Float price;
     @Column
     private String referenceCode;
+    @Column
+    private Boolean isSimulated;
+    @Column
+    private Boolean isActive;
     @Column(nullable = false)
     private String lastModifiedBy;
     @Column(nullable = false)

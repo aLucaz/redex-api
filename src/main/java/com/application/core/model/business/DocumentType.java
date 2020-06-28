@@ -30,6 +30,9 @@ public class DocumentType {
     @OneToMany(cascade = {CascadeType.ALL}, mappedBy = "documentType")
     private Set<User> users;
 
+    @OneToMany(cascade = {CascadeType.ALL}, mappedBy = "documentType")
+    private Set<Person> persons;
+
     @Column(nullable = false, length = 40)
     private String name;
     @Column(nullable = false, length = 1000)

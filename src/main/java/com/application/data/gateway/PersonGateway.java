@@ -1,30 +1,32 @@
 package com.application.data.gateway;
 
-import com.application.core.model.business.*;
-import com.application.core.model.dto.*;
-import com.application.data.parser.*;
-import com.application.data.repository.*;
-import lombok.*;
-import org.springframework.stereotype.*;
+import com.application.core.model.business.Person;
+import com.application.core.model.dto.PersonDto;
+import com.application.data.parser.PersonParser;
+import com.application.data.repository.PersonRepository;
+import org.springframework.stereotype.Repository;
 
 @Repository
 public class PersonGateway {
 
     private final PersonRepository repository;
+
     public PersonGateway(PersonRepository repository) {
         this.repository = repository;
     }
 
-    public Person findByDocument(Integer documentTypeId, String documentId) {
-
-        //NOTA: Da error al buscar por el tipo de documento. Corregir
-        //return repository.findByDocumentTypeAndDocumentId(documentTypeId,documentId);
-        return repository.findByDocumentId(documentId);
+    public Boolean existInDataBase(PersonDto personDto) {
+        Person person = PersonParser.mapToRow(personDto);
+        return repository.findByDocumentIdAndDocumentType(person.getDocumentId(), person.getDocumentType()) != null;
     }
 
-    @SneakyThrows
-    public Person persist(PersonDto personDto) {
+    public PersonDto getPersonInformation(PersonDto personDto) {
         Person person = PersonParser.mapToRow(personDto);
-        return repository.save(person);
+        return PersonParser.mapToDto(repository.findByDocumentIdAndDocumentType(person.getDocumentId(), person.getDocumentType()));
+    }
+
+    public PersonDto persist(PersonDto personDto) {
+        Person person = PersonParser.mapToRow(personDto);
+        return PersonParser.mapToDto(repository.save(person));
     }
 }
