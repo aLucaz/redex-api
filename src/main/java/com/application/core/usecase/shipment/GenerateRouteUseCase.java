@@ -110,6 +110,10 @@ public class GenerateRouteUseCase {
 
     public Float calculatePrice(List<RouteDto> tripPlan, Integer numberOfArticles) {
         Integer scaleNumber = tripPlan.size();
-        return Constant.PRICE_PER_ARTICLE * numberOfArticles + Constant.PRICE_PER_SCALE * scaleNumber;
+        if (numberOfArticles != null)
+            return Constant.PRICE_PER_ARTICLE * numberOfArticles + Constant.PRICE_PER_SCALE * scaleNumber;
+        else
+            return Constant.PRICE_PER_SCALE * scaleNumber;
     }
+
 }
