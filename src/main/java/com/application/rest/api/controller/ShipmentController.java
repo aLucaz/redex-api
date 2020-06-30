@@ -35,7 +35,7 @@ public class ShipmentController {
         return new ApiResponse<>().ok(route);
     }
 
-    @PostMapping("/register-shipment")
+    @PostMapping(value = "/register-shipment", consumes = "application/json", produces = "application/json")
     public ResponseEntity<Object> registerShipment(@Valid @RequestBody RegisterShipmentRequest request) {
         ShipmentCoreDto shipmentCore = registerShipmentUseCase.execute(
                 ShipmentParser.mapToDto(request),

@@ -25,7 +25,6 @@ public class RunSimulationUseCase {
     private final GenerateRouteUseCase generateRouteUseCase;
     private final ShipmentGateway shipmentGateway;
     private final ShipmentStateGateway shipmentStateGateway;
-    private final ReferenceCodeGenerator referenceCodeGenerator;
 
     public RunSimulationUseCase(CsvReaderImpl csvReader, BranchGateway branchGateway,
                                 GenerateRouteUseCase generateRouteUseCase, ShipmentGateway shipmentGateway,
@@ -35,7 +34,6 @@ public class RunSimulationUseCase {
         this.generateRouteUseCase = generateRouteUseCase;
         this.shipmentGateway = shipmentGateway;
         this.shipmentStateGateway = shipmentStateGateway;
-        this.referenceCodeGenerator = referenceCodeGenerator;
     }
 
     public void execute(MultipartFile file) {
