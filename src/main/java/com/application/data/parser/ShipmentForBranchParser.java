@@ -44,6 +44,14 @@ public class ShipmentForBranchParser {
                 .setSequence(shipmentForBranch.getSequence());
     }
 
+    public static List<ShipmentForBranchDto> mapToDtoListFromRowList(List<ShipmentForBranch> shipmentForBranches){
+        List<ShipmentForBranchDto> shipmentForBranchDtoList = new ArrayList<>();
+        for (ShipmentForBranch shipmentForBranch: shipmentForBranches) {
+            shipmentForBranchDtoList.add(mapToDto(shipmentForBranch));
+        }
+        return shipmentForBranchDtoList;
+    }
+
     public static Set<ShipmentForBranchDto> mapToDtoSet(Set<ShipmentForBranch> shipmentForBranchSet){
         Set<ShipmentForBranchDto> shipmentForBranchDtoSet = new HashSet<>();
         for (ShipmentForBranch shipmentForBranch: shipmentForBranchSet) {

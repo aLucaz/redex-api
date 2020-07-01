@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface ShipmentRepository extends CrudRepository<Shipment, Integer> {
     List<Shipment> findAllByIsSimulatedAndIsActive(Boolean isSimulated, Boolean isActive);
+    List<Shipment> findAllByIsActive(Boolean isActive);
 }

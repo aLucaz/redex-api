@@ -1,6 +1,5 @@
 package com.application.core.usecase.shipment;
 
-import com.application.core.model.business.ShipmentForPerson;
 import com.application.core.model.dto.PackageDto;
 import com.application.core.model.dto.PersonDto;
 import com.application.core.model.dto.ShipmentCoreDto;
@@ -93,7 +92,7 @@ public class RegisterShipmentUseCase {
         return peopleProcessed;
     }
 
-    public List<ShipmentForPersonDto> getShipmentForPersonInformation(HashMap<String, PersonDto> peopleProcessed, ShipmentDto shipmentResponse){
+    public List<ShipmentForPersonDto> getShipmentForPersonInformation(HashMap<String, PersonDto> peopleProcessed, ShipmentDto shipmentResponse) {
         List<ShipmentForPersonDto> shipmentForBranchDtoList = new ArrayList<>();
         peopleProcessed.forEach((friendlyId, personDto) -> {
             ShipmentForPersonDto shipmentForPersonDto = new ShipmentForPersonDto()
@@ -102,6 +101,6 @@ public class RegisterShipmentUseCase {
                     .setIdPersonType(personTypeGateway.findIdByFriendlyId(friendlyId));
             shipmentForBranchDtoList.add(shipmentForPersonDto);
         });
-        return  shipmentForBranchDtoList;
+        return shipmentForBranchDtoList;
     }
 }
