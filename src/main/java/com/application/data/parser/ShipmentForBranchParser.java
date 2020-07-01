@@ -99,6 +99,7 @@ public class ShipmentForBranchParser {
                     new ShipmentForBranchDto()
                             .setIdBranch(shipmentForBranch.getBranch().getIdBranch())
                             .setIdShipment(shipmentForBranch.getShipment().getIdShipment())
+                            .setShipmentStateFriendlyId(shipmentForBranch.getShipmentState().getFriendlyId())
                             .setReferenceCode(shipmentForBranch.getShipment().getReferenceCode())
                             .setIdShipmentState(shipmentForBranch.getShipmentState().getIdShipmentState())
                             .setCurrentArrivalDateTime(shipmentForBranch.getCurrentArrivalDateTime())

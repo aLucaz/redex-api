@@ -121,4 +121,10 @@ public class Constant {
     /*Incident Type
     * */
     public static final String CAPACITY_INCIDENT = "CAPACITY_INCIDENT";
+    /*Shipment State
+     * */
+    public static final String IN_TRANSIT_IN = "IN_TRANSIT_IN";
+    public static final String IN_TRANSIT_OUT = "IN_TRANSIT_OUT";
+    public static final String TO_DELIVER = "TO_DELIVER";
+
 }

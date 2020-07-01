@@ -23,6 +23,9 @@ public class BranchDto {
     private String friendlyId;
     private Integer capacity;
     private Integer quantity;
+    private Integer inTransitOut;
+    private Integer inTransitIn;
+    private Integer toDeliver;
     private String continent;
     private String latitude;
     private String longitude;
