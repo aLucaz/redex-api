@@ -8,6 +8,8 @@ import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.Accessors;
 
+import java.util.List;
+
 @Getter
 @Setter
 @Accessors(chain = true)
@@ -25,4 +27,5 @@ public class BranchDto {
     private String latitude;
     private String longitude;
     private Integer isActive;
+    List<ShipmentForBranchDto> shipments;
 }

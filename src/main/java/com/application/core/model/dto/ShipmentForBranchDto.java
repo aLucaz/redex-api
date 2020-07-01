@@ -23,6 +23,7 @@ public class ShipmentForBranchDto {
     private Integer idShipment;
     private Integer idBranch;
     private Integer idShipmentState;
+    private String referenceCode;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = Constant.DATE_TIME_FORMAT)
     private LocalDateTime currentDepartureDateTime;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = Constant.DATE_TIME_FORMAT)

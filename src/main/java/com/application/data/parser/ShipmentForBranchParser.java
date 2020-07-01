@@ -4,9 +4,7 @@ import com.application.core.model.business.Branch;
 import com.application.core.model.business.Shipment;
 import com.application.core.model.business.ShipmentForBranch;
 import com.application.core.model.business.ShipmentState;
-import com.application.core.model.dto.PathDto;
-import com.application.core.model.dto.RouteDto;
-import com.application.core.model.dto.ShipmentForBranchDto;
+import com.application.core.model.dto.*;
 import com.application.rest.api.request.registerShipment.RegisterShipmentBranchWrapper;
 import com.application.rest.api.request.registerShipment.RegisterShipmentRequest;
 
@@ -61,6 +59,25 @@ public class ShipmentForBranchParser {
                         .setFlightFriendlyId(routeDto.getFlightFriendlyId())
                         .setSequence(routeDto.getSequence()));
             }
+        }
+        return shipmentForBranchDtoList;
+    }
+
+    public static List<ShipmentForBranchDto> mapToDtoListFromShipmentForBranch(List<ShipmentForBranch> shipmentForBranchList){
+        List<ShipmentForBranchDto> shipmentForBranchDtoList = new ArrayList<>();
+        for(ShipmentForBranch shipmentForBranch : shipmentForBranchList){
+            shipmentForBranchDtoList.add(
+                    new ShipmentForBranchDto()
+                            .setIdBranch(shipmentForBranch.getBranch().getIdBranch())
+                            .setIdShipment(shipmentForBranch.getShipment().getIdShipment())
+                            .setReferenceCode(shipmentForBranch.getShipment().getReferenceCode())
+                            .setIdShipmentState(shipmentForBranch.getShipmentState().getIdShipmentState())
+                            .setCurrentArrivalDateTime(shipmentForBranch.getCurrentArrivalDateTime())
+                            .setCurrentDepartureDateTime(shipmentForBranch.getCurrentDepartureDateTime())
+                            .setFutureArrivalDateTime(shipmentForBranch.getFutureArrivalDateTime())
+                            .setFlightFriendlyId(shipmentForBranch.getFlightFriendlyId())
+                            .setSequence(shipmentForBranch.getSequence())
+            );
         }
         return shipmentForBranchDtoList;
     }

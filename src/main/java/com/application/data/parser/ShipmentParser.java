@@ -27,6 +27,7 @@ public class ShipmentParser {
     public static Shipment mapToRow(ShipmentDto shipmentDto) {
         return new Shipment()
                 .setPrice(shipmentDto.getPrice())
+                .setIsActive(Constant.ACTIVEB)
                 .setLastModifiedBy(shipmentDto.getLastModifiedBy())
                 .setLastModifiedDate(LocalDateTime.now())
                 .setRegisteredBy(shipmentDto.getRegisteredBy())
@@ -70,4 +71,6 @@ public class ShipmentParser {
         }
         return shipmentList;
     }
+
+
 }

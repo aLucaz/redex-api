@@ -5,6 +5,7 @@ import com.application.core.model.dto.PathDto;
 import com.application.core.model.dto.ShipmentDto;
 import com.application.data.parser.ShipmentParser;
 import com.application.data.repository.ShipmentRepository;
+import com.application.shared.*;
 import lombok.SneakyThrows;
 import org.springframework.stereotype.Repository;;import java.util.List;
 
@@ -26,4 +27,6 @@ public class ShipmentGateway {
         List<Shipment> shipmentList = ShipmentParser.mapToRowList(pathDtoList, shipmentStateId);
         repository.saveAll(shipmentList);
     }
+
+
 }

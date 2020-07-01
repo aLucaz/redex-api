@@ -17,6 +17,10 @@ public class BranchGateway {
         this.repository = repository;
     }
 
+    public Branch findByIdBranch(Integer idBranch){
+        return  repository.findByIdBranch(idBranch);
+    }
+
     public List<BranchDto> findAll(){
         // get all business models
         List<Branch> branchList = (List<Branch>) repository.findAll();
