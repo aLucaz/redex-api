@@ -53,6 +53,10 @@ public class ShipmentForBranchParser {
     }
 
     public static Set<ShipmentForBranchDto> mapToDtoSet(Set<ShipmentForBranch> shipmentForBranchSet){
+        // its possible to receive null Here
+        if(shipmentForBranchSet == null)
+            return null;
+        // continue with normal process
         Set<ShipmentForBranchDto> shipmentForBranchDtoSet = new HashSet<>();
         for (ShipmentForBranch shipmentForBranch: shipmentForBranchSet) {
             shipmentForBranchDtoSet.add(mapToDto(shipmentForBranch));
