@@ -8,6 +8,8 @@ import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.Accessors;
 
+import java.util.List;
+
 @Getter
 @Setter
 @Accessors(chain = true)
@@ -21,8 +23,12 @@ public class BranchDto {
     private String friendlyId;
     private Integer capacity;
     private Integer quantity;
+    private Integer inTransitOut;
+    private Integer inTransitIn;
+    private Integer toDeliver;
     private String continent;
     private String latitude;
     private String longitude;
     private Integer isActive;
+    List<ShipmentForBranchDto> shipments;
 }

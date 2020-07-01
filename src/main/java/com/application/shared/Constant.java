@@ -58,8 +58,9 @@ public class Constant {
     public static final String DESTINY_NOT_FOUND = "DESTINY_NOT_FOUND";
     public static final double DEFAULT_PRICE_TRIP_PLAN = 150.0;
     /*
-     * Active constatnt*/
+     * Active constant*/
     public static final Integer ACTIVE = 1;
+    public static final Boolean ACTIVEB = true;
     /*
      * Json open and closed*/
     public static final String DELIMITER_OPEN = "{";
@@ -120,4 +121,10 @@ public class Constant {
     /*Incident Type
     * */
     public static final String CAPACITY_INCIDENT = "CAPACITY_INCIDENT";
+    /*Shipment State
+     * */
+    public static final String IN_TRANSIT_IN = "IN_TRANSIT_IN";
+    public static final String IN_TRANSIT_OUT = "IN_TRANSIT_OUT";
+    public static final String TO_DELIVER = "TO_DELIVER";
+
 }

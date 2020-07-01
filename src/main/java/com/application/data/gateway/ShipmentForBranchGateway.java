@@ -6,6 +6,7 @@ import com.application.core.model.dto.ShipmentForBranchDto;
 import com.application.data.parser.BranchParser;
 import com.application.data.parser.ShipmentForBranchParser;
 import com.application.data.repository.ShipmentForBranchRepository;
+import com.application.shared.*;
 import lombok.SneakyThrows;
 import org.springframework.stereotype.Repository;
 
@@ -26,6 +27,10 @@ public class ShipmentForBranchGateway {
     public void persist(List<ShipmentForBranchDto> shipmentForBranchDtoList) {
         List<ShipmentForBranch> shipmentForBranchList = ShipmentForBranchParser.mapToRowList(shipmentForBranchDtoList);
         repository.saveAll(shipmentForBranchList);
+    }
+    @SneakyThrows
+    public List<ShipmentForBranch> getShipmentForBranchList(Integer idBranch) {
+        return repository.findByBranchIdBranchAndShipmentIsActive(idBranch, Constant.ACTIVEB);
     }
 
     public List<ShipmentForBranchDto> getRoutesInRange(LocalDate requestDate, Integer branchId) {

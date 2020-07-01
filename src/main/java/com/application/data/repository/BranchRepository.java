@@ -8,4 +8,5 @@ import java.util.List;
 public interface BranchRepository extends CrudRepository<Branch, Integer> {
     Branch findByFriendlyId(String friendlyId);
     List<Branch> findAllByIsActive(Integer active);
+    Branch findByIdBranch(Integer idBranch);
 }
