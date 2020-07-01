@@ -117,5 +117,7 @@ public class Constant {
     * */
     public static final String CUSTOMER_PERSON_FRIENDLY_ID = "CUSTOMER";
     public static final String RECEIVER_PERSON_FRIENDLY_ID = "RECEIVER";
-
+    /*Incident Type
+    * */
+    public static final String CAPACITY_INCIDENT = "CAPACITY_INCIDENT";
 }

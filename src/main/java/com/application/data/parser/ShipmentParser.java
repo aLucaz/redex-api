@@ -24,6 +24,24 @@ public class ShipmentParser {
                 .setRegisteredBy(request.getRegisteredBy());
     }
 
+    public static ShipmentDto mapToDto(Shipment shipment) {
+        return new ShipmentDto()
+                .setPrice(shipment.getPrice())
+                .setIdShipment(shipment.getIdShipment())
+                .setReferenceCode(shipment.getReferenceCode())
+                .setIsActive(shipment.getIsActive())
+                .setIsSimulated(shipment.getIsSimulated())
+                .setShipmentForBranches(ShipmentForBranchParser.mapToDtoSet(shipment.getShipmentForBranches()));
+    }
+
+    public static List<ShipmentDto> mapToDtoList(List<Shipment> shipmentList){
+        List<ShipmentDto> shipmentDtoList = new ArrayList<>();
+        for (Shipment shipment: shipmentList) {
+            shipmentDtoList.add(mapToDto(shipment));
+        }
+        return shipmentDtoList;
+    }
+
     public static Shipment mapToRow(ShipmentDto shipmentDto) {
         return new Shipment()
                 .setPrice(shipmentDto.getPrice())
@@ -34,13 +52,6 @@ public class ShipmentParser {
                 .setReferenceCode(shipmentDto.getReferenceCode())
                 .setIsActive(Constant.IS_ACTIVE)
                 .setIsSimulated(Constant.IS_NOT_A_SIMULATION);
-    }
-
-    public static ShipmentDto mapToDto(Shipment shipment) {
-        return new ShipmentDto()
-                .setPrice(shipment.getPrice())
-                .setIdShipment(shipment.getIdShipment())
-                .setReferenceCode(shipment.getReferenceCode());
     }
 
     public static List<Shipment> mapToRowList(List<PathDto> pathDtoList, Integer idShipmentState) {

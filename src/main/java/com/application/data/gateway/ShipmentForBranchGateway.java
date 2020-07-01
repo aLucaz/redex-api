@@ -22,4 +22,5 @@ public class ShipmentForBranchGateway {
         List<ShipmentForBranch> shipmentForBranchList = ShipmentForBranchParser.mapToRowList(shipmentForBranchDtoList);
         repository.saveAll(shipmentForBranchList);
     }
+
 }
