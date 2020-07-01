@@ -84,13 +84,41 @@ public class Constant {
     /*
      * Simulation*/
     public static final String REQUEST_FILE_NAME = "requestFile";
-    public static final String DEFAULT_USER_REGISTRATOR = "1";
+    public static final String DEFAULT_USER_REGISTRATOR = "SYSTEM";
     public static final String DEFAULT_SHIPMENT_STATE_SIMULATION = "FINISHED";
     public static final Boolean IS_NOT_A_SIMULATION = false;
     public static final Boolean IS_A_SIMULATION = true;
 
     /*
-    * Calculate prices*/
+     * Calculate prices*/
     public static final Float PRICE_PER_ARTICLE = (float) 10.0;
-    public static final Float PRICE_PER_SCALE = (float) 40.0;   
+    public static final Float PRICE_PER_SCALE = (float) 40.0;
+
+    /*
+     * User default*/
+    public static final String DOCUMENT_ID_DEFAULT = "12345678";
+    public static final String PHONE_DEFAULT = "12345678";
+    public static final String PASSWORD_DEFAULT = "casita123";
+    public static final String SYSTEM = "SYSTEM";
+    public static final String FAMALE_GENRE = "Femenino";
+    public static final String MALE_GENRE = "Masculino";
+
+    public static final Integer ADMIN_ID_ROLE = 1;
+    public static final Integer ASIST_ID_ROLE = 2;
+    public static final Integer INSPECT_ID_ROLE = 3;
+
+    /*
+    * event listener*/
+    public static final Boolean IS_AN_EVENT_LISTENER = true;
+    public static final Boolean IS_NOT_AN_EVENT_LISTENER = false;
+    public static final Boolean IS_ACTIVE = true;
+
+    public static final String UUID_SEPARATOR = "-";
+    /*
+    * */
+    public static final String CUSTOMER_PERSON_FRIENDLY_ID = "CUSTOMER";
+    public static final String RECEIVER_PERSON_FRIENDLY_ID = "RECEIVER";
+    /*Incident Type
+    * */
+    public static final String CAPACITY_INCIDENT = "CAPACITY_INCIDENT";
 }

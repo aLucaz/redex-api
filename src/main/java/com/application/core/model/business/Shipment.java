@@ -32,6 +32,9 @@ public class Shipment {
     @OneToMany(cascade = {CascadeType.ALL}, mappedBy = "shipment")
     private Set<Package> packages;
 
+    @OneToMany(cascade = {CascadeType.ALL}, mappedBy = "shipment")
+    private Set<ShipmentForPerson> shipmentForPeople;
+
     @Column(nullable = false)
     private Float price;
     @Column

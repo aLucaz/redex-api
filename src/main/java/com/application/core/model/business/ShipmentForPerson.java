@@ -5,7 +5,13 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Getter
 @Setter
@@ -20,13 +26,13 @@ public class ShipmentForPerson {
 
     @ManyToOne
     @JoinColumn(name = "id_shipment")
-    private Shipment idShipment;
+    private Shipment shipment;
 
     @ManyToOne
     @JoinColumn(name = "id_person")
-    private Person idPerson;
+    private Person person;
 
     @ManyToOne
     @JoinColumn(name = "id_person_type")
-    private PersonType idPersonType;
+    private PersonType personType;
 }

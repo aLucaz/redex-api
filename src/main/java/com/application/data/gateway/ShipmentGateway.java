@@ -5,9 +5,13 @@ import com.application.core.model.dto.PathDto;
 import com.application.core.model.dto.ShipmentDto;
 import com.application.data.parser.ShipmentParser;
 import com.application.data.repository.ShipmentRepository;
-import com.application.shared.*;
+import com.application.shared.Constant;
 import lombok.SneakyThrows;
-import org.springframework.stereotype.Repository;;import java.util.List;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
+
+;
 
 @Repository
 public class ShipmentGateway {
@@ -23,10 +27,16 @@ public class ShipmentGateway {
         return ShipmentParser.mapToDto(repository.save(shipment));
     }
 
-    public void saveAllSimulatedShipments(List<PathDto> pathDtoList, Integer shipmentStateId){
+    public void saveAllSimulatedShipments(List<PathDto> pathDtoList, Integer shipmentStateId) {
         List<Shipment> shipmentList = ShipmentParser.mapToRowList(pathDtoList, shipmentStateId);
         repository.saveAll(shipmentList);
     }
 
+    public List<ShipmentDto> getAllSimulatedShipments(){
+        return ShipmentParser.mapToDtoList(repository.findAllByIsSimulatedAndIsActive(Constant.IS_A_SIMULATION, Constant.IS_ACTIVE));
+    }
 
+    public List<ShipmentDto> findAllActive(){
+        return ShipmentParser.mapToDtoList(repository.findAllByIsActive(Constant.IS_ACTIVE));
+    }
 }

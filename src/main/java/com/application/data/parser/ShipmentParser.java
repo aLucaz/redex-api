@@ -24,6 +24,24 @@ public class ShipmentParser {
                 .setRegisteredBy(request.getRegisteredBy());
     }
 
+    public static ShipmentDto mapToDto(Shipment shipment) {
+        return new ShipmentDto()
+                .setPrice(shipment.getPrice())
+                .setIdShipment(shipment.getIdShipment())
+                .setReferenceCode(shipment.getReferenceCode())
+                .setIsActive(shipment.getIsActive())
+                .setIsSimulated(shipment.getIsSimulated())
+                .setShipmentForBranches(ShipmentForBranchParser.mapToDtoSet(shipment.getShipmentForBranches()));
+    }
+
+    public static List<ShipmentDto> mapToDtoList(List<Shipment> shipmentList){
+        List<ShipmentDto> shipmentDtoList = new ArrayList<>();
+        for (Shipment shipment: shipmentList) {
+            shipmentDtoList.add(mapToDto(shipment));
+        }
+        return shipmentDtoList;
+    }
+
     public static Shipment mapToRow(ShipmentDto shipmentDto) {
         return new Shipment()
                 .setPrice(shipmentDto.getPrice())
@@ -31,13 +49,10 @@ public class ShipmentParser {
                 .setLastModifiedBy(shipmentDto.getLastModifiedBy())
                 .setLastModifiedDate(LocalDateTime.now())
                 .setRegisteredBy(shipmentDto.getRegisteredBy())
-                .setRegisteredDate(LocalDateTime.now());
-    }
-
-    public static ShipmentDto mapToDto(Shipment shipment) {
-        return new ShipmentDto()
-                .setPrice(shipment.getPrice())
-                .setIdShipment(shipment.getIdShipment());
+                .setRegisteredDate(LocalDateTime.now())
+                .setReferenceCode(shipmentDto.getReferenceCode())
+                .setIsActive(Constant.IS_ACTIVE)
+                .setIsSimulated(Constant.IS_NOT_A_SIMULATION);
     }
 
     public static List<Shipment> mapToRowList(List<PathDto> pathDtoList, Integer idShipmentState) {
@@ -49,7 +64,9 @@ public class ShipmentParser {
                         .setLastModifiedBy(Constant.DEFAULT_USER_REGISTRATOR)
                         .setLastModifiedDate(LocalDateTime.now())
                         .setRegisteredBy(Constant.DEFAULT_USER_REGISTRATOR)
-                        .setRegisteredDate(LocalDateTime.now());
+                        .setRegisteredDate(LocalDateTime.now())
+                        .setIsSimulated(Constant.IS_A_SIMULATION)
+                        .setIsActive(Constant.IS_ACTIVE);
                 // now we create the shipment for branches
                 Set<ShipmentForBranch> shipmentForBranchSet = new HashSet<>();
                 for (RouteDto routeDto : pathDto.getTripPlan()) {

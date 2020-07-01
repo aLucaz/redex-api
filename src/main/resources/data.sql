@@ -766,4 +766,12 @@ INSERT INTO shipment_state(id_shipment_state, friendly_id, description, name)
 SELECT 4, 'FINISHED', 'Finalizado', 'Finalizado'
 WHERE NOT EXISTS(SELECT id_shipment_state FROM shipment_state WHERE id_shipment_state = 4);
 
+/* PERSON TYPE AUTO FILLING*/
 
+INSERT INTO person_type(id_person_type, friendly_id, description, name)
+SELECT 1, 'CUSTOMER', 'customer', 'customer'
+WHERE NOT EXISTS(SELECT id_person_type FROM person_type WHERE id_person_type = 1);
+
+INSERT INTO person_type(id_person_type, friendly_id, description, name)
+SELECT 2, 'RECEIVER', 'receiver', 'receiver'
+WHERE NOT EXISTS(SELECT id_person_type FROM person_type WHERE id_person_type = 2);

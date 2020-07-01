@@ -12,6 +12,7 @@ import lombok.ToString;
 import lombok.experimental.Accessors;
 
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -25,9 +26,12 @@ public class ShipmentDto {
     private Float price;
     private String referenceCode;
     private String lastModifiedBy;
+    private Set<ShipmentForBranchDto> shipmentForBranches;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = Constant.DATE_TIME_FORMAT)
     private LocalDateTime lastModifiedDate;
     private String registeredBy;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = Constant.DATE_TIME_FORMAT)
     private LocalDateTime registeredDate;
+    private Boolean isActive;
+    private Boolean isSimulated;
 }

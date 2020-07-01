@@ -28,4 +28,9 @@ public class BranchParser {
         }
         return branchDtoList;
     }
+
+    public static Branch mapToRow(BranchDto branchDto){
+        return new Branch()
+                .setIdBranch(branchDto.getIdBranch());
+    }
 }

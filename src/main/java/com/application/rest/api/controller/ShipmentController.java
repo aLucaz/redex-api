@@ -1,9 +1,14 @@
 package com.application.rest.api.controller;
 
 import com.application.core.model.dto.PathDto;
+import com.application.core.model.dto.ShipmentCoreDto;
 import com.application.core.usecase.shipment.GenerateRouteUseCase;
 import com.application.core.usecase.shipment.RegisterShipmentUseCase;
-import com.application.data.parser.*;
+import com.application.data.parser.PackageParser;
+import com.application.data.parser.PersonParser;
+import com.application.data.parser.RouteParser;
+import com.application.data.parser.ShipmentForBranchParser;
+import com.application.data.parser.ShipmentParser;
 import com.application.rest.ApiResponse;
 import com.application.rest.api.request.GenerateRouteRequest;
 import com.application.rest.api.request.registerShipment.RegisterShipmentRequest;
@@ -30,15 +35,15 @@ public class ShipmentController {
         return new ApiResponse<>().ok(route);
     }
 
-    @PostMapping("/register-shipment")
+    @PostMapping(value = "/register-shipment", consumes = "application/json", produces = "application/json")
     public ResponseEntity<Object> registerShipment(@Valid @RequestBody RegisterShipmentRequest request) {
-        registerShipmentUseCase.execute(
+        ShipmentCoreDto shipmentCore = registerShipmentUseCase.execute(
                 ShipmentParser.mapToDto(request),
                 ShipmentForBranchParser.mapToDto(request),
                 PackageParser.mapToDto(request),
                 PersonParser.mapToDtoCustomer(request),
                 PersonParser.mapToDtoReceiver(request)
         );
-        return new ApiResponse<>().ok();
+        return new ApiResponse<>().ok(shipmentCore);
     }
 }
