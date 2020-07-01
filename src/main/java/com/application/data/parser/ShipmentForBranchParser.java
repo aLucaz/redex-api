@@ -11,7 +11,9 @@ import com.application.rest.api.request.registerShipment.RegisterShipmentBranchW
 import com.application.rest.api.request.registerShipment.RegisterShipmentRequest;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class ShipmentForBranchParser {
 
@@ -29,6 +31,25 @@ public class ShipmentForBranchParser {
             );
         }
         return shipmentForBranchDtoList;
+    }
+
+    public static ShipmentForBranchDto mapToDto(ShipmentForBranch shipmentForBranch){
+        return new ShipmentForBranchDto()
+                .setIdBranch(shipmentForBranch.getBranch().getIdBranch())
+                .setIdShipment(shipmentForBranch.getShipment().getIdShipment())
+                .setCurrentArrivalDateTime(shipmentForBranch.getCurrentArrivalDateTime())
+                .setCurrentDepartureDateTime(shipmentForBranch.getCurrentDepartureDateTime())
+                .setFutureArrivalDateTime(shipmentForBranch.getFutureArrivalDateTime())
+                .setFlightFriendlyId(shipmentForBranch.getFlightFriendlyId())
+                .setSequence(shipmentForBranch.getSequence());
+    }
+
+    public static Set<ShipmentForBranchDto> mapToDtoSet(Set<ShipmentForBranch> shipmentForBranchSet){
+        Set<ShipmentForBranchDto> shipmentForBranchDtoSet = new HashSet<>();
+        for (ShipmentForBranch shipmentForBranch: shipmentForBranchSet) {
+            shipmentForBranchDtoSet.add(mapToDto(shipmentForBranch));
+        }
+        return  shipmentForBranchDtoSet;
     }
 
     public static List<ShipmentForBranch> mapToRowList(List<ShipmentForBranchDto> shipmentForBranchDtoList) {

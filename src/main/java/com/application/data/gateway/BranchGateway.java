@@ -8,6 +8,7 @@ import com.application.shared.Constant;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class BranchGateway {
@@ -44,5 +45,10 @@ public class BranchGateway {
 
     public String findContinentOf(String friendlyId){
         return repository.findByFriendlyId(friendlyId).getContinent();
+    }
+
+    public BranchDto findById(Integer branchId){
+        Optional<Branch> branchOptional = repository.findById(branchId);
+        return branchOptional.map(BranchParser::mapToDto).orElse(null);
     }
 }
