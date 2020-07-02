@@ -126,5 +126,7 @@ public class Constant {
     public static final String IN_TRANSIT_IN = "IN_TRANSIT_IN";
     public static final String IN_TRANSIT_OUT = "IN_TRANSIT_OUT";
     public static final String TO_DELIVER = "TO_DELIVER";
-
+    /*
+    * */
+    public static final Integer NUMBER_OF_SHIPMENTS_EMPTY = 0;
 }

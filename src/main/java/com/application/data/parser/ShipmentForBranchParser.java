@@ -4,7 +4,9 @@ import com.application.core.model.business.Branch;
 import com.application.core.model.business.Shipment;
 import com.application.core.model.business.ShipmentForBranch;
 import com.application.core.model.business.ShipmentState;
-import com.application.core.model.dto.*;
+import com.application.core.model.dto.PathDto;
+import com.application.core.model.dto.RouteDto;
+import com.application.core.model.dto.ShipmentForBranchDto;
 import com.application.rest.api.request.registerShipment.RegisterShipmentBranchWrapper;
 import com.application.rest.api.request.registerShipment.RegisterShipmentRequest;
 
@@ -31,7 +33,7 @@ public class ShipmentForBranchParser {
         return shipmentForBranchDtoList;
     }
 
-    public static ShipmentForBranchDto mapToDto(ShipmentForBranch shipmentForBranch){
+    public static ShipmentForBranchDto mapToDto(ShipmentForBranch shipmentForBranch) {
         return new ShipmentForBranchDto()
                 .setIdBranch(shipmentForBranch.getBranch().getIdBranch())
                 .setIdShipment(shipmentForBranch.getShipment().getIdShipment())
@@ -42,24 +44,24 @@ public class ShipmentForBranchParser {
                 .setSequence(shipmentForBranch.getSequence());
     }
 
-    public static List<ShipmentForBranchDto> mapToDtoListFromRowList(List<ShipmentForBranch> shipmentForBranches){
+    public static List<ShipmentForBranchDto> mapToDtoListFromRowList(List<ShipmentForBranch> shipmentForBranches) {
         List<ShipmentForBranchDto> shipmentForBranchDtoList = new ArrayList<>();
-        for (ShipmentForBranch shipmentForBranch: shipmentForBranches) {
+        for (ShipmentForBranch shipmentForBranch : shipmentForBranches) {
             shipmentForBranchDtoList.add(mapToDto(shipmentForBranch));
         }
         return shipmentForBranchDtoList;
     }
 
-    public static Set<ShipmentForBranchDto> mapToDtoSet(Set<ShipmentForBranch> shipmentForBranchSet){
+    public static Set<ShipmentForBranchDto> mapToDtoSet(Set<ShipmentForBranch> shipmentForBranchSet) {
         // its possible to receive null Here
-        if(shipmentForBranchSet == null)
+        if (shipmentForBranchSet == null)
             return null;
         // continue with normal process
         Set<ShipmentForBranchDto> shipmentForBranchDtoSet = new HashSet<>();
-        for (ShipmentForBranch shipmentForBranch: shipmentForBranchSet) {
+        for (ShipmentForBranch shipmentForBranch : shipmentForBranchSet) {
             shipmentForBranchDtoSet.add(mapToDto(shipmentForBranch));
         }
-        return  shipmentForBranchDtoSet;
+        return shipmentForBranchDtoSet;
     }
 
     public static List<ShipmentForBranch> mapToRowList(List<ShipmentForBranchDto> shipmentForBranchDtoList) {
@@ -96,9 +98,9 @@ public class ShipmentForBranchParser {
         return shipmentForBranchDtoList;
     }
 
-    public static List<ShipmentForBranchDto> mapToDtoListFromShipmentForBranch(List<ShipmentForBranch> shipmentForBranchList){
+    public static List<ShipmentForBranchDto> mapToDtoListFromShipmentForBranch(List<ShipmentForBranch> shipmentForBranchList) {
         List<ShipmentForBranchDto> shipmentForBranchDtoList = new ArrayList<>();
-        for(ShipmentForBranch shipmentForBranch : shipmentForBranchList){
+        for (ShipmentForBranch shipmentForBranch : shipmentForBranchList) {
             shipmentForBranchDtoList.add(
                     new ShipmentForBranchDto()
                             .setIdBranch(shipmentForBranch.getBranch().getIdBranch())

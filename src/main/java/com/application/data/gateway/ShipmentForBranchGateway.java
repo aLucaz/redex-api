@@ -6,11 +6,10 @@ import com.application.core.model.dto.ShipmentForBranchDto;
 import com.application.data.parser.BranchParser;
 import com.application.data.parser.ShipmentForBranchParser;
 import com.application.data.repository.ShipmentForBranchRepository;
-import com.application.shared.*;
+import com.application.shared.Constant;
 import lombok.SneakyThrows;
 import org.springframework.stereotype.Repository;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -28,13 +27,10 @@ public class ShipmentForBranchGateway {
         List<ShipmentForBranch> shipmentForBranchList = ShipmentForBranchParser.mapToRowList(shipmentForBranchDtoList);
         repository.saveAll(shipmentForBranchList);
     }
+
     @SneakyThrows
     public List<ShipmentForBranch> getShipmentForBranchList(Integer idBranch) {
         return repository.findByBranchIdBranchAndShipmentIsActive(idBranch, Constant.ACTIVEB);
-    }
-
-    public List<ShipmentForBranchDto> getRoutesInRange(LocalDate requestDate, Integer branchId) {
-        return null;
     }
 
     public List<ShipmentForBranchDto> finalAllByBranchIdAndShipmentActive(BranchDto branchDto) {

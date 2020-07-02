@@ -1,10 +1,12 @@
 package com.application.core.usecase.shipment;
 
 import com.application.core.model.business.ShipmentForBranch;
-import com.application.core.model.dto.*;
-import com.application.data.gateway.*;
-import com.application.data.parser.*;
-import com.application.shared.*;
+import com.application.core.model.dto.BranchDto;
+import com.application.data.gateway.BranchGateway;
+import com.application.data.gateway.ShipmentForBranchGateway;
+import com.application.data.parser.BranchParser;
+import com.application.data.parser.ShipmentForBranchParser;
+import com.application.shared.Constant;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,10 +18,11 @@ public class GetShipmentForABranchUseCase {
     BranchGateway branchGateway;
 
     public GetShipmentForABranchUseCase(ShipmentForBranchGateway shipmentForBranchGateway,
-                                        BranchGateway branchGateway){
+                                        BranchGateway branchGateway) {
         this.shipmentForBranchGateway = shipmentForBranchGateway;
         this.branchGateway = branchGateway;
     }
+
     public BranchDto execute(Integer idBranch) {
         Integer inTransitInCount = 0;
         Integer inTransitOutCount = 0;
@@ -28,8 +31,8 @@ public class GetShipmentForABranchUseCase {
 
         List<ShipmentForBranch> shipmentForBranchList = shipmentForBranchGateway.getShipmentForBranchList(idBranch);
 
-        for(ShipmentForBranch sfb : shipmentForBranchList){
-            switch(sfb.getShipmentState().getFriendlyId()) {
+        for (ShipmentForBranch sfb : shipmentForBranchList) {
+            switch (sfb.getShipmentState().getFriendlyId()) {
                 case Constant.IN_TRANSIT_IN:
                     inTransitInCount++;
                     break;
