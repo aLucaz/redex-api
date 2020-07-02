@@ -2,6 +2,7 @@ package com.application.core.usecase.util.counter.shipment;
 
 import com.application.core.model.dto.BranchDto;
 import com.application.core.model.dto.ShipmentForBranchDto;
+import com.application.shared.Constant;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
@@ -14,6 +15,9 @@ public class ShipmentCounterImpl implements ShipmentCounter {
 
     @Override
     public Integer countShipmentsInRange(List<ShipmentForBranchDto> routes, LocalDateTime requestDateTime, BranchDto requestBranch) {
+        // routes can be empty
+        if (routes.size() == 0)
+            return Constant.NUMBER_OF_SHIPMENTS_EMPTY;
         // how many packages are in that arrivalDateTime range!!
         Predicate<ShipmentForBranchDto> byDateTimeInterval = ShipmentForBranchDto ->
                 (ShipmentForBranchDto.getCurrentArrivalDateTime().isBefore(requestDateTime) ||
