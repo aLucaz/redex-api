@@ -9,4 +9,5 @@ import java.util.List;
 public interface ShipmentForBranchRepository extends CrudRepository<ShipmentForBranch, Integer> {
     List<ShipmentForBranch> findAllByBranch(Branch branch);
     List<ShipmentForBranch> findByBranchIdBranchAndShipmentIsActive(Integer idBranch,Boolean isActive);
+    ShipmentForBranch findByShipmentIdShipmentAndBranchIdBranch(Integer idShipment,Integer idBranch);
 }

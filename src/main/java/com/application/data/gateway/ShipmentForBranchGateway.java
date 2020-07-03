@@ -23,9 +23,9 @@ public class ShipmentForBranchGateway {
     }
 
     @SneakyThrows
-    public void persist(List<ShipmentForBranchDto> shipmentForBranchDtoList) {
+    public List<ShipmentForBranch> persist(List<ShipmentForBranchDto> shipmentForBranchDtoList) {
         List<ShipmentForBranch> shipmentForBranchList = ShipmentForBranchParser.mapToRowList(shipmentForBranchDtoList);
-        repository.saveAll(shipmentForBranchList);
+        return (List<ShipmentForBranch>)repository.saveAll(shipmentForBranchList);
     }
 
     @SneakyThrows
@@ -44,4 +44,15 @@ public class ShipmentForBranchGateway {
                 .collect(Collectors.toList());
         return ShipmentForBranchParser.mapToDtoListFromRowList(shipmentForBranchListFiltered);
     }
+
+
+    public ShipmentForBranch findByShipmentAndBranch(Integer idShipment,Integer idBranch) {
+        return repository.findByShipmentIdShipmentAndBranchIdBranch(idShipment,idBranch);
+    }
+
+    @SneakyThrows
+    public List<ShipmentForBranch> update(List<ShipmentForBranch> shipmentForBranchList) {
+        return (List<ShipmentForBranch>)repository.saveAll(shipmentForBranchList);
+    }
+
 }

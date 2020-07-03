@@ -4,13 +4,16 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
+import javax.persistence.Entity;
 import java.time.LocalDateTime;
 
 @Getter
 @Setter
 @NoArgsConstructor
+@DynamicUpdate
 @Accessors(chain = true)
 @Entity
 public class ShipmentForBranch {

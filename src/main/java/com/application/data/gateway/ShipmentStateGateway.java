@@ -1,7 +1,10 @@
 package com.application.data.gateway;
 
+import com.application.core.model.business.ShipmentState;
 import com.application.data.repository.ShipmentStateRepository;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 @Repository
 public class ShipmentStateGateway {
@@ -13,5 +16,8 @@ public class ShipmentStateGateway {
 
     public Integer getDefaultShipmentState(String defaultFriendlyId){
         return repository.getByFriendlyId(defaultFriendlyId).getIdShipmentState();
+    }
+    public List<ShipmentState> findAll(){
+        return repository.findAll();
     }
 }

@@ -1,10 +1,12 @@
 package com.application.rest.api.controller;
 
-import com.application.core.model.dto.*;
+import com.application.core.model.dto.BranchDto;
+import com.application.core.usecase.branch.UpdateBranchCapacityUseCase;
 import com.application.core.usecase.branch.GetBranchListUseCase;
-import com.application.core.usecase.shipment.*;
+import com.application.core.usecase.shipment.GetShipmentForABranchUseCase;
 import com.application.rest.ApiResponse;
-import com.application.rest.api.request.*;
+import com.application.rest.api.request.ShipmentForABranchRequest;
+import com.application.rest.api.request.UpdateBranchCapacityRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +20,7 @@ import java.util.List;
 public class BranchController {
     private final GetBranchListUseCase getBranchList;
     private final GetShipmentForABranchUseCase getShipmentForABranchUseCase;
+    private final UpdateBranchCapacityUseCase updateBranchCapacityUseCase;
 
     @GetMapping("/list-branch")
     public ResponseEntity<Object> getBranchList() {
@@ -31,5 +34,11 @@ public class BranchController {
         BranchDto branchDto =
                 getShipmentForABranchUseCase.execute(request.getIdBranch());
         return new ApiResponse<>().ok(branchDto);
+    }
+    @PostMapping("/update-capacity")
+    public ResponseEntity<Object> updateCapacity(
+            @Valid @RequestBody UpdateBranchCapacityRequest request) {
+        updateBranchCapacityUseCase.execute(request.getIdBranch(),request.getCapacity());
+        return new ApiResponse<>().ok();
     }
 }

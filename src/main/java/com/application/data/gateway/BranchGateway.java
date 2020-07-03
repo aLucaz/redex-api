@@ -55,4 +55,8 @@ public class BranchGateway {
         Optional<Branch> branchOptional = repository.findById(branchId);
         return branchOptional.map(BranchParser::mapToDto).orElse(null);
     }
+
+    public Branch persist(Branch branch){
+        return repository.save(branch);
+    }
 }
