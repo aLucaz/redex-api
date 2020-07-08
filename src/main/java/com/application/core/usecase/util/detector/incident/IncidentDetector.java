@@ -8,5 +8,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public interface IncidentDetector {
-    IncidentDto detectIncident(List<ShipmentForBranchDto> tripPlans, LocalDateTime arrivalDateTime, BranchDto requestBranch);
+    IncidentDto detectIncident(List<ShipmentForBranchDto> tripPlans, LocalDateTime arrivalDateTime, LocalDateTime departureDatetime, BranchDto requestBranch, Boolean isASimulation);
+
+    IncidentDto detectIncident(String flightFriendlyId, Boolean isASimulation);
 }

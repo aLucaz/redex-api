@@ -24,8 +24,8 @@ import java.util.Set;
 public class AstarAlgorithmExecutorImpl implements AlgorithmExecutor {
     @Override
     public List<RouteDto> execute(Problem problem) {
-        // TODO: add heuristic to the evaluation function
         EvaluationFunction evaluationFunction = Node::getTotalTime;
+        // list of resultant nodes
         Frontier frontier = new Frontier(evaluationFunction, new PriorityQueue<>());
         frontier.add(new Node(problem.getStartPoint(),
                 Constant.DEFAULT_ACTION,
@@ -38,9 +38,11 @@ public class AstarAlgorithmExecutorImpl implements AlgorithmExecutor {
         while (!frontier.isEmpty()) {
             Node node = frontier.pop();
             explored.add(node.getPerformedAction());
-            if (problem.goalTest(node.getCurrentState()))
+            if (problem.goalTest(node.getCurrentState())) {
                 return getPath(node);
-            for (String possibleAction : node.getParent() == null ? problem.allActionsFrom(node) : problem.possibleActionsFrom(node)) {
+            }
+            List<String> possibleActions = node.getParent() == null ? problem.allActionsFrom(node) : problem.possibleActionsFrom(node);
+            for (String possibleAction : possibleActions) {
                 Node child = node.giveBirth(problem, possibleAction);
                 if (!explored.contains(possibleAction) && !frontier.contains(child)) {
                     frontier.add(child);
@@ -71,6 +73,5 @@ public class AstarAlgorithmExecutorImpl implements AlgorithmExecutor {
         Collections.reverse(path);
         return path;
     }
-
 
 }

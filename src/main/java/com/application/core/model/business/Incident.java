@@ -23,9 +23,9 @@ public class Incident {
     @Column(nullable = false)
     private Integer idIncident;
 
-    @Column(nullable = false)
+    @Column
     private String flightFriendlyId;
-    @Column(nullable = false)
+    @Column
     private String branchFriendlyId;
     @Column(nullable = false)
     private LocalDateTime incidentDateTime;

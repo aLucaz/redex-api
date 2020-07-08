@@ -25,4 +25,5 @@ public class IncidentDto {
     private LocalDateTime incidentDateTime;
     private Boolean isSimulated;
     private Boolean isActive;
+    private String incidentType;
 }

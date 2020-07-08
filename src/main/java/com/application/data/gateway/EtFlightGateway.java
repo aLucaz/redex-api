@@ -71,4 +71,17 @@ public class EtFlightGateway {
         String arrivalTime = etFlight.getArrivalTime();
         return departureDateTime.plusSeconds(DrStrange.getElapsedTimeInSeconds(departureTime, arrivalTime));
     }
+
+    public EtFlightDto findByFriendlyId(String friendlyId) {
+        EtFlight etFlight = repository.findByFriendlyId(friendlyId);
+        return EtFlightParser.mapToDto(etFlight);
+    }
+
+    public void updateQuantity(String friendlyId){
+        EtFlight etFlight = repository.findByFriendlyId(friendlyId);
+        if (etFlight.getCapacity() > etFlight.getQuantity()){
+            etFlight.setQuantity(etFlight.getQuantity() + Constant.PACKAGES_BY_SHIPMENT);
+            repository.save(etFlight);
+        }
+    }
 }
