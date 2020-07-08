@@ -8,4 +8,5 @@ import java.util.List;
 
 public interface IncidentRepository extends CrudRepository<Incident, Integer> {
     List<Incident> findAllByIncidentTypeAndBranchFriendlyIdAndIncidentDateTimeBetween(String incidentType, String branchFriendlyId, LocalDateTime start, LocalDateTime end);
+    List<Incident> findAllByIsSimulatedAndIsActive(Boolean isSimulated, Boolean isActive);
 }

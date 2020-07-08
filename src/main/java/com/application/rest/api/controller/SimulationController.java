@@ -2,6 +2,7 @@ package com.application.rest.api.controller;
 
 import com.application.core.model.dto.ChartInformationDto;
 import com.application.core.usecase.simulation.GetChartInformationUseCase;
+import com.application.core.usecase.simulation.DeleteSimulatedDataUseCase;
 import com.application.core.usecase.simulation.RunSimulationUseCase;
 import com.application.data.parser.ChartInformationParser;
 import com.application.rest.ApiResponse;
@@ -24,6 +25,7 @@ import javax.validation.Valid;
 public class SimulationController {
     private final RunSimulationUseCase runSimulationUseCase;
     private final GetChartInformationUseCase getChartInformationUseCase;
+    private final DeleteSimulatedDataUseCase deleteSimulatedDataUseCase;
 
     @PostMapping("/run-simulation")
     public ResponseEntity<Object> runSimulation(@RequestParam(Constant.REQUEST_FILE_NAME) MultipartFile file) {
@@ -35,5 +37,10 @@ public class SimulationController {
     public ResponseEntity<Object> getInformation(@Valid @RequestBody GetChartInformationRequest request) {
         ChartInformationDto chartInformationDto = getChartInformationUseCase.execute(ChartInformationParser.mapToDto(request));
         return new ApiResponse<>().ok(chartInformationDto);
+    }
+    @PostMapping("/delete-simulated-data")
+    public ResponseEntity<Object> deleteSimulatedData() {
+        deleteSimulatedDataUseCase.execute();
+        return new ApiResponse<>().ok();
     }
 }

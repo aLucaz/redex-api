@@ -4,6 +4,7 @@ import com.application.core.model.business.Incident;
 import com.application.core.model.dto.IncidentDto;
 import com.application.data.parser.IncidentParser;
 import com.application.data.repository.IncidentRepository;
+import com.application.shared.*;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
@@ -31,5 +32,8 @@ public class IncidentGateway {
         List<Incident> incidentList = repository.findAllByIncidentTypeAndBranchFriendlyIdAndIncidentDateTimeBetween(incidentType, branchFriendlyId, LocalDateTime.of(date, LocalTime.MIN),
                 LocalDateTime.of(date, LocalTime.MAX));
         return IncidentParser.mapToDtoList(incidentList);
+    }
+    public List<Incident> findAllSimulatedAndActive(){
+        return repository.findAllByIsSimulatedAndIsActive(Constant.IS_ACTIVE,Constant.IS_ACTIVE);
     }
 }

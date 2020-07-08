@@ -44,4 +44,13 @@ public class ShipmentGateway {
     public List<ShipmentDto> findAllActive(){
         return ShipmentParser.mapToDtoList(repository.findAllByIsActive(Constant.IS_ACTIVE));
     }
+
+    public List<Shipment> findAllSimulatedAndActive(){
+        return repository.findAllByIsSimulatedAndIsActive(Constant.IS_ACTIVE,Constant.IS_ACTIVE);
+    }
+
+
+    public void saveAll(List<Shipment> shipmentList) {
+        repository.saveAll(shipmentList);
+    }
 }

@@ -41,4 +41,6 @@ public class BranchController {
         updateBranchCapacityUseCase.execute(request.getIdBranch(),request.getCapacity());
         return new ApiResponse<>().ok();
     }
+
+
 }
