@@ -34,6 +34,9 @@ public class EtFlightGateway {
         // save massive flights into the database
         repository.saveAll(etFlightList);
     }
+    public void persist(EtFlight etFlight) {
+        repository.save(etFlight);
+    }
 
     public List<EtFlightDto> findAllInRange(RouteDto routeDto) {
         LocalDateTime requestDateTime = routeDto.getRequestDateTime();
@@ -70,5 +73,14 @@ public class EtFlightGateway {
         String departureTime = etFlight.getDepartureTime();
         String arrivalTime = etFlight.getArrivalTime();
         return departureDateTime.plusSeconds(DrStrange.getElapsedTimeInSeconds(departureTime, arrivalTime));
+    }
+
+    public List<EtFlightDto> findAll() {
+        List<EtFlight> etFlightList = (List<EtFlight>) repository.findAll();
+        return EtFlightParser.mapToDtoList(etFlightList);
+    }
+
+    public EtFlight findByIdEdFlight(String id) {
+        return repository.findByFriendlyId(id);
     }
 }
