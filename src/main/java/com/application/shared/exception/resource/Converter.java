@@ -8,9 +8,7 @@ public class Converter {
     public static <K, V> Map<K, V> toMap(Class<K> keyType, Class<V> valueType, Object... entries){
         if (entries.length % 2 == 1)
             throw new IllegalArgumentException("Invalid entries");
-        /*
-        * TODO : explanation
-        * */
+
         return IntStream
                 .range(0, entries.length / 2)
                 .map(index -> index * 2)

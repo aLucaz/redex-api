@@ -5,6 +5,7 @@ import com.application.shared.Constant;
 import com.application.shared.exception.custom.BranchNotAvailableException;
 import com.application.shared.exception.custom.EntityDuplicatedException;
 import com.application.shared.exception.custom.EntityNotFoundException;
+import com.application.shared.exception.custom.IncidentDetectedException;
 import com.application.shared.exception.custom.IncorrectPasswordException;
 import com.application.shared.exception.custom.RouteNotFoundException;
 import com.application.shared.exception.resource.JsonExtractor;
@@ -21,9 +22,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.springframework.http.HttpStatus.BAD_REQUEST;
-import static org.springframework.http.HttpStatus.NOT_FOUND;
-import static org.springframework.http.HttpStatus.I_AM_A_TEAPOT;
+import static org.springframework.http.HttpStatus.*;
 
 @ControllerAdvice
 public class RestExceptionHandler extends ResponseEntityExceptionHandler {
@@ -41,19 +40,26 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler(BranchNotAvailableException.class)
-    protected ResponseEntity<Object> handleBranchNotAvailableException(BranchNotAvailableException ex){
+    protected ResponseEntity<Object> handleBranchNotAvailableException(BranchNotAvailableException ex) {
         ApiError apiError = new ApiError(I_AM_A_TEAPOT, ex.getMessage(), JsonExtractor.extractJsonFromString(ex.getMessage()));
         return new ResponseEntity<>(apiError, apiError.getStatus());
     }
 
     @ExceptionHandler(RouteNotFoundException.class)
-    protected ResponseEntity<Object> handleRouteNotFoundException(RouteNotFoundException ex){
+    protected ResponseEntity<Object> handleRouteNotFoundException(RouteNotFoundException ex) {
         ApiError apiError = new ApiError(NOT_FOUND, ex.getMessage());
         return new ResponseEntity<>(apiError, apiError.getStatus());
     }
 
+    @ExceptionHandler(IncidentDetectedException.class)
+    protected ResponseEntity<Object> handleIncidentDetectedException(IncidentDetectedException ex) {
+        ApiError apiError = new ApiError(I_AM_A_TEAPOT, ex.getMessage());
+        return new ResponseEntity<>(apiError, apiError.getStatus());
+    }
+
+
     @ExceptionHandler(IncorrectPasswordException.class)
-    protected ResponseEntity<Object> handleIncorrectPasswordException(IncorrectPasswordException ex){
+    protected ResponseEntity<Object> handleIncorrectPasswordException(IncorrectPasswordException ex) {
         ApiError apiError = new ApiError(BAD_REQUEST, ex.getMessage());
         return new ResponseEntity<>(apiError, apiError.getStatus());
     }

@@ -34,6 +34,10 @@ public class BranchGateway {
         return BranchParser.mapToDtoList(branchList);
     }
 
+    public List<BranchDto> findAllWithCapacity(){
+        return  null;
+    }
+
     public Boolean askIfIsActive(String friendlyId){
         Branch branch = repository.findByFriendlyId(friendlyId);
         return branch.getIsActive().equals(Constant.ACTIVE);
@@ -54,6 +58,11 @@ public class BranchGateway {
     public BranchDto findById(Integer branchId){
         Optional<Branch> branchOptional = repository.findById(branchId);
         return branchOptional.map(BranchParser::mapToDto).orElse(null);
+    }
+
+    public BranchDto findByFriendlyId(String friendlyId){
+        Branch branch = repository.findByFriendlyId(friendlyId);
+        return BranchParser.mapToDto(branch);
     }
 
     public Branch persist(Branch branch){

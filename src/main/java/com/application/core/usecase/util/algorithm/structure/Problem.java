@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -95,15 +96,21 @@ public class Problem {
     public Time calculateWaitingTimeOf(Node parent, Edge destiny) {
         // the time where i want to departure
         String departureTime = destiny.getDepartureTime();
+        String departureDate = destiny.getFlightDate();
         if (parent.getPerformedAction().equals(Constant.DEFAULT_ACTION)) {
             //obtain the first arrival time
             String firstArrivalTime = requestDateTime.toLocalTime().toString();
-            return DrStrange.fromStringToTime(DrStrange.getElapsedTime(firstArrivalTime, departureTime));
+            String firstArrivalDate = requestDateTime.toLocalDate().toString();
+            return DrStrange.getElapsedTime(firstArrivalTime, firstArrivalDate, departureTime, departureDate);
         } else {
             Edge parentEdge = searchEdgeOf(parent.getParent().getCurrentState(), parent.getPerformedAction());
             //obtain the time which parent arrived
+            String parentDepartureTime = parentEdge.getDepartureTime();
             String parentArrivalTime = parentEdge.getArrivalTime();
-            return DrStrange.fromStringToTime(DrStrange.getElapsedTime(parentArrivalTime, departureTime));
+            String parentArrivalDate = parentEdge.getFlightDate();
+            if (DrStrange.fromStringToTime(parentDepartureTime).compareTo(DrStrange.fromStringToTime(parentArrivalTime)) >= 0)
+                parentArrivalDate = LocalDate.parse(parentArrivalDate, Constant.DATE_FORMATTER).plusDays(1).toString();
+            return DrStrange.getElapsedTime(parentArrivalTime, parentArrivalDate, departureTime, departureDate);
         }
     }
 

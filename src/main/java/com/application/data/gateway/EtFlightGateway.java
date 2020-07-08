@@ -83,4 +83,17 @@ public class EtFlightGateway {
     public EtFlight findByIdEdFlight(String id) {
         return repository.findByFriendlyId(id);
     }
+
+    public EtFlightDto findByFriendlyId(String friendlyId) {
+        EtFlight etFlight = repository.findByFriendlyId(friendlyId);
+        return EtFlightParser.mapToDto(etFlight);
+    }
+
+    public void updateQuantity(String friendlyId){
+        EtFlight etFlight = repository.findByFriendlyId(friendlyId);
+        if (etFlight.getCapacity() > etFlight.getQuantity()){
+            etFlight.setQuantity(etFlight.getQuantity() + Constant.PACKAGES_BY_SHIPMENT);
+            repository.save(etFlight);
+        }
+    }
 }

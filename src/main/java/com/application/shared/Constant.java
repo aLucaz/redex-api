@@ -76,6 +76,7 @@ public class Constant {
      * EXCEPTION default messages*/
     public static final String ROUTE_NOT_FOUND_MSG = "La ruta no ha sido encontrada";
     public static final String INCORRECT_PASSWORD_MSG = "La contraseña es incorrecta";
+    public static final String INCIDENT_DETECTED_MSG = "La ruta tiene incidentes de capacidad";
 
     /*
      * Shipment constant values*/
@@ -120,7 +121,8 @@ public class Constant {
     public static final String RECEIVER_PERSON_FRIENDLY_ID = "RECEIVER";
     /*Incident Type
     * */
-    public static final String CAPACITY_INCIDENT = "CAPACITY_INCIDENT";
+    public static final String BRANCH_CAPACITY_INCIDENT = "BRANCH_CAPACITY_INCIDENT";
+    public static final String FLIGHT_CAPACITY_INCIDENT = "FLIGHT_CAPACITY_INCIDENT";
     /*Shipment State
      * */
     public static final String IN_TRANSIT_IN = "IN_TRANSIT_IN";
@@ -129,4 +131,8 @@ public class Constant {
     /*
     * */
     public static final Integer NUMBER_OF_SHIPMENTS_EMPTY = 0;
+
+    public static final Integer NUMBER_OF_VALID_TRIP_PLANS = 5;
+
+    public static final Integer PACKAGES_BY_SHIPMENT = 1;
 }

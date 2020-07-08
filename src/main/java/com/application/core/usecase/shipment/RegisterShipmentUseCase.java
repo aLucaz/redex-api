@@ -8,6 +8,7 @@ import com.application.core.model.dto.ShipmentForBranchDto;
 import com.application.core.model.dto.ShipmentForPersonDto;
 import com.application.core.usecase.util.generator.referenceCode.ReferenceCodeGenerator;
 import com.application.core.usecase.util.generator.referenceCode.ReferenceCodeGeneratorImpl;
+import com.application.data.gateway.EtFlightGateway;
 import com.application.data.gateway.PackageGateway;
 import com.application.data.gateway.PersonGateway;
 import com.application.data.gateway.PersonTypeGateway;
@@ -32,11 +33,13 @@ public class RegisterShipmentUseCase {
     private final PersonGateway personGateway;
     private final ShipmentForPersonGateway shipmentForPersonGateway;
     private final PersonTypeGateway personTypeGateway;
+    private final EtFlightGateway etFlightGateway;
 
     public RegisterShipmentUseCase(ShipmentGateway shipmentGateway, ShipmentForBranchGateway shipmentForBranchGateway,
                                    PackageGateway packageGateway, ShipmentStateGateway shipmentStateGateway,
                                    ReferenceCodeGeneratorImpl referenceCodeGenerator, PersonGateway personGateway,
-                                   ShipmentForPersonGateway shipmentForPersonGateway, PersonTypeGateway personTypeGateway) {
+                                   ShipmentForPersonGateway shipmentForPersonGateway, PersonTypeGateway personTypeGateway,
+                                   EtFlightGateway etFlightGateway) {
         this.shipmentGateway = shipmentGateway;
         this.shipmentForBranchGateway = shipmentForBranchGateway;
         this.packageGateway = packageGateway;
@@ -45,6 +48,7 @@ public class RegisterShipmentUseCase {
         this.personGateway = personGateway;
         this.shipmentForPersonGateway = shipmentForPersonGateway;
         this.personTypeGateway = personTypeGateway;
+        this.etFlightGateway = etFlightGateway;
     }
 
     public ShipmentCoreDto execute(ShipmentDto shipmentDto, List<ShipmentForBranchDto> shipmentForBranchDtoList,
@@ -60,8 +64,11 @@ public class RegisterShipmentUseCase {
         for (ShipmentForBranchDto shipmentForBranchDto : shipmentForBranchDtoList) {
             shipmentForBranchDto.setIdShipment(shipmentResponse.getIdShipment());
             shipmentForBranchDto.setIdShipmentState(shipmentStateGateway.getDefaultShipmentState(Constant.DEFAULT_SHIPMENT_STATE_FRIENDLY_ID));
+            // now we add quantity to the flights
+            etFlightGateway.updateQuantity(shipmentForBranchDto.getFlightFriendlyId());
         }
         shipmentForBranchGateway.persist(shipmentForBranchDtoList);
+
         // now we save all the packages of the shipment
         for (PackageDto packageDto : packageDtoList) {
             packageDto.setIdShipment(shipmentResponse.getIdShipment());

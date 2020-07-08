@@ -32,7 +32,7 @@ public class Time implements Comparable<Time> {
 
     public Integer substractSeconds(Time other) {
         Integer result = this.toSeconds() - other.toSeconds();
-        if (result < 0)
+        if (result <= 0)
             return result + Constant.SECONDS_P_DAY;
         return result;
     }

@@ -8,6 +8,5 @@ import java.util.List;
 
 public interface AlgorithmExecutor {
     List<RouteDto> execute(Problem problem);
-
     List<RouteDto> getPath(Node node);
 }

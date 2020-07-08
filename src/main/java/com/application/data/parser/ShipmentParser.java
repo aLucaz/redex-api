@@ -34,9 +34,9 @@ public class ShipmentParser {
                 .setShipmentForBranches(ShipmentForBranchParser.mapToDtoSet(shipment.getShipmentForBranches()));
     }
 
-    public static List<ShipmentDto> mapToDtoList(List<Shipment> shipmentList){
+    public static List<ShipmentDto> mapToDtoList(List<Shipment> shipmentList) {
         List<ShipmentDto> shipmentDtoList = new ArrayList<>();
-        for (Shipment shipment: shipmentList) {
+        for (Shipment shipment : shipmentList) {
             shipmentDtoList.add(mapToDto(shipment));
         }
         return shipmentDtoList;
@@ -55,39 +55,42 @@ public class ShipmentParser {
                 .setIsSimulated(Constant.IS_NOT_A_SIMULATION);
     }
 
+    public static Shipment mapToRow(PathDto pathDto, Integer idShipmentState) {
+        Shipment shipment = new Shipment()
+                .setPrice(pathDto.getPrice())
+                .setLastModifiedBy(Constant.DEFAULT_USER_REGISTRATOR)
+                .setLastModifiedDate(LocalDateTime.now())
+                .setRegisteredBy(Constant.DEFAULT_USER_REGISTRATOR)
+                .setRegisteredDate(LocalDateTime.now())
+                .setIsSimulated(Constant.IS_A_SIMULATION)
+                .setIsActive(Constant.IS_ACTIVE);
+        // now we create the shipment for branches
+        Set<ShipmentForBranch> shipmentForBranchSet = new HashSet<>();
+        for (RouteDto routeDto : pathDto.getTripPlan()) {
+            shipmentForBranchSet.add(new ShipmentForBranch()
+                    .setShipment(shipment)
+                    .setBranch(new Branch().setIdBranch(routeDto.getStartCityId()))
+                    .setShipmentState(new ShipmentState().setIdShipmentState(idShipmentState))
+                    .setCurrentArrivalDateTime(routeDto.getCurrentArrivalDateTime())
+                    .setCurrentDepartureDateTime(routeDto.getCurrentDepartureDateTime())
+                    .setFutureArrivalDateTime(routeDto.getFutureArrivalDateTime())
+                    .setFlightFriendlyId(routeDto.getFlightFriendlyId())
+                    .setSequence(routeDto.getSequence()));
+        }
+        // now add the set to the created shipment
+        shipment.setShipmentForBranches(shipmentForBranchSet);
+        return shipment;
+    }
+
     public static List<Shipment> mapToRowList(List<PathDto> pathDtoList, Integer idShipmentState) {
         List<Shipment> shipmentList = new ArrayList<>();
         for (PathDto pathDto : pathDtoList) {
             if (pathDto != null) {
-                Shipment shipment = new Shipment()
-                        .setPrice(pathDto.getPrice())
-                        .setLastModifiedBy(Constant.DEFAULT_USER_REGISTRATOR)
-                        .setLastModifiedDate(LocalDateTime.now())
-                        .setRegisteredBy(Constant.DEFAULT_USER_REGISTRATOR)
-                        .setRegisteredDate(LocalDateTime.now())
-                        .setIsSimulated(Constant.IS_A_SIMULATION)
-                        .setIsActive(Constant.IS_ACTIVE);
-                // now we create the shipment for branches
-                Set<ShipmentForBranch> shipmentForBranchSet = new HashSet<>();
-                for (RouteDto routeDto : pathDto.getTripPlan()) {
-                    shipmentForBranchSet.add(new ShipmentForBranch()
-                            .setShipment(shipment)
-                            .setBranch(new Branch().setIdBranch(routeDto.getStartCityId()))
-                            .setShipmentState(new ShipmentState().setIdShipmentState(idShipmentState))
-                            .setCurrentArrivalDateTime(routeDto.getCurrentArrivalDateTime())
-                            .setCurrentDepartureDateTime(routeDto.getCurrentDepartureDateTime())
-                            .setFutureArrivalDateTime(routeDto.getFutureArrivalDateTime())
-                            .setFlightFriendlyId(routeDto.getFlightFriendlyId())
-                            .setSequence(routeDto.getSequence()));
-                }
-                // now add the set to the created shipment
-                shipment.setShipmentForBranches(shipmentForBranchSet);
+                Shipment shipment = mapToRow(pathDto, idShipmentState);
                 // now add the shipment to the list
                 shipmentList.add(shipment);
             }
         }
         return shipmentList;
     }
-
-
 }
