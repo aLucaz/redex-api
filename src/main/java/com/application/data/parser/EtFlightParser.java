@@ -2,8 +2,11 @@ package com.application.data.parser;
 
 import com.application.core.model.business.EtFlight;
 import com.application.core.model.dto.EtFlightDto;
+import com.application.core.model.dto.EtFlightFiltersDto;
+import com.application.rest.api.request.GetFilteredEtFlightListRequest;
 
-import java.time.LocalDate;
+import java.sql.*;
+import java.time.*;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
@@ -65,5 +68,12 @@ public class EtFlightParser {
             etFlightList.add(mapToRow(etFlightDto));
         }
         return etFlightList;
+    }
+
+    public static EtFlightFiltersDto mapToDtoFilters(GetFilteredEtFlightListRequest request) {
+        EtFlightFiltersDto filters = new EtFlightFiltersDto();
+        filters.setDeparturePoint(request.getDeparturePoint());
+        filters.setEtFlightDate(String.valueOf(Date.valueOf(request.getEtFlightDate())));
+        return filters;
     }
 }

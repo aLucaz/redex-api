@@ -3,6 +3,7 @@ package com.application.rest.api.controller;
 import com.application.core.model.business.*;
 import com.application.core.model.dto.*;
 import com.application.core.usecase.etflight.*;
+import com.application.data.parser.*;
 import com.application.rest.ApiResponse;
 import com.application.rest.api.request.*;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +20,7 @@ public class EtFlightController {
     private final RegisterMassiveEtFlightUseCase registerMassiveEtFlight;
     private final GetEtFlightListUseCase getEtFlightListUseCase;
     private final UpdateFlightCapacityUseCase updateFlightCapacityUseCase;
+    private final GetFilteredEtFlightListUseCase getFilteredEtFlightListUseCase;
 
     @PostMapping("/register-massive")
     public ResponseEntity<Object> registerUser() {
@@ -41,5 +43,13 @@ public class EtFlightController {
         updateFlightCapacityUseCase.execute(request.getIdEtFlight(), request.getCapacity());
         // return ok response
         return new ApiResponse<>().ok();
+    }
+
+    @PostMapping("/filtered-list")
+    public ResponseEntity<Object> getFilteredList(@Valid @RequestBody GetFilteredEtFlightListRequest request) {
+
+        List<EtFlightDto> etFlightDtoList = getFilteredEtFlightListUseCase.execute(
+                EtFlightParser.mapToDtoFilters(request));
+        return new ApiResponse<>().ok(etFlightDtoList);
     }
 }

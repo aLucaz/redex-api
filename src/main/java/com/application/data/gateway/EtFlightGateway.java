@@ -96,4 +96,19 @@ public class EtFlightGateway {
             repository.save(etFlight);
         }
     }
+
+    public List<EtFlightDto> findAllByEtFlightDateAndIsActive(String etFlightDate, Integer isActive) {
+        List<EtFlight> etFlightList =
+                (List<EtFlight>) repository.findAllByEtFlightDateAndIsActive(etFlightDate,isActive);
+
+        return EtFlightParser.mapToDtoList(etFlightList);
+    }
+
+    public List<EtFlightDto> findAllByEtFlightDateAndDeparturePointAndIsActive(
+            String etFlightDate,String departurePoint, Integer isActive) {
+        List<EtFlight> etFlightList =
+                (List<EtFlight>) repository.findAllByEtFlightDateAndDeparturePointAndIsActive(etFlightDate,departurePoint,isActive);
+
+        return EtFlightParser.mapToDtoList(etFlightList);
+    }
 }
