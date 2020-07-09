@@ -7,6 +7,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public interface IncidentRepository extends CrudRepository<Incident, Integer> {
-    List<Incident> findAllByIncidentTypeAndBranchFriendlyIdAndIncidentDateTimeBetween(String incidentType, String branchFriendlyId, LocalDateTime start, LocalDateTime end);
+    List<Incident> findAllByIncidentTypeAndBranchFriendlyIdAndIncidentDateTimeBetweenAndIsActive(String incidentType, String branchFriendlyId, LocalDateTime start, LocalDateTime end,Boolean isActive);
     List<Incident> findAllByIsSimulatedAndIsActive(Boolean isSimulated, Boolean isActive);
 }
