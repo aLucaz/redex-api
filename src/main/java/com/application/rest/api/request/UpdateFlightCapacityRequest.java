@@ -15,7 +15,7 @@ import javax.validation.constraints.NotNull;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class UpdateFlightCapacityRequest {
     @NotNull
-    private String idEtFlight;
+    private String friendlyId;
     @NotNull
     private Integer Capacity;
 }

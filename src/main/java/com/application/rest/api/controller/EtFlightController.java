@@ -40,7 +40,7 @@ public class EtFlightController {
     public ResponseEntity<Object> updateCapacity(
             @Valid @RequestBody UpdateFlightCapacityRequest request) {
         // call use case
-        updateFlightCapacityUseCase.execute(request.getIdEtFlight(), request.getCapacity());
+        updateFlightCapacityUseCase.execute(request.getFriendlyId(), request.getCapacity());
         // return ok response
         return new ApiResponse<>().ok();
     }
