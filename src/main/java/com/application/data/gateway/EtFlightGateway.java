@@ -14,6 +14,7 @@ import org.springframework.stereotype.Repository;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -34,6 +35,7 @@ public class EtFlightGateway {
         // save massive flights into the database
         repository.saveAll(etFlightList);
     }
+
     public void persist(EtFlight etFlight) {
         repository.save(etFlight);
     }
@@ -89,9 +91,9 @@ public class EtFlightGateway {
         return EtFlightParser.mapToDto(etFlight);
     }
 
-    public void updateQuantity(String friendlyId){
+    public void updateQuantity(String friendlyId) {
         EtFlight etFlight = repository.findByFriendlyId(friendlyId);
-        if (etFlight.getCapacity() > etFlight.getQuantity()){
+        if (etFlight.getCapacity() > etFlight.getQuantity()) {
             etFlight.setQuantity(etFlight.getQuantity() + Constant.PACKAGES_BY_SHIPMENT);
             repository.save(etFlight);
         }
@@ -99,16 +101,31 @@ public class EtFlightGateway {
 
     public List<EtFlightDto> findAllByEtFlightDateAndIsActive(String etFlightDate, Integer isActive) {
         List<EtFlight> etFlightList =
-                (List<EtFlight>) repository.findAllByEtFlightDateAndIsActive(etFlightDate,isActive);
+                (List<EtFlight>) repository.findAllByEtFlightDateAndIsActive(etFlightDate, isActive);
 
         return EtFlightParser.mapToDtoList(etFlightList);
     }
 
     public List<EtFlightDto> findAllByEtFlightDateAndDeparturePointAndIsActive(
-            String etFlightDate,String departurePoint, Integer isActive) {
+            String etFlightDate, String departurePoint, Integer isActive) {
         List<EtFlight> etFlightList =
-                (List<EtFlight>) repository.findAllByEtFlightDateAndDeparturePointAndIsActive(etFlightDate,departurePoint,isActive);
+                (List<EtFlight>) repository.findAllByEtFlightDateAndDeparturePointAndIsActive(etFlightDate, departurePoint, isActive);
 
         return EtFlightParser.mapToDtoList(etFlightList);
     }
+
+    public List<EtFlight> findAllOfList(List<String> flightsFriendlyIds) {
+        List<EtFlight> etFlightList = new ArrayList<>();
+        flightsFriendlyIds.forEach(friendlyId -> {
+            EtFlight flight = repository.findByFriendlyId(friendlyId);
+            if (flight != null)
+                etFlightList.add(flight);
+        });
+        return etFlightList;
+    }
+
+    public void saveAll(List<EtFlight> etFlightList){
+        repository.saveAll(etFlightList);
+    }
+
 }
