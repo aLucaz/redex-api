@@ -158,7 +158,7 @@ public class GenerateRouteUseCase {
         for (RouteDto route : evaluatedTripPlan) {
             BranchDto branch = branchGateway.findByFriendlyId(route.getStartPoint());
             List<ShipmentForBranchDto> allTripPlans = shipmentForBranchGateway
-                    .finalAllByBranchIdAndShipmentActive(branch);
+                    .findAllValidTripPlans(branch, route.getCurrentArrivalDateTime());
             // we detect if there is an branch oncident there
             IncidentDto branchIncident = incidentDetector.detectIncident(
                     allTripPlans,

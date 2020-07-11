@@ -29,8 +29,12 @@ public class IncidentGateway {
     }
 
     public List<IncidentDto> findIncidentsOfBranchAndDate(String branchFriendlyId, LocalDate date, String incidentType) {
-        List<Incident> incidentList = repository.findAllByIncidentTypeAndBranchFriendlyIdAndIncidentDateTimeBetweenAndIsActive(incidentType, branchFriendlyId, LocalDateTime.of(date, LocalTime.MIN),
-                LocalDateTime.of(date, LocalTime.MAX),Constant.ACTIVEB);
+        List<Incident> incidentList = repository.findAllByIncidentTypeAndBranchFriendlyIdAndIncidentDateTimeBetweenAndIsActive(
+                incidentType,
+                branchFriendlyId,
+                LocalDateTime.of(date, LocalTime.MIN),
+                LocalDateTime.of(date, LocalTime.MAX),
+                Constant.ACTIVEB);
         return IncidentParser.mapToDtoList(incidentList);
     }
     public List<Incident> findAllSimulatedAndActive(){

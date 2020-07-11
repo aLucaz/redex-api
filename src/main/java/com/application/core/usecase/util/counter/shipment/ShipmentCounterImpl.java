@@ -16,7 +16,7 @@ public class ShipmentCounterImpl implements ShipmentCounter {
     @Override
     public Integer countShipmentsInRange(List<ShipmentForBranchDto> routes, LocalDateTime requestDateTime, BranchDto requestBranch) {
         // routes can be empty
-        if (routes.size() == 0)
+        if (routes == null || routes.size() == 0)
             return Constant.NUMBER_OF_SHIPMENTS_EMPTY;
         // how many packages are in that arrivalDateTime range!!
         Predicate<ShipmentForBranchDto> byDateTimeInterval = ShipmentForBranchDto ->
@@ -34,23 +34,18 @@ public class ShipmentCounterImpl implements ShipmentCounter {
     @Override
     public Integer countShipmentsInRange(List<ShipmentForBranchDto> routes, LocalDateTime arrivalDateTime, LocalDateTime departureDateTime, BranchDto requestBranch) {
         // routes can be empty
-        if (routes.size() == 0)
+        if (routes == null || routes.size() == 0)
             return Constant.NUMBER_OF_SHIPMENTS_EMPTY;
-        // how many packages are in that arrivalDateTime range!!
-        Predicate<ShipmentForBranchDto> byDateTimeInterval = ShipmentForBranchDto ->
-                (!ShipmentForBranchDto.getIdBranch().equals(requestBranch.getIdBranch())) &&
-                        (ShipmentForBranchDto.getCurrentArrivalDateTime().isBefore(arrivalDateTime) &&
-                                (ShipmentForBranchDto.getCurrentDepartureDateTime().isBefore(arrivalDateTime) ||
-                                        ShipmentForBranchDto.getCurrentDepartureDateTime().isEqual(arrivalDateTime))) ||
-                        (ShipmentForBranchDto.getCurrentArrivalDateTime().isAfter(departureDateTime) &&
-                                (ShipmentForBranchDto.getCurrentDepartureDateTime().isAfter(departureDateTime)));
-
-        List<ShipmentForBranchDto> routesFiltered = routes
-                .stream()
-                .filter(byDateTimeInterval)
-                .collect(Collectors.toList());
-        // we remove all that meets the predicate
-        routes.removeAll(routesFiltered);
+        routes.removeIf(route -> isOutOfDateRange(route, arrivalDateTime, departureDateTime, requestBranch));
         return routes.size();
+    }
+
+    public Boolean isOutOfDateRange(ShipmentForBranchDto shipmentForBranchDto, LocalDateTime arrivalDateTime, LocalDateTime departureDateTime, BranchDto requestBranch) {
+        return (shipmentForBranchDto.getIdBranch().equals(requestBranch.getIdBranch())) &&
+                ((shipmentForBranchDto.getCurrentArrivalDateTime().isBefore(arrivalDateTime) &&
+                        (shipmentForBranchDto.getCurrentDepartureDateTime().isBefore(arrivalDateTime) ||
+                                shipmentForBranchDto.getCurrentDepartureDateTime().isEqual(arrivalDateTime))) ||
+                        (shipmentForBranchDto.getCurrentArrivalDateTime().isAfter(departureDateTime) &&
+                                (shipmentForBranchDto.getCurrentDepartureDateTime().isAfter(departureDateTime))));
     }
 }
