@@ -75,6 +75,8 @@ public class GetCompilationReportUseCase {
             List<LocalDate> rangeDates = Stream.iterate(reportDto.getStartDate(), date -> date.plusDays(1)).limit(numberOfDays + 1).collect(Collectors.toList());
             // we save the day detail information
             detailCompilation.setDaysDetail(dailyClassificator.classificateByDateAndHour(rangeDates, incidents, routes));
+            // and we save the branch detail
+            detailCompilationDtoList.add(detailCompilation);
         }
 
         return new CompilationReportDto()

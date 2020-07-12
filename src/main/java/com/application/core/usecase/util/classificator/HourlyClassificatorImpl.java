@@ -16,7 +16,7 @@ import java.util.stream.Stream;
 public class HourlyClassificatorImpl implements HourlyClassificator {
     @Override
     public List<DetailHourDto> classificateByHourOfDay(List<IncidentDto> incidents, List<ShipmentForBranchDto> routes) {
-        List<Integer> hours = Stream.iterate(0, num -> num + 1).limit(23).collect(Collectors.toList());
+        List<Integer> hours = Stream.iterate(0, num -> num + 1).limit(24).collect(Collectors.toList());
         List<DetailHourDto> detailHourDtoList = new ArrayList<>();
         hours.forEach(hour -> {
             Predicate<IncidentDto> byIncidentHour = incidentDto -> incidentDto.getIncidentDateTime().toLocalTime().getHour() == hour;
