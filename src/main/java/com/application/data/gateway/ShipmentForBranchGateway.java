@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -35,7 +36,7 @@ public class ShipmentForBranchGateway {
         return repository.findByBranchIdBranchAndShipmentIsActive(idBranch, Constant.ACTIVEB);
     }
 
-    public List<ShipmentForBranchDto> findAllValidTripPlans(BranchDto branchDto, LocalDateTime stimatedDateTime) {
+    public List<ShipmentForBranchDto> findAllValidTripPlans(BranchDto branchDto, LocalDateTime stimatedDateTime, Boolean saveAsSimulated) {
         LocalDate stimatedDate = stimatedDateTime.toLocalDate();
         List<ShipmentForBranch> shipmentForBranchList = repository.findAllByBranchIdBranchAndCurrentArrivalDateTimeBetween(
                 branchDto.getIdBranch(),
@@ -47,7 +48,8 @@ public class ShipmentForBranchGateway {
             return null;
 
         Predicate<ShipmentForBranch> byShipmentActive = ShipmentForBranch ->
-                ShipmentForBranch.getShipment().getIsActive();
+                ShipmentForBranch.getShipment().getIsActive() &&
+                        ShipmentForBranch.getShipment().getIsSimulated().equals(saveAsSimulated);
 
         List<ShipmentForBranch> shipmentForBranchListFiltered = shipmentForBranchList
                 .stream()
@@ -56,6 +58,28 @@ public class ShipmentForBranchGateway {
         return ShipmentForBranchParser.mapToDtoListFromRowList(shipmentForBranchListFiltered);
     }
 
+    public List<ShipmentForBranchDto> findAllValidRoutesInRange(Integer idBranch, LocalDateTime start, LocalDateTime end, Integer idShipmentState){
+        List<ShipmentForBranch> shipmentForBranchList = repository.findAllByBranchIdBranchAndShipmentStateIdShipmentStateAndCurrentArrivalDateTimeBetween(
+                idBranch,
+                idShipmentState,
+                start,
+                end
+        );
+
+        if (shipmentForBranchList.size() == 0)
+            return new ArrayList<>();
+
+        Predicate<ShipmentForBranch> byShipmentActive = ShipmentForBranch ->
+                ShipmentForBranch.getShipment().getIsActive() &&
+                !ShipmentForBranch.getShipment().getIsSimulated();
+
+        List<ShipmentForBranch> shipmentForBranchListFiltered = shipmentForBranchList
+                .stream()
+                .filter(byShipmentActive)
+                .collect(Collectors.toList());
+
+        return ShipmentForBranchParser.mapToDtoListFromRowList(shipmentForBranchListFiltered);
+    }
 
     public ShipmentForBranch findByShipmentAndBranch(Integer idShipment, Integer idBranch) {
         return repository.findByShipmentIdShipmentAndBranchIdBranch(idShipment, idBranch);
@@ -65,5 +89,6 @@ public class ShipmentForBranchGateway {
     public void update(List<ShipmentForBranch> shipmentForBranchList) {
         repository.saveAll(shipmentForBranchList);
     }
+
 
 }

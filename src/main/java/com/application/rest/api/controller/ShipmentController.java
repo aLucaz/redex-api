@@ -31,7 +31,11 @@ public class ShipmentController {
 
     @PostMapping("/generate-route")
     public ResponseEntity<Object> generateRoute(@Valid @RequestBody GenerateRouteRequest request) {
-        PathDto route = generateRouteUseCase.execute(RouteParser.mapToDto(request), Constant.IS_NOT_A_SIMULATION);
+        PathDto route = generateRouteUseCase.execute(
+                RouteParser.mapToDto(request),
+                Constant.IS_NOT_A_SIMULATION,
+                Constant.NOT_SAVE_AS_SIMULATION
+        );
         return new ApiResponse<>().ok(route);
     }
 

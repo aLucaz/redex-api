@@ -14,10 +14,16 @@ public class ShipmentStateGateway {
         this.repository = repository;
     }
 
-    public Integer getDefaultShipmentState(String defaultFriendlyId){
+    public Integer getDefaultShipmentState(String defaultFriendlyId) {
         return repository.getByFriendlyId(defaultFriendlyId).getIdShipmentState();
     }
-    public List<ShipmentState> findAll(){
+
+    public List<ShipmentState> findAll() {
         return repository.findAll();
     }
+
+    public Integer findIdOf(String friendlyId) {
+        return repository.getByFriendlyId(friendlyId).getIdShipmentState();
+    }
+
 }

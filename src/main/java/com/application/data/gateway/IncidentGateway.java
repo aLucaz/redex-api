@@ -4,12 +4,13 @@ import com.application.core.model.business.Incident;
 import com.application.core.model.dto.IncidentDto;
 import com.application.data.parser.IncidentParser;
 import com.application.data.repository.IncidentRepository;
-import com.application.shared.*;
+import com.application.shared.Constant;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -37,7 +38,22 @@ public class IncidentGateway {
                 Constant.ACTIVEB);
         return IncidentParser.mapToDtoList(incidentList);
     }
-    public List<Incident> findAllSimulatedAndActive(){
-        return repository.findAllByIsSimulatedAndIsActive(Constant.IS_ACTIVE,Constant.IS_ACTIVE);
+
+    public List<Incident> findAllSimulatedAndActive() {
+        return repository.findAllByIsSimulatedAndIsActive(Constant.IS_ACTIVE, Constant.IS_ACTIVE);
+    }
+
+    public List<IncidentDto> findAllValidIncidentsInRange(String incidentType, String friendlyId, LocalDateTime start, LocalDateTime end) {
+        List<Incident> incidentList = repository.findAllByIsActiveAndIsSimulatedAndIncidentTypeAndBranchFriendlyIdAndIncidentDateTimeBetween(
+                Constant.IS_ACTIVE,
+                Constant.IS_NOT_A_SIMULATION,
+                incidentType,
+                friendlyId,
+                start,
+                end
+        );
+        if (incidentList.size() == 0)
+            return new ArrayList<>();
+        return IncidentParser.mapToDtoList(incidentList);
     }
 }

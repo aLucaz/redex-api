@@ -51,7 +51,7 @@ public class GenerateRouteUseCase {
         this.shipmentForBranchGateway = shipmentForBranchGateway;
     }
 
-    public PathDto execute(RouteDto routeDto, Boolean isSimulationProccess) {
+    public PathDto execute(RouteDto routeDto, Boolean isSimulationProccess, Boolean saveAsSimulated) {
         // first of all we check if the route points are available
         checkIfBranchsAreAvailable(routeDto);
         // get all the branches with its data
@@ -76,7 +76,7 @@ public class GenerateRouteUseCase {
         // else create the tripPlan to return
         List<RouteDto> tripPlan = extractInformation(onlyRoute, routeDto.getRequestDateTime());
         // now we validate if the tripPlan is valid
-        List<IncidentDto> incidentsDetected = detectIncidents(tripPlan, isSimulationProccess);
+        List<IncidentDto> incidentsDetected = detectIncidents(tripPlan, saveAsSimulated);
         Boolean thereAreIncidents = incidentsDetected.size() != 0;
         if (thereAreIncidents && isSimulationProccess) {
             Boolean thereIsOnlyFlightIncidents = onlyFlightIncidents(incidentsDetected);
@@ -151,27 +151,31 @@ public class GenerateRouteUseCase {
             return Constant.PRICE_PER_SCALE * scaleNumber;
     }
 
-    public List<IncidentDto> detectIncidents(List<RouteDto> tripPlan, Boolean isASimulation) {
+    public List<IncidentDto> detectIncidents(List<RouteDto> tripPlan, Boolean saveAsSimulated) {
         List<RouteDto> evaluatedTripPlan = giveMeTripPlanToEvaluate(tripPlan);
         List<IncidentDto> incidentDtoList = new ArrayList<>();
         //now we start the evaluation
         for (RouteDto route : evaluatedTripPlan) {
             BranchDto branch = branchGateway.findByFriendlyId(route.getStartPoint());
+            // we get all trip plans that are active (not deleted), and are or not simulated, depends on saveAsSimulated
             List<ShipmentForBranchDto> allTripPlans = shipmentForBranchGateway
-                    .findAllValidTripPlans(branch, route.getCurrentArrivalDateTime());
+                    .findAllValidTripPlans(branch, route.getCurrentArrivalDateTime(), saveAsSimulated);
             // we detect if there is an branch oncident there
             IncidentDto branchIncident = incidentDetector.detectIncident(
                     allTripPlans,
                     route.getCurrentArrivalDateTime(),
                     route.getCurrentDepartureDateTime(),
                     branch,
-                    isASimulation
+                    saveAsSimulated
             );
             if (branchIncident != null)
                 incidentDtoList.add(branchIncident);
             // then we detect if there are flight incident in the same way
             if (evaluatedTripPlan.indexOf(route) != evaluatedTripPlan.size() - 1) {
-                IncidentDto flightIncident = incidentDetector.detectIncident(route.getFlightFriendlyId(), isASimulation);
+                IncidentDto flightIncident = incidentDetector.detectIncident(
+                        route.getFlightFriendlyId(),
+                        saveAsSimulated);
+
                 if (flightIncident != null)
                     incidentDtoList.add(flightIncident);
             }
