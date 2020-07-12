@@ -37,13 +37,16 @@ public class RunSimulationUseCase {
         this.etFlightGateway = etFlightGateway;
     }
 
-    public void execute(MultipartFile file) {
+    public void execute(MultipartFile file, Boolean saveAsSimulated) {
         List<ShipmentRequestDto> shipmentRequestDtoList = addContinentInformation(csvReader.readShipmentRequestZip(file));
         // now we have to proccess all the requests one by one and create the list of tripPlans
         for (ShipmentRequestDto request : shipmentRequestDtoList) {
-            PathDto pathDto = generateRouteUseCase.execute(RouteParser.mapToDto(request), Constant.IS_A_SIMULATION);
+            PathDto pathDto = generateRouteUseCase.execute(RouteParser.mapToDto(request),
+                    Constant.IS_A_SIMULATION,
+                    saveAsSimulated);
             if (pathDto != null) {
-                shipmentGateway.persistWithPath(pathDto, shipmentStateGateway.getDefaultShipmentState(Constant.DEFAULT_SHIPMENT_STATE_SIMULATION));
+                shipmentGateway.persistWithPath(pathDto, saveAsSimulated,
+                        shipmentStateGateway.getDefaultShipmentState(Constant.DEFAULT_SHIPMENT_STATE_SIMULATION));
                 for (RouteDto route : pathDto.getTripPlan()) {
                     etFlightGateway.updateQuantity(route.getFlightFriendlyId());
                 }

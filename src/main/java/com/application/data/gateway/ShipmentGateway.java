@@ -27,8 +27,8 @@ public class ShipmentGateway {
         return ShipmentParser.mapToDto(repository.save(shipment));
     }
 
-    public void persistWithPath(PathDto path, Integer shipmentStateId){
-        Shipment shipment = ShipmentParser.mapToRow(path, shipmentStateId);
+    public void persistWithPath(PathDto path, Boolean isSimulated, Integer shipmentStateId){
+        Shipment shipment = ShipmentParser.mapToRow(path, shipmentStateId, isSimulated);
         repository.save(shipment);
     }
 

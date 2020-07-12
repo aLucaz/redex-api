@@ -28,8 +28,9 @@ public class SimulationController {
     private final DeleteSimulatedDataUseCase deleteSimulatedDataUseCase;
 
     @PostMapping("/run-simulation")
-    public ResponseEntity<Object> runSimulation(@RequestParam(Constant.REQUEST_FILE_NAME) MultipartFile file) {
-        runSimulationUseCase.execute(file);
+    public ResponseEntity<Object> runSimulation(@RequestParam(Constant.REQUEST_FILE_NAME) MultipartFile file,
+                                                @RequestParam("isSimulated") Boolean isSimulated ) {
+        runSimulationUseCase.execute(file, isSimulated);
         return new ApiResponse<>().ok();
     }
 

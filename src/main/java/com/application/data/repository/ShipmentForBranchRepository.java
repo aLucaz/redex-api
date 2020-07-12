@@ -10,6 +10,11 @@ import java.util.List;
 public interface ShipmentForBranchRepository extends CrudRepository<ShipmentForBranch, Integer> {
     List<ShipmentForBranch> findAllByBranch(Branch branch);
     List<ShipmentForBranch> findAllByBranchIdBranchAndCurrentArrivalDateTimeBetween(Integer idBranch, LocalDateTime start, LocalDateTime end);
+    List<ShipmentForBranch> findAllByBranchIdBranchAndShipmentStateIdShipmentStateAndCurrentArrivalDateTimeBetween(
+            Integer idBranch,
+            Integer idShipmentState,
+            LocalDateTime start,
+            LocalDateTime end);
     List<ShipmentForBranch> findByBranchIdBranchAndShipmentIsActive(Integer idBranch,Boolean isActive);
     ShipmentForBranch findByShipmentIdShipmentAndBranchIdBranch(Integer idShipment,Integer idBranch);
 }

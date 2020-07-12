@@ -18,4 +18,5 @@ public class IncidentCounterImpl implements IncidentCounter {
         }
         return numberOfIncidents;
     }
+
 }

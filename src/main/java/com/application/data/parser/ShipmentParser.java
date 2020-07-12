@@ -55,14 +55,14 @@ public class ShipmentParser {
                 .setIsSimulated(Constant.IS_NOT_A_SIMULATION);
     }
 
-    public static Shipment mapToRow(PathDto pathDto, Integer idShipmentState) {
+    public static Shipment mapToRow(PathDto pathDto, Integer idShipmentState, Boolean isSimulated) {
         Shipment shipment = new Shipment()
                 .setPrice(pathDto.getPrice())
                 .setLastModifiedBy(Constant.DEFAULT_USER_REGISTRATOR)
                 .setLastModifiedDate(LocalDateTime.now())
                 .setRegisteredBy(Constant.DEFAULT_USER_REGISTRATOR)
                 .setRegisteredDate(LocalDateTime.now())
-                .setIsSimulated(Constant.IS_A_SIMULATION)
+                .setIsSimulated(isSimulated)
                 .setIsActive(Constant.IS_ACTIVE);
         // now we create the shipment for branches
         Set<ShipmentForBranch> shipmentForBranchSet = new HashSet<>();
@@ -86,7 +86,7 @@ public class ShipmentParser {
         List<Shipment> shipmentList = new ArrayList<>();
         for (PathDto pathDto : pathDtoList) {
             if (pathDto != null) {
-                Shipment shipment = mapToRow(pathDto, idShipmentState);
+                Shipment shipment = mapToRow(pathDto, idShipmentState, Constant.IS_A_SIMULATION);
                 // now add the shipment to the list
                 shipmentList.add(shipment);
             }
