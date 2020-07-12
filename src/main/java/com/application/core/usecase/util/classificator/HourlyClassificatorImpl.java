@@ -27,7 +27,7 @@ public class HourlyClassificatorImpl implements HourlyClassificator {
             DetailHourDto detailHourDto = new DetailHourDto()
                     .setQuantityOfIncidents(incidentFiltered.size())
                     .setQuantityOfShipments(routesFiltered.size())
-                    .setTime(new Time().setHours(hour).setMinutes(0));
+                    .setTime(new Time().setHours(hour).setMinutes(0).toString());
 
             detailHourDtoList.add(detailHourDto);
         });

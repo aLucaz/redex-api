@@ -9,8 +9,7 @@ class DetailHourDtoTest {
     void testToString() {
         DetailHourDto detailHourDto = new DetailHourDto()
                 .setQuantityOfIncidents(10)
-                .setQuantityOfShipments(15)
-                .setTime(new Time().setHours(10).setMinutes(10));
+                .setQuantityOfShipments(15);
 
         System.out.println(detailHourDto.getTime());
     }
