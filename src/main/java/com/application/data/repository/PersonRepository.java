@@ -8,4 +8,5 @@ public interface PersonRepository extends CrudRepository<Person, Integer> {
     //Person findByDocumentTypeAndDocumentId(Integer idDocumentType,String documentId);
     Person findByDocumentIdAndDocumentType(String documentId, DocumentType documentType);
     Person findByDocumentId(String documentId);
+    Person findByIdPerson(Integer idPerson);
 }

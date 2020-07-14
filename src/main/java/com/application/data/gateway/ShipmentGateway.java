@@ -53,4 +53,8 @@ public class ShipmentGateway {
     public void saveAll(List<Shipment> shipmentList) {
         repository.saveAll(shipmentList);
     }
+
+    public ShipmentDto findByReferenceCode(String referenceCode){
+        return ShipmentParser.mapToDto(repository.findByReferenceCode(referenceCode));
+    }
 }

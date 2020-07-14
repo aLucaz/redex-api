@@ -3,6 +3,7 @@ package com.application.data.parser;
 import com.application.core.model.business.DocumentType;
 import com.application.core.model.business.Person;
 import com.application.core.model.dto.PersonDto;
+import com.application.core.model.dto.SearchShipmentDto;
 import com.application.rest.api.request.registerShipment.RegisterShipmentRequest;
 
 import java.time.LocalDateTime;
