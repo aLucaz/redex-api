@@ -58,7 +58,9 @@ public class ShipmentForBranchGateway {
         return ShipmentForBranchParser.mapToDtoListFromRowList(shipmentForBranchListFiltered);
     }
 
-    public List<ShipmentForBranchDto> findAllValidRoutesInRange(Integer idBranch, LocalDateTime start, LocalDateTime end, Integer idShipmentState){
+    public List<ShipmentForBranchDto> findAllValidRoutesInRange(Integer idBranch, LocalDateTime start,
+                                                                LocalDateTime end, Integer idShipmentState,
+                                                                Boolean ofSimulated){
         List<ShipmentForBranch> shipmentForBranchList = repository.findAllByBranchIdBranchAndShipmentStateIdShipmentStateAndCurrentArrivalDateTimeBetween(
                 idBranch,
                 idShipmentState,
@@ -71,7 +73,7 @@ public class ShipmentForBranchGateway {
 
         Predicate<ShipmentForBranch> byShipmentActive = ShipmentForBranch ->
                 ShipmentForBranch.getShipment().getIsActive() &&
-                !ShipmentForBranch.getShipment().getIsSimulated();
+                ShipmentForBranch.getShipment().getIsSimulated().equals(ofSimulated);
 
         List<ShipmentForBranch> shipmentForBranchListFiltered = shipmentForBranchList
                 .stream()

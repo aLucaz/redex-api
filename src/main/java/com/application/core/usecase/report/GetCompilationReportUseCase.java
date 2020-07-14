@@ -57,14 +57,16 @@ public class GetCompilationReportUseCase {
                     Constant.BRANCH_CAPACITY_INCIDENT,
                     branch.getFriendlyId(),
                     LocalDateTime.of(reportDto.getStartDate(), LocalTime.MIN),
-                    LocalDateTime.of(reportDto.getEndDate(), LocalTime.MAX));
+                    LocalDateTime.of(reportDto.getEndDate(), LocalTime.MAX),
+                    reportDto.getOfSimulated());
             // now we get the routes where shipments were in that range of dates in this branch
             // its have to be active shipment(not deleted), not simulated, and finished State
             List<ShipmentForBranchDto> routes = shipmentForBranchGateway.findAllValidRoutesInRange(
                     branch.getIdBranch(),
                     LocalDateTime.of(reportDto.getStartDate(), LocalTime.MIN),
                     LocalDateTime.of(reportDto.getEndDate(), LocalTime.MAX),
-                    shipmentStateGateway.findIdOf(Constant.FINISHED));
+                    shipmentStateGateway.findIdOf(Constant.FINISHED),
+                    reportDto.getOfSimulated());
 
             if (incidents != null)
                 detailCompilation.setQuantityOfIncidents(incidents.size());

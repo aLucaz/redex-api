@@ -26,6 +26,7 @@ public class CompilationReportDto {
     private LocalDate startDate;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = Constant.DATE_FORMAT)
     private LocalDate endDate;
+    private Boolean ofSimulated;
     // response
     private List<DetailCompilationDto> branchesDetail;
 }

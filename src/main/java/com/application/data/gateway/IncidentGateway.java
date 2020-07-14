@@ -43,10 +43,12 @@ public class IncidentGateway {
         return repository.findAllByIsSimulatedAndIsActive(Constant.IS_ACTIVE, Constant.IS_ACTIVE);
     }
 
-    public List<IncidentDto> findAllValidIncidentsInRange(String incidentType, String friendlyId, LocalDateTime start, LocalDateTime end) {
+    public List<IncidentDto> findAllValidIncidentsInRange(String incidentType, String friendlyId,
+                                                          LocalDateTime start, LocalDateTime end,
+                                                          Boolean ofSimulated) {
         List<Incident> incidentList = repository.findAllByIsActiveAndIsSimulatedAndIncidentTypeAndBranchFriendlyIdAndIncidentDateTimeBetween(
                 Constant.IS_ACTIVE,
-                Constant.IS_NOT_A_SIMULATION,
+                ofSimulated,
                 incidentType,
                 friendlyId,
                 start,

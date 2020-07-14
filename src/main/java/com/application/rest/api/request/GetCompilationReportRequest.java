@@ -23,4 +23,6 @@ public class GetCompilationReportRequest {
     @NotNull
     @JsonFormat(pattern = Constant.DATE_FORMAT)
     private LocalDate endDate;
+    @NotNull
+    private Boolean ofSimulated;
 }

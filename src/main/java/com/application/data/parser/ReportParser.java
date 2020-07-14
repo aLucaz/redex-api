@@ -7,6 +7,7 @@ public class ReportParser {
     public static CompilationReportDto mapToCompilationReportDto(GetCompilationReportRequest reportRequest){
         return new CompilationReportDto()
                 .setStartDate(reportRequest.getStartDate())
-                .setEndDate(reportRequest.getEndDate());
+                .setEndDate(reportRequest.getEndDate())
+                .setOfSimulated(reportRequest.getOfSimulated());
     }
 }
