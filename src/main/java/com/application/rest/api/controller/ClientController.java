@@ -7,7 +7,7 @@ import com.application.rest.ApiResponse;
 import com.application.rest.api.request.SearchShipmentRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,7 +21,7 @@ public class ClientController {
 
     private final SearchShipmentUseCase searchShipment;
 
-    @GetMapping("/search-shipment")
+    @PostMapping("/search-shipment")
     public ResponseEntity<Object> searchShipment(@Valid @RequestBody SearchShipmentRequest request) {
         SearchShipmentDto response = searchShipment.execute(ClientParser.mapToDto(request));
         return new ApiResponse<>().ok(response);
