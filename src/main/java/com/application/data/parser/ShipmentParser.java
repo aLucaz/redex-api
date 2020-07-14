@@ -31,7 +31,8 @@ public class ShipmentParser {
                 .setReferenceCode(shipment.getReferenceCode())
                 .setIsActive(shipment.getIsActive())
                 .setIsSimulated(shipment.getIsSimulated())
-                .setShipmentForBranches(ShipmentForBranchParser.mapToDtoSet(shipment.getShipmentForBranches()));
+                .setShipmentForBranches(ShipmentForBranchParser.mapToDtoSet(shipment.getShipmentForBranches()))
+                .setShipmentForPeople(ShipmentForPersonParser.mapToDtoSet(shipment.getShipmentForPeople()));
     }
 
     public static List<ShipmentDto> mapToDtoList(List<Shipment> shipmentList) {

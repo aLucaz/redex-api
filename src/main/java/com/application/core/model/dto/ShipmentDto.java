@@ -27,6 +27,7 @@ public class ShipmentDto {
     private String referenceCode;
     private String lastModifiedBy;
     private Set<ShipmentForBranchDto> shipmentForBranches;
+    private Set<ShipmentForPersonDto> shipmentForPeople;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = Constant.DATE_TIME_FORMAT)
     private LocalDateTime lastModifiedDate;
     private String registeredBy;

@@ -7,7 +7,7 @@ import com.application.core.model.business.ShipmentState;
 import com.application.core.model.dto.PathDto;
 import com.application.core.model.dto.RouteDto;
 import com.application.core.model.dto.ShipmentForBranchDto;
-import com.application.rest.api.request.*;
+import com.application.rest.api.request.UpdateShipmentStateRequest;
 import com.application.rest.api.request.registerShipment.RegisterShipmentBranchWrapper;
 import com.application.rest.api.request.registerShipment.RegisterShipmentRequest;
 
@@ -38,6 +38,8 @@ public class ShipmentForBranchParser {
         return new ShipmentForBranchDto()
                 .setIdBranch(shipmentForBranch.getBranch().getIdBranch())
                 .setIdShipment(shipmentForBranch.getShipment().getIdShipment())
+                .setShipmentStateFriendlyId(shipmentForBranch.getShipmentState().getFriendlyId())
+                .setShipmentStateName(shipmentForBranch.getShipmentState().getName())
                 .setCurrentArrivalDateTime(shipmentForBranch.getCurrentArrivalDateTime())
                 .setCurrentDepartureDateTime(shipmentForBranch.getCurrentDepartureDateTime())
                 .setFutureArrivalDateTime(shipmentForBranch.getFutureArrivalDateTime())

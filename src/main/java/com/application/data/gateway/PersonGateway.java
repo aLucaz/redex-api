@@ -29,4 +29,8 @@ public class PersonGateway {
         Person person = PersonParser.mapToRow(personDto);
         return PersonParser.mapToDto(repository.save(person));
     }
+
+    public PersonDto findById(Integer idPerson){
+        return PersonParser.mapToDto(repository.findByIdPerson(idPerson));
+    }
 }
