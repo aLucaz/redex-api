@@ -21,6 +21,6 @@ public class SearchShipmentDto {
     // request
     private String referenceCode;
     // response
-    private List<ShipmentForBranchDto> tripPlan;
+    private PathDto tripPlan;
     private List<PersonDto> people;
 }
