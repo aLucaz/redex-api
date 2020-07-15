@@ -37,5 +37,4 @@ public class RegisterShipmentBranchWrapper {
     private String transportTime;
     @NotNull
     private String totalTime;
-
 }

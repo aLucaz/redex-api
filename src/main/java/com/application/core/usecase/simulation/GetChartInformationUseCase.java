@@ -29,7 +29,7 @@ public class GetChartInformationUseCase {
     }
 
     public ChartInformationDto execute(ChartInformationDto chartInformationDto) {
-        List<BranchDto> branchDtoList = branchGateway.fildAllActive();
+        List<BranchDto> branchDtoList = branchGateway.findAllActive();
         List<BranchRecordDto> branchRecords = new ArrayList<>();
         LocalDateTime requestDateTime = chartInformationDto.getRequestDate().atStartOfDay();
         branchDtoList.forEach(branchDto -> {

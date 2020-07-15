@@ -50,7 +50,9 @@ public class RunSimulationUseCase {
                 shipmentGateway.persistWithPath(pathDto,
                         saveAsSimulated,
                         shipmentStateGateway.getDefaultShipmentState(Constant.DEFAULT_SHIPMENT_STATE_SIMULATION),
-                        fromContinent.equals(toContinent)
+                        fromContinent.equals(toContinent),
+                        request.getFrom(),
+                        request.getTo()
                 );
                 // TODO: make this proccess in normal registration
                 for (RouteDto route : pathDto.getTripPlan()) {

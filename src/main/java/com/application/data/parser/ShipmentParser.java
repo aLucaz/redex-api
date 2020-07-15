@@ -25,7 +25,9 @@ public class ShipmentParser {
                 .setRegisteredBy(request.getRegisteredBy())
                 .setArrivalDateTime(request.getArrivalDateTime())
                 .setDepartureDateTime(request.getDepartureDateTime())
-                .setSameContinent(request.getSameContinent().equals(1));
+                .setSameContinent(request.getSameContinent().equals(1))
+                .setDeparturePoint(request.getDeparturePoint())
+                .setArrivalPoint(request.getArrivalPoint());
     }
 
     public static ShipmentDto mapToDto(Shipment shipment) {
@@ -63,7 +65,9 @@ public class ShipmentParser {
                 .setTotalTransportTime(shipmentDto.getTotalTransportTime())
                 .setSameContinent(shipmentDto.getSameContinent())
                 .setDepartureDateTime(shipmentDto.getDepartureDateTime())
-                .setArrivalDateTime(shipmentDto.getArrivalDateTime());
+                .setArrivalDateTime(shipmentDto.getArrivalDateTime())
+                .setDeparturePoint(shipmentDto.getDeparturePoint())
+                .setArrivalPoint(shipmentDto.getArrivalPoint());
     }
 
     public static Shipment mapToRow(PathDto pathDto, Integer idShipmentState, Boolean isSimulated, Boolean sameContinent) {

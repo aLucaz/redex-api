@@ -55,7 +55,7 @@ public class GenerateRouteUseCase {
         // first of all we check if the route points are available
         checkIfBranchsAreAvailable(routeDto);
         // get all the branches with its data
-        List<BranchDto> branchDtoList = branchGateway.fildAllActive();
+        List<BranchDto> branchDtoList = branchGateway.findAllActive();
         // get all the flights depends on the restrictions
         List<EtFlightDto> etFlightDtoList = etFlightGateway.findAllInRange(routeDto);
         // create the network with the data

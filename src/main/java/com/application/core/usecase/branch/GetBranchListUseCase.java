@@ -13,6 +13,6 @@ public class GetBranchListUseCase {
     private final BranchGateway branchGateway;
 
     public List<BranchDto> execute(){
-        return branchGateway.fildAllActive();
+        return branchGateway.findAllActive();
     }
 }
