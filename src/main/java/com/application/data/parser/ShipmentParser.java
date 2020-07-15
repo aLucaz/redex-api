@@ -38,7 +38,11 @@ public class ShipmentParser {
                 .setIsActive(shipment.getIsActive())
                 .setIsSimulated(shipment.getIsSimulated())
                 .setShipmentForBranches(ShipmentForBranchParser.mapToDtoSet(shipment.getShipmentForBranches()))
-                .setShipmentForPeople(ShipmentForPersonParser.mapToDtoSet(shipment.getShipmentForPeople()));
+                .setShipmentForPeople(ShipmentForPersonParser.mapToDtoSet(shipment.getShipmentForPeople()))
+                .setSameContinent(shipment.getSameContinent())
+                .setTotalWaitingTime(shipment.getTotalWaitingTime())
+                .setTotalTransportTime(shipment.getTotalTransportTime())
+                .setTotalDelayTime(shipment.getTotalDelayTime());
     }
 
     public static List<ShipmentDto> mapToDtoList(List<Shipment> shipmentList) {
