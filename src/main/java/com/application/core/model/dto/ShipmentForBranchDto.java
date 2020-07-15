@@ -38,4 +38,6 @@ public class ShipmentForBranchDto {
     private String totalWaitingTime;
     private String totalTransportTime;
     private String totalDelayTime;
+    // for validation
+    private Boolean isSimulated;
 }

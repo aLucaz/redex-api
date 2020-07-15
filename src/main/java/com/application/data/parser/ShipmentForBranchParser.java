@@ -121,6 +121,7 @@ public class ShipmentForBranchParser {
                             .setFutureArrivalDateTime(shipmentForBranch.getFutureArrivalDateTime())
                             .setFlightFriendlyId(shipmentForBranch.getFlightFriendlyId())
                             .setSequence(shipmentForBranch.getSequence())
+                            .setIsSimulated(shipmentForBranch.getShipment().getIsSimulated())
             );
         }
         return shipmentForBranchDtoList;
