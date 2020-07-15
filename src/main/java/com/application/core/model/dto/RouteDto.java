@@ -44,4 +44,8 @@ public class RouteDto {
     private String endCity;
     private Integer startCityId;
     private Integer endCityId;
+
+    //now we add some data
+    private String friendlyIdState;
+    private String nameState;
 }

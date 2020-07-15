@@ -41,6 +41,7 @@ public class ShipmentForBranchParser {
         return new ShipmentForBranchDto()
                 .setIdBranch(shipmentForBranch.getBranch().getIdBranch())
                 .setIdShipment(shipmentForBranch.getShipment().getIdShipment())
+                .setIdShipmentState(shipmentForBranch.getShipmentState().getIdShipmentState())
                 .setShipmentStateFriendlyId(shipmentForBranch.getShipmentState().getFriendlyId())
                 .setShipmentStateName(shipmentForBranch.getShipmentState().getName())
                 .setCurrentArrivalDateTime(shipmentForBranch.getCurrentArrivalDateTime())

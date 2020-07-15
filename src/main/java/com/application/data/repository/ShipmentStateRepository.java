@@ -8,4 +8,5 @@ import java.util.List;
 public interface ShipmentStateRepository extends CrudRepository<ShipmentState, Integer> {
     ShipmentState getByFriendlyId(String friendlyId);
     List<ShipmentState> findAll();
+    ShipmentState findByIdShipmentState(Integer id);
 }

@@ -1,6 +1,8 @@
 package com.application.data.gateway;
 
 import com.application.core.model.business.ShipmentState;
+import com.application.core.model.dto.ShipmentStateDto;
+import com.application.data.parser.ShipmentStateParser;
 import com.application.data.repository.ShipmentStateRepository;
 import org.springframework.stereotype.Repository;
 
@@ -26,4 +28,10 @@ public class ShipmentStateGateway {
         return repository.getByFriendlyId(friendlyId).getIdShipmentState();
     }
 
+    public ShipmentStateDto findById(Integer idShipmentState) {
+        ShipmentState shipmentState = repository.findByIdShipmentState(idShipmentState);
+        if (shipmentState == null)
+            return null;
+        return ShipmentStateParser.mapToDto(shipmentState);
+    }
 }

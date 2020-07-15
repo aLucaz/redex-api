@@ -8,10 +8,12 @@ import com.application.core.model.dto.SearchShipmentDto;
 import com.application.core.model.dto.ShipmentDto;
 import com.application.core.model.dto.ShipmentForBranchDto;
 import com.application.core.model.dto.ShipmentForPersonDto;
+import com.application.core.model.dto.ShipmentStateDto;
 import com.application.data.gateway.BranchGateway;
 import com.application.data.gateway.EtFlightGateway;
 import com.application.data.gateway.PersonGateway;
 import com.application.data.gateway.ShipmentGateway;
+import com.application.data.gateway.ShipmentStateGateway;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -24,13 +26,15 @@ public class SearchShipmentUseCase {
     private final PersonGateway personGateway;
     private final EtFlightGateway etFlightGateway;
     private final BranchGateway branchGateway;
+    private final ShipmentStateGateway shipmentStateGateway;
 
     public SearchShipmentUseCase(ShipmentGateway shipmentGateway, PersonGateway personGateway,
-                                 EtFlightGateway etFlightGateway, BranchGateway branchGateway) {
+                                 EtFlightGateway etFlightGateway, BranchGateway branchGateway, ShipmentStateGateway shipmentStateGateway) {
         this.shipmentGateway = shipmentGateway;
         this.personGateway = personGateway;
         this.etFlightGateway = etFlightGateway;
         this.branchGateway = branchGateway;
+        this.shipmentStateGateway = shipmentStateGateway;
     }
 
     public SearchShipmentDto execute(SearchShipmentDto request) {
@@ -63,6 +67,7 @@ public class SearchShipmentUseCase {
     public List<RouteDto> convertToRoute(List<ShipmentForBranchDto> shipmentForBranchDtoList) {
         List<RouteDto> routeDtoList = new ArrayList<>();
         shipmentForBranchDtoList.forEach(shipmentForBranchDto -> {
+            ShipmentStateDto state = shipmentStateGateway.findById(shipmentForBranchDto.getIdShipmentState());
             String endCityFriendlyId = etFlightGateway.findByFriendlyId(shipmentForBranchDto.getFlightFriendlyId()).getArrivalPoint();
             BranchDto endBranch = branchGateway.findByFriendlyId(endCityFriendlyId);
             BranchDto startBranch = branchGateway.findById(shipmentForBranchDto.getIdBranch());
@@ -74,7 +79,9 @@ public class SearchShipmentUseCase {
                     .setEndCityId(endBranch.getIdBranch())
                     .setStartCity(startBranch.getName())
                     .setEndCity(endBranch.getName())
-                    .setSequence(shipmentForBranchDto.getSequence());
+                    .setSequence(shipmentForBranchDto.getSequence())
+                    .setFriendlyIdState(state.getFriendlyId())
+                    .setNameState(state.getName());
             routeDtoList.add(routeDto);
         });
         return routeDtoList;
