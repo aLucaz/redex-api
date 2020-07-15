@@ -6,6 +6,7 @@ import com.application.core.model.dto.report.DetailHourDto;
 import com.application.core.usecase.util.algorithm.util.Time;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
@@ -21,7 +22,10 @@ public class HourlyClassificatorImpl implements HourlyClassificator {
         hours.forEach(hour -> {
             Predicate<IncidentDto> byIncidentHour = incidentDto -> incidentDto.getIncidentDateTime().toLocalTime().getHour() == hour;
             List<IncidentDto> incidentFiltered = incidents.stream().filter(byIncidentHour).collect(Collectors.toList());
-            Predicate<ShipmentForBranchDto> byRouteHour = route -> route.getCurrentArrivalDateTime().toLocalTime().getHour() == hour;
+            LocalTime thisTime = LocalTime.of(hour, 0);
+            Predicate<ShipmentForBranchDto> byRouteHour = route ->
+                    (route.getCurrentArrivalDateTime().toLocalTime().isBefore(thisTime) &&
+                            route.getCurrentDepartureDateTime().toLocalTime().isAfter(thisTime));
             List<ShipmentForBranchDto> routesFiltered = routes.stream().filter(byRouteHour).collect(Collectors.toList());
 
             DetailHourDto detailHourDto = new DetailHourDto()
