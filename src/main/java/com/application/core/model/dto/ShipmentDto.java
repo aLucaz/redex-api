@@ -11,7 +11,6 @@ import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.Accessors;
 
-import javax.persistence.Column;
 import java.time.LocalDateTime;
 import java.util.Set;
 
@@ -43,4 +42,6 @@ public class ShipmentDto {
     private Boolean sameContinent;
     private LocalDateTime departureDateTime;
     private LocalDateTime arrivalDateTime;
+    private String departurePoint;
+    private String arrivalPoint;
 }

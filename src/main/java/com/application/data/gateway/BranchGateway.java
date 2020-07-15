@@ -29,13 +29,9 @@ public class BranchGateway {
         return BranchParser.mapToDtoList(branchList);
     }
 
-    public List<BranchDto> fildAllActive(){
+    public List<BranchDto> findAllActive(){
         List<Branch> branchList = repository.findAllByIsActive(Constant.ACTIVE);
         return BranchParser.mapToDtoList(branchList);
-    }
-
-    public List<BranchDto> findAllWithCapacity(){
-        return  null;
     }
 
     public Boolean askIfIsActive(String friendlyId){

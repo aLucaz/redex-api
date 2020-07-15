@@ -56,6 +56,10 @@ public class Shipment {
     private LocalDateTime departureDateTime;
     @Column
     private LocalDateTime arrivalDateTime;
+    @Column
+    private String departurePoint;
+    @Column
+    private String arrivalPoint;
 
     @Column(nullable = false)
     private String lastModifiedBy;

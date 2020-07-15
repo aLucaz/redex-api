@@ -43,7 +43,7 @@ public class GetCompilationReportUseCase {
     }
 
     public CompilationReportDto execute(CompilationReportDto reportDto) {
-        List<BranchDto> branches = branchGateway.fildAllActive();
+        List<BranchDto> branches = branchGateway.findAllActive();
         List<DetailCompilationDto> detailCompilationDtoList = new ArrayList<>();
 
         for (BranchDto branch : branches) {

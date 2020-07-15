@@ -35,9 +35,14 @@ public class ShipmentGateway {
         return ShipmentParser.mapToDto(repository.save(shipment));
     }
 
-    public void persistWithPath(PathDto path, Boolean isSimulated, Integer shipmentStateId, Boolean sameContinent) {
+    public void persistWithPath(PathDto path, Boolean isSimulated,
+                                Integer shipmentStateId, Boolean sameContinent,
+                                String from, String to) {
         Shipment shipment = ShipmentParser.mapToRow(path, shipmentStateId, isSimulated, sameContinent);
-        shipment.setReferenceCode(referenceCodeGenerator.generateReferenceCode());
+        shipment.setReferenceCode(referenceCodeGenerator.generateReferenceCode())
+                .setDeparturePoint(from)
+                .setArrivalPoint(to);
+
         repository.save(shipment);
     }
 
@@ -53,6 +58,9 @@ public class ShipmentGateway {
         return repository.findAllByIsSimulatedAndIsActive(Constant.IS_ACTIVE, Constant.IS_ACTIVE);
     }
 
+//    public List<ShipmentDto> findAllForOnTimeReport(){
+//
+//    }
 
     public void saveAll(List<Shipment> shipmentList) {
         repository.saveAll(shipmentList);

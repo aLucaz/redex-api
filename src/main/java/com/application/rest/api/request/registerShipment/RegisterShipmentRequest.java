@@ -58,6 +58,11 @@ public class RegisterShipmentRequest {
     @NotNull
     @JsonFormat(pattern = Constant.DATE_TIME_FORMAT)
     private LocalDateTime arrivalDateTime;
+    @NotNull
+    private String departurePoint;
+    @NotNull
+    private String arrivalPoint;
+
 }
 
 
