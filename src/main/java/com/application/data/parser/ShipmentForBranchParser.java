@@ -29,6 +29,9 @@ public class ShipmentForBranchParser {
                             .setFutureArrivalDateTime(wrapper.getFutureArrivalDateTime())
                             .setFlightFriendlyId(wrapper.getFlightFriendlyId())
                             .setSequence(wrapper.getSequence())
+                            .setTotalWaitingTime(wrapper.getWaitingTime())
+                            .setTotalTransportTime(wrapper.getTransportTime())
+                            .setTotalDelayTime(wrapper.getTotalTime())
             );
         }
         return shipmentForBranchDtoList;

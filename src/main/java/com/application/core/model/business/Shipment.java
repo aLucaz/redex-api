@@ -43,6 +43,20 @@ public class Shipment {
     private Boolean isActive;
     @Column
     private String referenceCode;
+
+    @Column
+    private String totalWaitingTime;
+    @Column
+    private String totalTransportTime;
+    @Column
+    private String totalDelayTime;
+    @Column
+    private Boolean sameContinent;
+    @Column
+    private LocalDateTime departureDateTime;
+    @Column
+    private LocalDateTime arrivalDateTime;
+
     @Column(nullable = false)
     private String lastModifiedBy;
     @Column(nullable = false)

@@ -31,4 +31,11 @@ public class RegisterShipmentBranchWrapper {
     private String flightFriendlyId;
     @NotNull
     private Integer sequence;
+    @NotNull
+    private String waitingTime;
+    @NotNull
+    private String transportTime;
+    @NotNull
+    private String totalTime;
+
 }

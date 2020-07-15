@@ -45,8 +45,14 @@ public class RunSimulationUseCase {
                     Constant.IS_A_SIMULATION,
                     saveAsSimulated);
             if (pathDto != null) {
-                shipmentGateway.persistWithPath(pathDto, saveAsSimulated,
-                        shipmentStateGateway.getDefaultShipmentState(Constant.DEFAULT_SHIPMENT_STATE_SIMULATION));
+                String fromContinent = branchGateway.findContinentOf(request.getFrom());
+                String toContinent = branchGateway.findContinentOf(request.getTo());
+                shipmentGateway.persistWithPath(pathDto,
+                        saveAsSimulated,
+                        shipmentStateGateway.getDefaultShipmentState(Constant.DEFAULT_SHIPMENT_STATE_SIMULATION),
+                        fromContinent.equals(toContinent)
+                );
+                // TODO: make this proccess in normal registration
                 for (RouteDto route : pathDto.getTripPlan()) {
                     etFlightGateway.updateQuantity(route.getFlightFriendlyId());
                 }

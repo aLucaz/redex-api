@@ -56,7 +56,10 @@ public class RegisterShipmentUseCase {
         // first we save all the persons that not are already in the database
         HashMap<String, PersonDto> peopleProcessed = persistAndGetPeopleInformation(customerPersonDto, receiverPersonDto);
         // now we save the shipment information
-        ShipmentDto shipmentResponse = shipmentGateway.persist(shipmentDto.setReferenceCode(referenceCodeGenerator.generateReferenceCode()));
+        ShipmentDto shipmentResponse = shipmentGateway.persist(
+                shipmentDto.setReferenceCode(referenceCodeGenerator.generateReferenceCode()),
+                shipmentForBranchDtoList.get(shipmentForBranchDtoList.size() - 1)
+        );
         //now we save all the people related to the shipment
         List<ShipmentForPersonDto> shipmentForPersonList = getShipmentForPersonInformation(peopleProcessed, shipmentResponse);
         shipmentForPersonGateway.persistAll(shipmentForPersonList);
