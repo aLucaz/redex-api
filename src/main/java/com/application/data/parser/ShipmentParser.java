@@ -12,6 +12,7 @@ import com.application.shared.Constant;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -21,7 +22,10 @@ public class ShipmentParser {
         return new ShipmentDto()
                 .setPrice(request.getPrice())
                 .setLastModifiedBy(request.getLastModifiedBy())
-                .setRegisteredBy(request.getRegisteredBy());
+                .setRegisteredBy(request.getRegisteredBy())
+                .setArrivalDateTime(request.getArrivalDateTime())
+                .setDepartureDateTime(request.getDepartureDateTime())
+                .setSameContinent(request.getSameContinent().equals(1));
     }
 
     public static ShipmentDto mapToDto(Shipment shipment) {
@@ -53,10 +57,16 @@ public class ShipmentParser {
                 .setRegisteredDate(LocalDateTime.now())
                 .setReferenceCode(shipmentDto.getReferenceCode())
                 .setIsActive(Constant.IS_ACTIVE)
-                .setIsSimulated(Constant.IS_NOT_A_SIMULATION);
+                .setIsSimulated(Constant.IS_NOT_A_SIMULATION)
+                .setTotalDelayTime(shipmentDto.getTotalDelayTime())
+                .setTotalWaitingTime(shipmentDto.getTotalWaitingTime())
+                .setTotalTransportTime(shipmentDto.getTotalTransportTime())
+                .setSameContinent(shipmentDto.getSameContinent())
+                .setDepartureDateTime(shipmentDto.getDepartureDateTime())
+                .setArrivalDateTime(shipmentDto.getArrivalDateTime());
     }
 
-    public static Shipment mapToRow(PathDto pathDto, Integer idShipmentState, Boolean isSimulated) {
+    public static Shipment mapToRow(PathDto pathDto, Integer idShipmentState, Boolean isSimulated, Boolean sameContinent) {
         Shipment shipment = new Shipment()
                 .setPrice(pathDto.getPrice())
                 .setLastModifiedBy(Constant.DEFAULT_USER_REGISTRATOR)
@@ -78,20 +88,27 @@ public class ShipmentParser {
                     .setFlightFriendlyId(routeDto.getFlightFriendlyId())
                     .setSequence(routeDto.getSequence()));
         }
+        // we get the final ShipmentForBranch
+        RouteDto initialRoute = pathDto.getTripPlan()
+                .stream()
+                .min(Comparator.comparing(RouteDto::getSequence))
+                .get();
+
+        RouteDto finalRoute = pathDto.getTripPlan()
+                .stream()
+                .max(Comparator.comparing(RouteDto::getSequence))
+                .get();
+
         // now add the set to the created shipment
-        shipment.setShipmentForBranches(shipmentForBranchSet);
+        shipment.setShipmentForBranches(shipmentForBranchSet)
+                .setSameContinent(sameContinent)
+                .setArrivalDateTime(finalRoute.getFutureArrivalDateTime())
+                .setDepartureDateTime(initialRoute.getCurrentDepartureDateTime())
+                .setTotalTransportTime(finalRoute.getTransportTime())
+                .setTotalWaitingTime(finalRoute.getWaitingTime())
+                .setTotalDelayTime(finalRoute.getTotalTime());
+
         return shipment;
     }
 
-    public static List<Shipment> mapToRowList(List<PathDto> pathDtoList, Integer idShipmentState) {
-        List<Shipment> shipmentList = new ArrayList<>();
-        for (PathDto pathDto : pathDtoList) {
-            if (pathDto != null) {
-                Shipment shipment = mapToRow(pathDto, idShipmentState, Constant.IS_A_SIMULATION);
-                // now add the shipment to the list
-                shipmentList.add(shipment);
-            }
-        }
-        return shipmentList;
-    }
 }

@@ -11,6 +11,7 @@ import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.Accessors;
 
+import javax.persistence.Column;
 import java.time.LocalDateTime;
 import java.util.Set;
 
@@ -35,4 +36,11 @@ public class ShipmentDto {
     private LocalDateTime registeredDate;
     private Boolean isActive;
     private Boolean isSimulated;
+    // more data
+    private String totalWaitingTime;
+    private String totalTransportTime;
+    private String totalDelayTime;
+    private Boolean sameContinent;
+    private LocalDateTime departureDateTime;
+    private LocalDateTime arrivalDateTime;
 }

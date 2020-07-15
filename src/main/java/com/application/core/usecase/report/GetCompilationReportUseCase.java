@@ -52,7 +52,7 @@ public class GetCompilationReportUseCase {
                     .setNameBranch(branch.getName())
                     .setCapacity(branch.getCapacity());
             // now we get the incidents in that range of dates in this branch
-            // incidents have to be active (not deleted), not simulated and branch incident type
+            // incidents have to be active (not deleted) and branch incident type
             List<IncidentDto> incidents = incidentGateway.findAllValidIncidentsInRange(
                     Constant.BRANCH_CAPACITY_INCIDENT,
                     branch.getFriendlyId(),
@@ -60,7 +60,7 @@ public class GetCompilationReportUseCase {
                     LocalDateTime.of(reportDto.getEndDate(), LocalTime.MAX),
                     reportDto.getOfSimulated());
             // now we get the routes where shipments were in that range of dates in this branch
-            // its have to be active shipment(not deleted), not simulated, and finished State
+            // its have to be active shipment(not deleted), and finished State
             List<ShipmentForBranchDto> routes = shipmentForBranchGateway.findAllValidRoutesInRange(
                     branch.getIdBranch(),
                     LocalDateTime.of(reportDto.getStartDate(), LocalTime.MIN),

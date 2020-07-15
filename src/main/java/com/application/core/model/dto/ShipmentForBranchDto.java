@@ -34,4 +34,8 @@ public class ShipmentForBranchDto {
     private LocalDateTime futureArrivalDateTime;
     private String flightFriendlyId;
     private Integer sequence;
+    // necessary data
+    private String totalWaitingTime;
+    private String totalTransportTime;
+    private String totalDelayTime;
 }
