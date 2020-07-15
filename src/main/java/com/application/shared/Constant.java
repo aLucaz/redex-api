@@ -144,4 +144,10 @@ public class Constant {
     /**/
     public static final Boolean SAVE_AS_SIMULATION = true;
     public static final Boolean NOT_SAVE_AS_SIMULATION = false;
+    /*Keys*/
+    public static final String ON_TIME_KEY = "OnTime";
+    public static final String LATE_KEY = "Late";
+    public static final String MAX_DELAY_SAME_CONT = "24:00";
+    public static final String MAX_DELAY_DIFF_CONT = "48:00";
+
 }

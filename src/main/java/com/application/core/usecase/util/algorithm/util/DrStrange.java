@@ -92,4 +92,10 @@ public class DrStrange {
         LocalDate arrivalDate = LocalDate.parse(arrivalDateStr, Constant.DATE_FORMATTER);
         return departureDate.isBefore(arrivalDate);
     }
+
+    public static Boolean smallerThan(String thisTime, String thatTime){
+        Time thisTimeProp = fromStringToTime(thisTime);
+        Time thatTimeProp = fromStringToTime(thatTime);
+        return thisTimeProp.compareTo(thatTimeProp) < 0;
+    }
 }

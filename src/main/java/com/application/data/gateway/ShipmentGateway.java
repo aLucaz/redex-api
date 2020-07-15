@@ -4,6 +4,7 @@ import com.application.core.model.business.Shipment;
 import com.application.core.model.dto.PathDto;
 import com.application.core.model.dto.ShipmentDto;
 import com.application.core.model.dto.ShipmentForBranchDto;
+import com.application.core.model.dto.report.OnTimeReportDto;
 import com.application.core.usecase.util.generator.referenceCode.ReferenceCodeGenerator;
 import com.application.core.usecase.util.generator.referenceCode.ReferenceCodeGeneratorImpl;
 import com.application.data.parser.ShipmentParser;
@@ -12,6 +13,8 @@ import com.application.shared.Constant;
 import lombok.SneakyThrows;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 
 ;
@@ -58,9 +61,15 @@ public class ShipmentGateway {
         return repository.findAllByIsSimulatedAndIsActive(Constant.IS_ACTIVE, Constant.IS_ACTIVE);
     }
 
-//    public List<ShipmentDto> findAllForOnTimeReport(){
-//
-//    }
+    public List<ShipmentDto> findAllForOnTimeReport(OnTimeReportDto reportDto, String thisBranch){
+        return ShipmentParser.mapToDtoList(repository.findAllByIsActiveAndIsSimulatedAndArrivalPointAndArrivalDateTimeBetween(
+                Constant.IS_ACTIVE,
+                reportDto.getOfSimulated(),
+                thisBranch,
+                LocalDateTime.of(reportDto.getStartDate(), LocalTime.MIN),
+                LocalDateTime.of(reportDto.getEndDate(), LocalTime.MAX)
+        ));
+    }
 
     public void saveAll(List<Shipment> shipmentList) {
         repository.saveAll(shipmentList);
