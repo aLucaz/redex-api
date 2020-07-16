@@ -16,11 +16,11 @@ public interface ShipmentForBranchRepository extends CrudRepository<ShipmentForB
             LocalDateTime start,
             LocalDateTime end);
     List<ShipmentForBranch> findByBranchIdBranchAndShipmentIsActive(Integer idBranch,Boolean isActive);
-    ShipmentForBranch findByShipmentIdShipmentAndBranchIdBranch(Integer idShipment,Integer idBranch);
+    ShipmentForBranch findByShipmentIdShipmentAndBranchIdBranchAndShipmentIsActive(Integer idShipment,Integer idBranch,Boolean isActive);
 
-    List<ShipmentForBranch> findByFlightFriendlyIdInAndShipmentArrivalPoint(List<String> flightFriendlyIds,String arrivalPoint);
+    List<ShipmentForBranch> findByFlightFriendlyIdInAndShipmentArrivalPointAndShipmentIsActive(List<String> flightFriendlyIds,String arrivalPoint,Boolean isActive);
 
-    ShipmentForBranch findByFlightFriendlyIdInAndShipmentIdShipment(List<String> flightFriendlyIds, Integer idShipment);
+    ShipmentForBranch findByFlightFriendlyIdInAndShipmentIdShipmentAndShipmentIsActive(List<String> flightFriendlyIds, Integer idShipment,Boolean isActive);
 
-    List<ShipmentForBranch> findByShipmentIdShipment(Integer idShipment);
+    List<ShipmentForBranch> findByShipmentIdShipmentAndShipmentIsActive(Integer idShipment,Boolean isActive);
 }

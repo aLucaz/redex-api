@@ -136,7 +136,7 @@ public class GetShipmentForABranchUseCase {
         branchDtoResponse.setInTransitIn(inTransitInCount);
         branchDtoResponse.setInTransitOut(inTransitOutCount);
         branchDtoResponse.setToDeliver(toDeliverCount);
-        branchDtoResponse.setQuantity(finalList.size());
+        branchDtoResponse.setQuantity(inTransitInCount + inTransitOutCount+toDeliverCount);
         branchDtoResponse.setShipments(
                 ShipmentForBranchParser.mapToDtoListFromShipmentForBranch(finalList));
         return branchDtoResponse;

@@ -84,7 +84,7 @@ public class ShipmentForBranchGateway {
     }
 
     public ShipmentForBranch findByShipmentAndBranch(Integer idShipment, Integer idBranch) {
-        return repository.findByShipmentIdShipmentAndBranchIdBranch(idShipment, idBranch);
+        return repository.findByShipmentIdShipmentAndBranchIdBranchAndShipmentIsActive(idShipment, idBranch, Constant.ACTIVEB);
     }
 
     @SneakyThrows
@@ -99,15 +99,15 @@ public class ShipmentForBranchGateway {
 
     public List<ShipmentForBranch> findByFlightListAndShipmentArrivalPoint(List<String> flightFriendlyIds,
                                                                            String arrivalPoint) {
-        return repository.findByFlightFriendlyIdInAndShipmentArrivalPoint(flightFriendlyIds,arrivalPoint);
+        return repository.findByFlightFriendlyIdInAndShipmentArrivalPointAndShipmentIsActive(flightFriendlyIds,arrivalPoint, Constant.ACTIVEB);
     }
 
 
     public ShipmentForBranch findByFlightListAndShipment(List<String> flightFriendlyIds,Integer idShipment) {
-        return repository.findByFlightFriendlyIdInAndShipmentIdShipment(flightFriendlyIds,idShipment);
+        return repository.findByFlightFriendlyIdInAndShipmentIdShipmentAndShipmentIsActive(flightFriendlyIds,idShipment, Constant.ACTIVEB);
     }
 
     public List<ShipmentForBranch> findByShipment(Integer idShipment) {
-        return repository.findByShipmentIdShipment(idShipment);
+        return repository.findByShipmentIdShipmentAndShipmentIsActive(idShipment, Constant.ACTIVEB);
     }
 }
