@@ -51,16 +51,17 @@ public class GetShipmentForABranchUseCase {
         List<EtFlight> flightList = etFlightGateway.findByArrivalPoint(branchDtoResponse.getFriendlyId());
         for(EtFlight etFlight : flightList)
             flightFriendlyIds.add(etFlight.getFriendlyId());
-        
+
         //Buscamos todos los penultimos sfb cuyo punto final sea este branch
-        List<ShipmentForBranch> secondLastSFB = shipmentForBranchGateway.findByFlightList(flightFriendlyIds);
+        List<ShipmentForBranch> secondLastSFB =
+                shipmentForBranchGateway.findByFlightListAndShipmentArrivalPoint(flightFriendlyIds,branchDtoResponse.getFriendlyId());
 
         //Creamos los sfb para este branch cuando es el punto final
         for(ShipmentForBranch sfbSL : secondLastSFB){
             ShipmentForBranch sfbToAdd =
                     new ShipmentForBranch()
                             .setShipment(sfbSL.getShipment())
-                            .setBranch(sfbSL.getBranch())
+                            .setBranch(sfbSL.getBranch().setIdBranch(branchDtoResponse.getIdBranch()))
                             .setCurrentArrivalDateTime(sfbSL.getFutureArrivalDateTime())
                             .setSequence(sfbSL.getSequence()+1)
                     ;

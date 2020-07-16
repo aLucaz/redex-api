@@ -18,5 +18,9 @@ public interface ShipmentForBranchRepository extends CrudRepository<ShipmentForB
     List<ShipmentForBranch> findByBranchIdBranchAndShipmentIsActive(Integer idBranch,Boolean isActive);
     ShipmentForBranch findByShipmentIdShipmentAndBranchIdBranch(Integer idShipment,Integer idBranch);
 
-    List<ShipmentForBranch> findByFlightFriendlyIdIn(List<String> flightFriendlyIds);
+    List<ShipmentForBranch> findByFlightFriendlyIdInAndShipmentArrivalPoint(List<String> flightFriendlyIds,String arrivalPoint);
+
+    ShipmentForBranch findByFlightFriendlyIdInAndShipmentIdShipment(List<String> flightFriendlyIds, Integer idShipment);
+
+    List<ShipmentForBranch> findByShipmentIdShipment(Integer idShipment);
 }
