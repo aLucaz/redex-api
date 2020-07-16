@@ -68,15 +68,18 @@ public class GetShipmentForABranchUseCase {
             switch(sfbSL.getShipmentState().getFriendlyId()){
                 case Constant.IN_TRANSIT_IN:
                     sfbToAdd.setShipmentState(
-                            new ShipmentState().setIdShipmentState(mapStates.get(Constant.IN_TRANSIT_IN)));
+                            new ShipmentState().setIdShipmentState(mapStates.get(Constant.IN_TRANSIT_IN))
+                                    .setFriendlyId(Constant.IN_TRANSIT_IN));
                     break;
                 case Constant.IN_TRANSIT_OUT:
                     sfbToAdd.setShipmentState(
-                            new ShipmentState().setIdShipmentState(mapStates.get(Constant.IN_TRANSIT_IN)));
+                            new ShipmentState().setIdShipmentState(mapStates.get(Constant.IN_TRANSIT_IN))
+                                    .setFriendlyId(Constant.IN_TRANSIT_IN));
                     break;
                 case Constant.BRANCH_OUT:
                     sfbToAdd.setShipmentState(
-                            new ShipmentState().setIdShipmentState(mapStates.get(Constant.IN_TRANSIT_IN)));
+                            new ShipmentState().setIdShipmentState(mapStates.get(Constant.IN_TRANSIT_IN))
+                                    .setFriendlyId(Constant.IN_TRANSIT_IN));
                     break;
                 case Constant.TO_DELIVER:
                     sfbToAdd.setShipmentState(
@@ -91,7 +94,7 @@ public class GetShipmentForABranchUseCase {
                                     .setFriendlyId(Constant.FINISHED));
                     break;
             }
-            finalList.add(sfbSL);
+            finalList.add(sfbToAdd);
         }
 
         //Modificamos los sfb que si existen en la bd
