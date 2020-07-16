@@ -24,7 +24,8 @@ public class HourlyClassificatorImpl implements HourlyClassificator {
             List<IncidentDto> incidentFiltered = incidents.stream().filter(byIncidentHour).collect(Collectors.toList());
             LocalTime thisTime = LocalTime.of(hour, 0);
             Predicate<ShipmentForBranchDto> byRouteHour = route ->
-                    (route.getCurrentArrivalDateTime().toLocalTime().isBefore(thisTime) &&
+                    ((route.getCurrentArrivalDateTime().toLocalTime().isBefore(thisTime) ||
+                            (route.getCurrentArrivalDateTime().toLocalTime().compareTo(thisTime) == 0)) &&
                             route.getCurrentDepartureDateTime().toLocalTime().isAfter(thisTime));
             List<ShipmentForBranchDto> routesFiltered = routes.stream().filter(byRouteHour).collect(Collectors.toList());
 

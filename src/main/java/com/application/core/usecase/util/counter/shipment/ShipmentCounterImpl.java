@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 public class ShipmentCounterImpl implements ShipmentCounter {
 
     @Override
-    public Integer countShipmentsInRange(List<ShipmentForBranchDto> routes, LocalDateTime requestDateTime, BranchDto requestBranch) {
+    public Integer countShipmentsInRange(List<ShipmentForBranchDto> routes, LocalDateTime requestDateTime) {
         // routes can be empty
         if (routes == null || routes.size() == 0)
             return Constant.NUMBER_OF_SHIPMENTS_EMPTY;
@@ -22,8 +22,7 @@ public class ShipmentCounterImpl implements ShipmentCounter {
         Predicate<ShipmentForBranchDto> byDateTimeInterval = ShipmentForBranchDto ->
                 (ShipmentForBranchDto.getCurrentArrivalDateTime().isBefore(requestDateTime) ||
                         ShipmentForBranchDto.getCurrentArrivalDateTime().isEqual(requestDateTime)) &&
-                        ShipmentForBranchDto.getCurrentDepartureDateTime().isAfter(requestDateTime) &&
-                        ShipmentForBranchDto.getIdBranch().equals(requestBranch.getIdBranch());
+                        ShipmentForBranchDto.getCurrentDepartureDateTime().isAfter(requestDateTime);
         List<ShipmentForBranchDto> routesFiltered = routes
                 .stream()
                 .filter(byDateTimeInterval)
@@ -39,6 +38,16 @@ public class ShipmentCounterImpl implements ShipmentCounter {
         routes.removeIf(route -> isOutOfDateRange(route, arrivalDateTime, departureDateTime, requestBranch));
         return routes.size();
     }
+
+    @Override
+    public List<ShipmentForBranchDto> giveMeTheShipmentsInRange(List<ShipmentForBranchDto> routes, LocalDateTime arrivalDateTime, LocalDateTime departureDateTime, BranchDto requestBranch) {
+        // routes can be empty
+        if (routes == null || routes.size() == 0)
+            return null;
+        routes.removeIf(route -> isOutOfDateRange(route, arrivalDateTime, departureDateTime, requestBranch));
+        return routes;
+    }
+
 
     public Boolean isOutOfDateRange(ShipmentForBranchDto shipmentForBranchDto, LocalDateTime arrivalDateTime, LocalDateTime departureDateTime, BranchDto requestBranch) {
         return (shipmentForBranchDto.getIdBranch().equals(requestBranch.getIdBranch())) &&

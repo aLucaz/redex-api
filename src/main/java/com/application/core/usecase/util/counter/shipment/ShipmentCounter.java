@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public interface ShipmentCounter {
-    Integer countShipmentsInRange(List<ShipmentForBranchDto> routes, LocalDateTime requestDateTime, BranchDto requestBranch);
+    Integer countShipmentsInRange(List<ShipmentForBranchDto> routes, LocalDateTime requestDateTime);
     Integer countShipmentsInRange(List<ShipmentForBranchDto> routes, LocalDateTime arrivalDateTime, LocalDateTime departureDateTime, BranchDto requestBranch);
+    List<ShipmentForBranchDto> giveMeTheShipmentsInRange(List<ShipmentForBranchDto> routes, LocalDateTime arrivalDateTime, LocalDateTime departureDateTime, BranchDto requestBranch);
 }

@@ -12,6 +12,7 @@ import com.application.shared.Galactus;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.List;
 
 @Component
@@ -28,14 +29,30 @@ public class IncidentDetectorImpl implements IncidentDetector {
     @Override
     public IncidentDto detectIncident(List<ShipmentForBranchDto> tripPlans, LocalDateTime arrivalDateTime,
                                       LocalDateTime departureDatetime, BranchDto requestBranch, Boolean isASimulation) {
-        Integer numberOfShipmentsInRange = shipmentCounter.countShipmentsInRange(tripPlans, arrivalDateTime, departureDatetime, requestBranch);
-        if (requestBranch.getCapacity() <= numberOfShipmentsInRange)
-            return new IncidentDto()
-                    .setBranchFriendlyId(requestBranch.getFriendlyId())
-                    .setIncidentDateTime(arrivalDateTime)
-                    .setIsActive(Constant.IS_ACTIVE)
-                    .setIsSimulated(isASimulation)
-                    .setIncidentType(Constant.BRANCH_CAPACITY_INCIDENT);
+        List<ShipmentForBranchDto> routesInRange = shipmentCounter.giveMeTheShipmentsInRange(tripPlans, arrivalDateTime, departureDatetime, requestBranch);
+        // we add this range in the evaluation
+        ShipmentForBranchDto thisRange = new ShipmentForBranchDto()
+                .setCurrentArrivalDateTime(arrivalDateTime)
+                .setCurrentDepartureDateTime(departureDatetime);
+
+        if (routesInRange != null) {
+            /* I have to evaluate again if :
+             * 1. when i arrive there is an incident
+             * 2. when someone arrives there is an incident
+             * */
+            routesInRange.add(thisRange);
+            Collections.sort(routesInRange);
+            for (ShipmentForBranchDto shipmentForBranchDto : routesInRange) {
+                Integer numberOfShipments = shipmentCounter.countShipmentsInRange(routesInRange, shipmentForBranchDto.getCurrentArrivalDateTime());
+                if (requestBranch.getCapacity() < numberOfShipments)
+                    return new IncidentDto()
+                            .setBranchFriendlyId(requestBranch.getFriendlyId())
+                            .setIncidentDateTime(shipmentForBranchDto.getCurrentArrivalDateTime())
+                            .setIsActive(Constant.IS_ACTIVE)
+                            .setIsSimulated(isASimulation)
+                            .setIncidentType(Constant.BRANCH_CAPACITY_INCIDENT);
+            }
+        }
         return null;
     }
 
