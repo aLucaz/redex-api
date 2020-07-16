@@ -19,12 +19,20 @@ import javax.validation.*;
 @RequiredArgsConstructor
 public class ShipmentForBranchController {
     private final UpdateShipmentStateUseCase updateShipmentStateUseCase;
+    private final UpdateShipmentForBranchUseCase updateShipmentForBranchUseCase ;
 
     @PostMapping("/update-shipmentState")
     public ResponseEntity<Object> updateShipmentState(
             @RequestBody List<@Valid UpdateShipmentStateRequest> requestList) {
 
         updateShipmentStateUseCase.execute(ShipmentForBranchParser.mapToDto(requestList));
+        return new ApiResponse<>().ok();
+    }
+    @PostMapping("/update-shipmentForBranch-state")
+    public ResponseEntity<Object> updateShipmentForBranchState(
+            @RequestBody List<@Valid UpdateShipmentForBranchStateRequest> requestList) {
+
+        updateShipmentForBranchUseCase.execute(ShipmentForBranchParser.mapToSFBDto(requestList));
         return new ApiResponse<>().ok();
     }
 

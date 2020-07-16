@@ -15,7 +15,7 @@ import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.List;
+import java.util.*;
 
 ;
 
@@ -77,5 +77,8 @@ public class ShipmentGateway {
 
     public ShipmentDto findByReferenceCode(String referenceCode) {
         return ShipmentParser.mapToDto(repository.findByReferenceCode(referenceCode));
+    }
+    public Shipment findById(Integer id) {
+        return repository.findByIdShipment(id);
     }
 }

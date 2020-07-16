@@ -129,6 +129,7 @@ public class Constant {
     public static final String IN_TRANSIT_OUT = "IN_TRANSIT_OUT";
     public static final String TO_DELIVER = "TO_DELIVER";
     public static final String FINISHED = "FINISHED";
+    public static final String BRANCH_OUT = "BRANCH_OUT";
     /*Flight List
      * */
     public static final String ALL_BRANCHES = "*";

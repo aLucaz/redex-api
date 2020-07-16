@@ -92,5 +92,9 @@ public class ShipmentForBranchGateway {
         repository.saveAll(shipmentForBranchList);
     }
 
+    @SneakyThrows
+    public void update(ShipmentForBranch shipmentForBranch) {
+        repository.save(shipmentForBranch);
+    }
 
 }
