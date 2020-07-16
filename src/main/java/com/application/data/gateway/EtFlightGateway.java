@@ -128,4 +128,7 @@ public class EtFlightGateway {
         repository.saveAll(etFlightList);
     }
 
+    public List<EtFlight> findByArrivalPoint(String arrivalPoint) {
+        return repository.findAllByArrivalPoint(arrivalPoint);
+    }
 }

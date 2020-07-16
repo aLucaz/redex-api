@@ -17,4 +17,6 @@ public interface ShipmentForBranchRepository extends CrudRepository<ShipmentForB
             LocalDateTime end);
     List<ShipmentForBranch> findByBranchIdBranchAndShipmentIsActive(Integer idBranch,Boolean isActive);
     ShipmentForBranch findByShipmentIdShipmentAndBranchIdBranch(Integer idShipment,Integer idBranch);
+
+    List<ShipmentForBranch> findByFlightFriendlyIdIn(List<String> flightFriendlyIds);
 }

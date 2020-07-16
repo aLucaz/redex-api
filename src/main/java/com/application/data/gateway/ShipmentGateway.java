@@ -81,4 +81,7 @@ public class ShipmentGateway {
     public Shipment findById(Integer id) {
         return repository.findByIdShipment(id);
     }
+    public List<Shipment> findByArrivalPoint(String arrivalPoint) {
+        return repository.findByArrivalPoint(arrivalPoint);
+    }
 }
