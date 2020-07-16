@@ -113,10 +113,6 @@ public class GetShipmentForABranchUseCase {
                                     .setFriendlyId(Constant.BRANCH_OUT));
                     break;
                 case Constant.FINISHED:
-                    sfbE.setShipmentState(
-                            new ShipmentState()
-                                    .setIdShipmentState(mapStates.get(Constant.BRANCH_OUT))
-                                    .setFriendlyId(Constant.BRANCH_OUT));
                     break;
             }
             finalList.add(sfbE);
