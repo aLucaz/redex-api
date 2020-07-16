@@ -11,4 +11,6 @@ public interface EtFlightRepository extends CrudRepository<EtFlight, Integer> {
     EtFlight findByFriendlyId(String friendlyId);
     List<EtFlight>findAllByEtFlightDateAndDeparturePointAndIsActive(String etFlightDate,String departurePoint, Integer isActive);
     List<EtFlight>findAllByEtFlightDateAndIsActive(String etFlightDate, Integer isActive);
+
+    List<EtFlight> findAllByArrivalPoint(String arrivalPoint);
 }

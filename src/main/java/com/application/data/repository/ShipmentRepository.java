@@ -9,7 +9,7 @@ import java.util.List;
 public interface ShipmentRepository extends CrudRepository<Shipment, Integer> {
     List<Shipment> findAllByIsSimulatedAndIsActive(Boolean isSimulated, Boolean isActive);
     List<Shipment> findAllByIsActive(Boolean isActive);
-    Shipment findByReferenceCode(String referenceCode);;
+    Shipment findByReferenceCode(String referenceCode);
     Shipment findByIdShipment(Integer idShipment);
     List<Shipment> findAllByIsActiveAndIsSimulatedAndArrivalPointAndArrivalDateTimeBetween(
             Boolean isActive,
@@ -18,4 +18,6 @@ public interface ShipmentRepository extends CrudRepository<Shipment, Integer> {
             LocalDateTime start,
             LocalDateTime end
     );
+
+    List<Shipment> findByArrivalPoint(String arrivalPoint);
 }

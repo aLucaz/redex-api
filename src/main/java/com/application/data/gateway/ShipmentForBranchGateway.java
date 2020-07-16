@@ -97,4 +97,7 @@ public class ShipmentForBranchGateway {
         repository.save(shipmentForBranch);
     }
 
+    public List<ShipmentForBranch> findByFlightList(List<String> flightFriendlyIds) {
+        return repository.findByFlightFriendlyIdIn(flightFriendlyIds);
+    }
 }

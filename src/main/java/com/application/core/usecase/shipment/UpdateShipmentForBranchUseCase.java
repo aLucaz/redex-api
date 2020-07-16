@@ -74,7 +74,7 @@ public class UpdateShipmentForBranchUseCase {
         shipmentForBranchGateway.update(sfb);
     }
 
-    public Map<String,Integer> getShipmentStateMap(){
+    public  Map<String,Integer> getShipmentStateMap(){
         Map<String,Integer> mapStates = new HashMap<String,Integer>();
         List<ShipmentState> shipmentStateList = shipmentStateGateway.findAll();
         for(ShipmentState st : shipmentStateList){
