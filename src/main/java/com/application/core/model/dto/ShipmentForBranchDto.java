@@ -19,7 +19,7 @@ import java.time.LocalDateTime;
 @ToString
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
-public class ShipmentForBranchDto {
+public class ShipmentForBranchDto implements Comparable<ShipmentForBranchDto> {
     private Integer idShipment;
     private Integer idBranch;
     private Integer idShipmentState;
@@ -40,4 +40,9 @@ public class ShipmentForBranchDto {
     private String totalDelayTime;
     // for validation
     private Boolean isSimulated;
+
+    @Override
+    public int compareTo(ShipmentForBranchDto shipmentForBranchDto) {
+        return this.getCurrentArrivalDateTime().compareTo(shipmentForBranchDto.getCurrentArrivalDateTime());
+    }
 }
