@@ -66,7 +66,10 @@ public class RegisterShipmentUseCase {
         // now we save all the route related to the shipment
         for (ShipmentForBranchDto shipmentForBranchDto : shipmentForBranchDtoList) {
             shipmentForBranchDto.setIdShipment(shipmentResponse.getIdShipment());
-            shipmentForBranchDto.setIdShipmentState(shipmentStateGateway.getDefaultShipmentState(Constant.DEFAULT_SHIPMENT_STATE_FRIENDLY_ID));
+            if (shipmentForBranchDtoList.indexOf(shipmentForBranchDto) == 0)
+                shipmentForBranchDto.setIdShipmentState(shipmentStateGateway.getDefaultShipmentState(Constant.IN_TRANSIT_OUT));
+            else
+                shipmentForBranchDto.setIdShipmentState(shipmentStateGateway.getDefaultShipmentState(Constant.IN_TRANSIT_IN));
             // now we add quantity to the flights
             etFlightGateway.updateQuantity(shipmentForBranchDto.getFlightFriendlyId());
         }
