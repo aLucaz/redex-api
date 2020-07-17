@@ -36,7 +36,7 @@ public class DailyClassificatorImpl implements DailyClassificator {
                     .setQuantityOfIncidents(incidentsFiltered.size())
                     .setQuantityOfShipments(routesFiltered.size());
             // we now filter by hours
-            List<DetailHourDto> hourDtoList = hourlyClassificator.classificateByHourOfDay(incidentsFiltered, routesFiltered);
+            List<DetailHourDto> hourDtoList = hourlyClassificator.classificateByHourOfDay(incidentsFiltered, routesFiltered, localDate);
             detailDayDtoList.add(detailDayDto.setHoursDetail(hourDtoList));
         });
         return detailDayDtoList;
