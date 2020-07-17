@@ -75,10 +75,10 @@ public class UpdateShipmentForBranchUseCase {
                 break;
             case Constant.TO_DELIVER:
                 nextState = mapStates.get(Constant.FINISHED);
-                branch.setQuantity(branch.getQuantity()-1);
                 break;
             case Constant.FINISHED:
                 nextState = mapStates.get(Constant.FINISHED);
+                branch.setQuantity(branch.getQuantity()-1);
                 break;
         }
         if(nextState.equals(Constant.FINISHED)){

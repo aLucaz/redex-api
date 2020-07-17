@@ -17,8 +17,7 @@ import com.application.data.gateway.ShipmentStateGateway;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class SearchShipmentUseCase {
@@ -44,6 +43,10 @@ public class SearchShipmentUseCase {
         // we get all the path information
         List<ShipmentForBranchDto> shipmentForBranchDtoList = new ArrayList<>(shipment.getShipmentForBranches());
         List<RouteDto> onlyRoute = convertToRoute(shipmentForBranchDtoList);
+
+        Collections.sort(onlyRoute, (d1, d2) -> {
+            return d1.getSequence() - d2.getSequence();
+        });
 
         PathDto pathDto = new PathDto()
                 .setDepartureDateTime(getDepartureOf(onlyRoute))
