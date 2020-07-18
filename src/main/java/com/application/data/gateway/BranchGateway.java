@@ -64,4 +64,10 @@ public class BranchGateway {
     public Branch persist(Branch branch){
         return repository.save(branch);
     }
+
+    public void updateQuantitiyOf(Integer branchId){
+        Branch branch = repository.findByIdBranch(branchId);
+        branch.setQuantity(branch.getQuantity() + 1);
+        repository.save(branch);
+    }
 }
