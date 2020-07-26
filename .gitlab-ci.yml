@@ -1,0 +1,12 @@
+before_script:
+  - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
+
+stages:
+  - deploy_dev
+
+deploy_dev:
+  stage: deploy_dev
+  script:
+    - bash deploy/deploy_dev.sh
+  only:
+    - develop
