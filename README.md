@@ -6,6 +6,11 @@ Redex is a business platform for managing the package delivery process
 
 Inspired by uncle bob, this is our first attempt to apply Clean Architecture with Java
 
+
+### :package: Architecture
+
+In progress
+
 ### :package: Prerequisites
 
 * Spring Boot v2.3.2 
